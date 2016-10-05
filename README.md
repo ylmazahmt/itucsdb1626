@@ -1,17 +1,18 @@
-This README.md file is displayed on your project page. You should edit this 
-file to describe your project, including instructions for building and 
-running the project, pointers to the license under which you are making the 
-project available, and anything else you think would be useful for others to
-know.
+# Foodlr
+Online food place search and discussion service
 
-We have created an empty license.txt file for you. Well, actually, it says,
-"<Replace this text with the license you've chosen for your project.>" We 
-recommend you edit this and include text for license terms under which you're
-making your code available. A good resource for open source licenses is the 
-[Open Source Initiative](http://opensource.org/).
+#### Maintainers (listed alphabetically)
+Buğra Ekuklu, Kerem Er, Ali Rıza Salihoğlu, Muratcan Şahin, Ahmet Yılmaz
 
-Be sure to update your project's profile with a short description and 
-eye-catching graphic.
 
-Finally, consider defining some sprints and work items in Track & Plan to give 
-interested developers a sense of your cadence and upcoming enhancements.
+## What does Foodlr do?
+Foodle is a platform to discuss, share and present food places. Users can post about places created by owners, like restaurants and bars, discuss and score them. It also provides a subscription system to connect users with the posters they like.
+
+## What is this?
+This is the repository which holds the bundle of our web application. Yes, it is open-sourced.
+
+## What is your stack?
+We even don't know our stack, nevertheless it seemed to me like micro-services oriented non-**opinionated**, since Flask is a Sinatra-like microframework. However, we shall not bible out our rules, we are going MVC anyways.
+
+## License
+GPL 3-clause.
