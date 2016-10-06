@@ -1,11 +1,11 @@
-# Foodlr
+# Foodle
 Online food place search and discussion service
 
 #### Maintainers (listed alphabetically)
 Buğra Ekuklu, Kerem Er, Ali Rıza Salihoğlu, Muratcan Şahin, Ahmet Yılmaz
 
 
-## What does Foodlr do?
+## What does Foodle do?
 Foodle is a platform to discuss, share and present food places. Users can post about places created by owners, like restaurants and bars, discuss and score them. It also provides a subscription system to connect users with the posters they like.
 
 ## What is this?
