@@ -1,3 +1,5 @@
+![Foodle.](https://github.com/Chatatata/itucsdb1626/raw/master/banner.png)
+
 # Foodle
 Online food place search and discussion service
 
