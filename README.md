@@ -3,6 +3,8 @@
 # Foodle
 Online food place search and discussion service
 
+[![Build Status](https://travis-ci.org/Chatatata/itucsdb1626.svg?branch=master)](https://travis-ci.org/Chatatata/itucsdb1626)
+
 #### Maintainers (listed alphabetically)
 Buğra Ekuklu, Kerem Er, Ali Rıza Salihoğlu, Muratcan Şahin, Ahmet Yılmaz
 
