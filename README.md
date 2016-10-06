@@ -14,5 +14,7 @@ This is the repository which holds the bundle of our web application. Yes, it is
 ## What is your stack?
 We even don't know our stack, nevertheless it seemed to me like micro-services oriented non-**opinionated**, since Flask is a Sinatra-like microframework. However, we shall not bible out our rules, we are going MVC anyways.
 
+#### This markdown seems very good actually, in Retina display.
+
 ## License
 GPL 3-clause.
