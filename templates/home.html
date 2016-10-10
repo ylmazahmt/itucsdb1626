@@ -5,13 +5,68 @@
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/foundation.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+    <script src="https://use.typekit.net/fsh1huw.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
   </head>
   <body>
-    <h1>Hello, Flask!</h1>
+    <div id="container">
+      <img src="static/img/bg-exported.jpg"></img>
 
-    <footer>
-      <div id="datetime">{{ current_time }}</div>
-    </footer>
+      <div id="header" class="row">
+        <div class="large-12 columns">
+          <div class="primary callout header">
+            <h1>Foodle</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="row things">
+        <div class="large-8 medium-8 columns">
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="primary callout subheader">
+                <p>Online food place search and discussion service</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="primary callout">
+                <p>Buğra Ekuklu, Kerem Er, Ali Rıza Salihoğlu, Muratcan Şahin, Ahmet Yılmaz</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="primary callout">
+                <p>Foodle is a platform to discuss, share and present food places. Users can post about places created by owners, like restaurants and bars, discuss and score them. It also provides a subscription system to connect users with the posters they like.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="primary callout">
+                <p>This is the repository which holds the bundle of our web application. Yes, it is open-sourced.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="primary callout">
+                <p>We even don't know our stack, nevertheless it seemed to me like micro-services oriented non-opinionated, since Flask is a Sinatra-like microframework. However, we shall not bible out our rules, we are going MVC anyways.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="primary callout">
+                <p>This markdown seems very good actually, in Retina display.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/dist/what-input.js') }}"></script>
