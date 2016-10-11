@@ -22,4 +22,4 @@ We even don't know our stack, nevertheless it seemed to me like micro-services o
 #### This markdown seems very good actually, in Retina display.
 
 ## License
-GPL 3-clause.
+GPL 3-clause
