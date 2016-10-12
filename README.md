@@ -2,12 +2,11 @@
 
 # Foodle
 Online food place search and discussion service
+[http://itucsdb1626.eu-gb.mybluemix.net]
 
 
 [![Build Status](https://travis-ci.org/Chatatata/itucsdb1626.svg?branch=master)](https://travis-ci.org/Chatatata/itucsdb1626)
 [![Coverage Status](https://coveralls.io/repos/github/Chatatata/itucsdb1626/badge.svg?branch=master)](https://coveralls.io/github/Chatatata/itucsdb1626?branch=master)
-
-<a href="http://itucsdb1626.eu-gb.mybluemix.net">Here is a link to our lovely Website</a>
 
 #### Maintainers (listed alphabetically)
 Buğra Ekuklu, Kerem Er, Ali Rıza Salihoğlu, Muratcan Şahin, Ahmet Yılmaz
