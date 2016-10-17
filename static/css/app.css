@@ -1,44 +1,80 @@
 body {
   font-family: "azo-sans-web";
+  background-color: rgb(233, 235, 238);
 }
 
 h1 {
   font-family: "azo-sans-web";
 }
 
-#container {
-  width: 100%;
-  height: 100%;
-  padding-bottom: 100px;
+div.top-bar {
+  background-color: rgb(74, 150, 60);
 }
 
-#container img {
-  position: fixed;
-}
-
-#header {
-  padding-top: 100px;
-}
-
-div.primary.callout {
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-div.primary.callout.header {
-  color: white;
+div.top-bar ul {
   background-color: transparent;
-  border: 0px;
 }
 
-div.primary.callout.subheader {
-  background-color: transparent;
-  border: 0px;
-}
-
-div.primary.callout.subheader p {
+div.top-bar li.menu-text {
   color: white;
 }
 
-div.row.things {
-  padding-bottom: 100px;
+div.top-bar input {
+  border-radius: 3px;
+}
+
+div.top-bar input:focus {
+  box-shadow: 0px 0px 0px black;
+}
+
+div.top-bar a {
+  color: white;
+}
+
+div.callout {
+  border-radius: 3px;
+  border-color: rgb(230, 230, 230);
+}
+
+div.main-entity {
+
+}
+
+div.row.content {
+  margin-top: 20px;
+}
+
+div.main-entity-image {
+  padding-right: 25px;
+}
+
+div.main-entity-identity {
+  padding-right: 0;
+  padding-left: 0px;
+  margin-left: -15px;
+}
+
+p.identity {
+  font-size: 10pt;
+  margin-bottom: 0.2rem;
+}
+
+span.name {
+  font-size: 12pt;
+  font-weight: 700;
+}
+
+span.place {
+  color: rgb(74, 150, 60);
+}
+
+p.timestamp {
+  color: rgb(175, 175, 175);
+  font-size: 9pt;
+  font-weight: 200;
+}
+
+p.score {
+  font-weight: 700;
+  font-size: 24pt;
 }

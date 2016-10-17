@@ -9,64 +9,78 @@
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
   </head>
   <body>
-    <div id="container">
-      <img src="static/img/bg-exported.jpg"></img>
-
-      <div id="header" class="row">
-        <div class="large-12 columns">
-          <div class="primary callout header">
-            <h1>Foodle</h1>
-          </div>
+    <div class="container">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Foodle</li>
+            <li><input type="search" placeholder="Search"></li>
+          </ul>
         </div>
-      </div>
-
-      <div class="row things">
-        <div class="large-8 medium-8 columns">
-          <div class="row">
-            <div class="large-12 columns">
-              <div class="primary callout subheader">
-                <p>Online food place search and discussion service</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-              <div class="primary callout">
-                <p>Buğra Ekuklu, Kerem Er, Ali Rıza Salihoğlu, Muratcan Şahin, Ahmet Yılmaz</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-              <div class="primary callout">
-                <p>Foodle is a platform to discuss, share and present food places. Users can post about places created by owners, like restaurants and bars, discuss and score them. It also provides a subscription system to connect users with the posters they like.</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-              <div class="primary callout">
-                <p>This is the repository which holds the bundle of our web application. Yes, it is open-sourced.</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-              <div class="primary callout">
-                <p>We even don't know our stack, nevertheless it seemed to me like micro-services oriented non-opinionated, since Flask is a Sinatra-like microframework. However, we shall not bible out our rules, we are going MVC anyways.</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-              <div class="primary callout">
-                <p>This markdown seems very good actually, in Retina display.</p>
-              </div>
-            </div>
-          </div>
+        <div class="top-bar-right">
+          <ul class="menu">
+            <li><a href="#">One</a></li>
+            <li><a href="#">Two</a></li>
+            <li><a href="#">Three</a></li>
+          </ul>
         </div>
       </div>
     </div>
+
+    <div class="row content">
+      <div class="large-2 columns show-for-large">
+        <p> merhaba</p>
+      </div>
+      <div class="large-6 columns">
+        <div class="callout main-entity">
+          <div class="row">
+            <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
+            <div class="large-8 columns main-entity-identity">
+              <p class="identity"><span class="name">Muzu Seven Muz</span>, <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
+              <p class="timestamp">5 hours ago</p>
+            </div>
+            <div class="large-2 columns">
+              <p class="score">4.6</p>
+            </div>
+          </div>
+          <h5>This is a callout.</h5>
+          <p>It has an easy to override visual style, and is appropriately subdued.</p>
+          <a href="#">It's dangerous to go alone, take this.</a>
+        </div>
+        <div class="callout main-entity">
+          <div class="row">
+            <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
+            <div class="large-8 columns main-entity-identity">
+              <p class="identity"><span class="name">Muzu Seven Muz</span>, <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
+              <p class="timestamp">5 hours ago</p>
+            </div>
+            <div class="large-2 columns">
+              <p class="score">4.6</p>
+            </div>
+          </div>
+          <h5>This is a callout.</h5>
+          <p>It has an easy to override visual style, and is appropriately subdued.</p>
+          <a href="#">It's dangerous to go alone, take this.</a>
+        </div>
+        <div class="callout main-entity">
+          <div class="row">
+            <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
+            <div class="large-8 columns main-entity-identity">
+              <p class="identity"><span class="name">Muzu Seven Muz</span>, <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
+              <p class="timestamp">5 hours ago</p>
+            </div>
+            <div class="large-2 columns">
+              <p class="score">4.6</p>
+            </div>
+          </div>
+          <h5>This is a callout.</h5>
+          <p>It has an easy to override visual style, and is appropriately subdued.</p>
+          <a href="#">It's dangerous to go alone, take this.</a>
+        </div>
+      </div>
+      <div class="large-4 columns show-for-large"></div>
+    </div>
+
 
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/dist/what-input.js') }}"></script>
