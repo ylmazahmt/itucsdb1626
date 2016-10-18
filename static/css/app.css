@@ -31,9 +31,12 @@ div.top-bar a {
   color: white;
 }
 
-div.callout {
+div.callout.main-entity {
   border-radius: 3px;
-  border-color: rgb(230, 230, 230);
+  border-color: transparent;
+  border-width: 0;
+  box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);
+  margin-bottom: 40px;
 }
 
 div.callout.main-entity h5 {
@@ -44,8 +47,13 @@ div.callout.main-entity h5 {
 
 div.callout.main-entity p {
   font-size: 10pt;
-  display: inline-block;
   font-weight: 300;
+  text-align: justify;
+}
+
+div.callout.main-entity img.post-image {
+  border: 1px rgb(74, 150, 60);
+  margin-bottom: 10px;
 }
 
 div.callout.main-entity p.cost {
@@ -95,11 +103,24 @@ p.timestamp {
   font-weight: 500;
 }
 
-p.score {
+div.callout.main-entity p.score {
   font-weight: 700;
   font-size: 24pt;
 }
 
 p.results {
   margin-left: 20px;
+}
+
+a.button.float-center.social-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: transparent;
+  color: rgb(74, 150, 60);
+  margin-bottom: 0;
+}
+
+a.button.float-center.social-button:hover {
+  background-color: rgb(74, 150, 60);
+  color: white;
 }
