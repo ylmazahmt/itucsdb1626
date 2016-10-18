@@ -2,7 +2,8 @@
 
 # Foodle
 Online food place search and discussion service
-[http://itucsdb1626.eu-gb.mybluemix.net]
+**CAVEAT:** Our domain is changed recently to [http://itucsdb1626.mybluemix.net].
+
 
 
 [![Build Status](https://travis-ci.org/Chatatata/itucsdb1626.svg?branch=master)](https://travis-ci.org/Chatatata/itucsdb1626)
