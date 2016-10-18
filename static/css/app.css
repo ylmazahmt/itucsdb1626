@@ -78,3 +78,7 @@ p.score {
   font-weight: 700;
   font-size: 24pt;
 }
+
+p.results {
+  margin-left: 20px;
+}

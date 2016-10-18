@@ -10,7 +10,7 @@ app = Flask(__name__)
 @app.route('/')
 def home_page():
     now = datetime.datetime.now()
-    return render_template('home.html', current_time=now.ctime())
+    return render_template('search.html', current_time=now.ctime())
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')

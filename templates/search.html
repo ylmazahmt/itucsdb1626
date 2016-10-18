@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/foundation.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+    <script src="https://use.typekit.net/fsh1huw.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Foodle</li>
+            <li><input type="search" placeholder="Search"></li>
+          </ul>
+        </div>
+        <div class="top-bar-right">
+          <ul class="menu">
+            <li><a href="#">One</a></li>
+            <li><a href="#">Two</a></li>
+            <li><a href="#">Three</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row content">
+      <div class="large-2 columns show-for-large">
+        <p> SEARCH</p>
+      </div>
+      <div class="large-6 columns">
+        <div class="callout main-entity">
+          <div class="row">
+            <p class="results">Search Results</p>
+            <div class="callout main-entity">
+              <div class="row">
+                <div class="large-3 columns main-entity-image"><img src="https://organicthemes.com/demo/profile/files/2012/12/profile_img.png" /></div>
+                <div class="large-7 columns main-entity-identity">
+                  <p class="identity"><span class="name">Person Someone</span></p>
+                  <p>Person's location</p>
+                  <p>Person information</p>
+                </div>
+                <div class="large-2 columns">
+                  <a href="#"><p href="#" >Add Friend</p></a>
+                </div>
+              </div>
+            </div>
+            <div class="callout main-entity">
+              <div class="row">
+                <div class="large-3 columns main-entity-image"><img src="http://science-all.com/images/wallpapers/profile-pics/profile-pics-18.jpg" /></div>
+                <div class="large-7 columns main-entity-identity">
+                  <p class="identity"><span class="name">Person Someone</span></p>
+                  <p>Person's location</p>
+                  <p>Person information</p>
+                </div>
+                <div class="large-2 columns">
+                  <a href="#"><p href="#" >Add Friend</p></a>
+                </div>
+              </div>
+            </div>
+            <div class="callout main-entity">
+              <div class="row">
+                <div class="large-3 columns main-entity-image"><img src="https://lh5.googleusercontent.com/-avTHbIvvjKY/AAAAAAAAAAI/AAAAAAAAAoY/XbY3XEWyohs/s0-c-k-no-ns/photo.jpg" /></div>
+                <div class="large-7 columns main-entity-identity">
+                  <p class="identity"><span class="name">Some Place</span></p>
+                  <p>Place information</p>
+                  <p>Place's city information</p>
+                </div>
+                <div class="large-2 columns">
+                  <a href="#"><p class="check-in" href="#" >Check-in</p></a>
+                  <p class="score">4.6</p>
+                </div>
+              </div>
+
+
+            </div>
+        </div>
+        </div>
+      </div>
+      <div class="large-4 columns show-for-large"></div>
+    </div>
+
+
+
+
+
+    <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dist/what-input.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dist/foundation.min.js') }}"></script>
+  </body>
+</html>
