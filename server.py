@@ -20,6 +20,11 @@ def search():
 def cities():
     return render_template('cities.html')
 
+@app.route('/friends')
+def friends():
+    return render_template('friends.html')
+
+
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
