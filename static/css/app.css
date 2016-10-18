@@ -124,3 +124,25 @@ a.button.float-center.social-button:hover {
   background-color: rgb(74, 150, 60);
   color: white;
 }
+
+
+div.place-background {
+  background-image: url("http://www.pdcdc.org/wp-content/uploads/2016/03/restaurant-939435_960_720.jpg");
+  padding:400 200px 0 200px;
+
+}
+
+h4.place-name {
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+h4.place-city {
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+h4.place-point {
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
