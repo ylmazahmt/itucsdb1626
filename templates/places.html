@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/foundation.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+    <script src="https://use.typekit.net/fsh1huw.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Foodle</li>
+            <li><input type="search" placeholder="Search"></li>
+          </ul>
+        </div>
+        <div class="top-bar-right">
+          <ul class="menu">
+            <li><a href="#">One</a></li>
+            <li><a href="#">Two</a></li>
+            <li><a href="#">Three</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row content">
+      <div class="large-3 columns show-for-large">
+        <p> Places</p>
+      </div>
+      <div class="large-6 columns">
+        <div class="callout main-entity">
+          <div class="row">
+            <div class="callout main-entity">
+              <div class="row">
+                <div class="large-12 columns place-background">
+                  <h4 class=place-name>Place Name</h4>
+                  <a href="#"><h4 class=place-city>Place City</h4></a>
+                  <h4 class=place-point>8.7</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout main-entity">
+              <div class="row">
+                <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
+                <div class="large-8 columns main-entity-identity">
+                  <p class="identity"><span class="name">Person Someone</span></p>
+                  <p class="timestamp">5 hours ago</p>
+                </div>
+                <div class="large-2 columns">
+                  <p class="score">4.6</p>
+                </div>
+              </div>
+              <h5>This is a callout.</h5>
+              <p>It has an easy to override visual style, and is appropriately subdued.</p>
+              <a href="#">It's dangerous to go alone, take this.</a>
+            </div>
+            <div class="callout main-entity">
+              <div class="row">
+                <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
+                <div class="large-8 columns main-entity-identity">
+                  <p class="identity"><span class="name">Person Someone</span></p>
+                  <p class="timestamp">7 hours ago</p>
+                </div>
+                <div class="large-2 columns">
+                  <p class="score">8.6</p>
+                </div>
+              </div>
+              <h5>This is a callout.</h5>
+              <p>It has an easy to override visual style, and is appropriately subdued.</p>
+              <a href="#">It's dangerous to go alone, take this.</a>
+            </div>
+
+            </div>
+        </div>
+      </div>
+      <div class="large-3 columns show-for-large"></div>
+    </div>
+
+
+
+
+
+    <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dist/what-input.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dist/foundation.min.js') }}"></script>
+  </body>
+</html>
