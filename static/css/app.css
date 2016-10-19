@@ -1,4 +1,5 @@
 body {
+  margin-top: 200px;
   font-family: "acumin-pro";
   background-color: rgb(233, 235, 238);
 }
@@ -8,19 +9,43 @@ h1 {
 }
 
 div.top-bar {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  position: fixed;
   background-color: rgb(74, 150, 60);
+  padding-top: 50px;
+  -webkit-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  -moz-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
 }
 
 div.top-bar ul {
   background-color: transparent;
 }
 
+div.top-bar li {
+  padding: 0;
+}
+
 div.top-bar li.menu-text {
+  font-size: 30pt;
+  font-weight: 200;
   color: white;
 }
 
+div.top-bar li.menu-text a {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
 div.top-bar input {
-  border-radius: 3px;
+  width: 400px;
+  max-width: 400px;
+  border-radius: 10px;
+  border-color: transparent;
+  font-weight: 200;
 }
 
 div.top-bar input:focus {
