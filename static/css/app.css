@@ -336,3 +336,32 @@ table td button.add-friend {
   color: white;
   background-color: rgb(74, 150, 60);
 }
+
+div.callout.load-more {
+  margin-top: -20px;
+  margin-bottom: 100px;
+  border-color: transparent;
+  background-color: transparent;
+  font-size: 20pt;
+  color: rgb(160, 160, 160);
+}
+
+div.callout.load-more i {
+  position: absolute;
+  animation: rotatePermanently linear 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotatePermanently {
+  0% {
+    transform: rotate(-360deg);
+  }
+
+  75% {
+    transform: rotate(-140deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
