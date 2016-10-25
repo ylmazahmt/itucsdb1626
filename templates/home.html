@@ -1,113 +1,85 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/font-awesome.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/foundation.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
-    <script src="https://use.typekit.net/fsh1huw.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-  </head>
-  <body>
-    <div class="top-bar">
-      <div class="top-bar-left">
-        <ul class="menu">
-          <li class="menu-text"><a href="/">Foodle</a></li>
-          <li><input type="search" placeholder="Search people, restaurants and places"></li>
-        </ul>
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="row content">
+  <div class="large-2 columns show-for-large">
+    <p></p>
+  </div>
+  <div class="large-6 columns">
+    <div class="callout main-entity">
+      <div class="row callout-header">
+        <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
+        <div class="large-8 columns main-entity-identity">
+          <p class="identity">
+            <span class="name">Muzu Seven Muz</span>, <!--
+-----------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
+          <p class="timestamp">5 hours ago</p>
+        </div>
+        <div class="large-2 columns">
+          <p class="score">4.6</p>
+        </div>
       </div>
-      <div class="top-bar-right">
-        <ul class="menu">
-          <li><a href="/friends">Friends</a></li>
-          <li><a href="/cities">Cities</a></li>
-          <li><a href="/search">Search</a></li>
-          <li><a href="/places">Places</a></li>
-        </ul>
+      <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
+      <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
+      <div class="row">
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
       </div>
     </div>
-
-    <div class="row content">
-      <div class="large-2 columns show-for-large">
-        <p></p>
-      </div>
-      <div class="large-6 columns">
-        <div class="callout main-entity">
-          <div class="row callout-header">
-            <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-            <div class="large-8 columns main-entity-identity">
-              <p class="identity">
-                <span class="name">Muzu Seven Muz</span>, <!--
+    <div class="callout main-entity">
+      <div class="row callout-header">
+        <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
+        <div class="large-8 columns main-entity-identity">
+          <p class="identity">
+            <span class="name">Muzu Seven Muz</span>, <!--
 -----------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
-              <p class="timestamp">5 hours ago</p>
-            </div>
-            <div class="large-2 columns">
-              <p class="score">4.6</p>
-            </div>
-          </div>
-          <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
-          <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
-          <div class="row">
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
-          </div>
+          <p class="timestamp">5 hours ago</p>
         </div>
-        <div class="callout main-entity">
-          <div class="row callout-header">
-            <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-            <div class="large-8 columns main-entity-identity">
-              <p class="identity">
-                <span class="name">Muzu Seven Muz</span>, <!--
------------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
-              <p class="timestamp">5 hours ago</p>
-            </div>
-            <div class="large-2 columns">
-              <p class="score">4.6</p>
-            </div>
-          </div>
-          <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
-          <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
-          <div class="row">
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
-          </div>
-        </div>
-        <div class="callout main-entity">
-          <div class="row callout-header">
-            <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-            <div class="large-8 columns main-entity-identity">
-              <p class="identity">
-                <span class="name">Muzu Seven Muz</span>, <!--
------------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
-              <p class="timestamp">5 hours ago</p>
-            </div>
-            <div class="large-2 columns">
-              <p class="score">4.6</p>
-            </div>
-          </div>
-          <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
-          <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
-          <div class="row">
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
-            <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
-          </div>
-        </div>
-        <div class="callout load-more text-center">
-          <i class="fa fa-spinner" aria-hidden="true"></i>
+        <div class="large-2 columns">
+          <p class="score">4.6</p>
         </div>
       </div>
-      <div class="large-4 columns show-for-large"></div>
+      <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
+      <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
+      <div class="row">
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
+      </div>
     </div>
+    <div class="callout main-entity">
+      <div class="row callout-header">
+        <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
+        <div class="large-8 columns main-entity-identity">
+          <p class="identity">
+            <span class="name">Muzu Seven Muz</span>, <!--
+-----------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
+          <p class="timestamp">5 hours ago</p>
+        </div>
+        <div class="large-2 columns">
+          <p class="score">4.6</p>
+        </div>
+      </div>
+      <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
+      <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
+      <div class="row">
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
+        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
+      </div>
+    </div>
+    <div class="callout load-more text-center">
+      <i class="fa fa-spinner" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="large-4 columns show-for-large"></div>
+</div>
 
-
-    <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/dist/what-input.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/dist/foundation.min.js') }}"></script>
-  </body>
-</html>
+{% endblock %}

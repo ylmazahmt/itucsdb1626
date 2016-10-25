@@ -1,32 +1,8 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Friends</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/font-awesome.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/foundation.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
-    <script src="https://use.typekit.net/fsh1huw.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-  </head>
-  <body>
-    <div class="top-bar">
-      <div class="top-bar-left">
-        <ul class="menu">
-          <li class="menu-text"><a href="/">Foodle</a></li>
-          <li><input type="search" placeholder="Search people, restaurants and places"></li>
-        </ul>
-      </div>
-      <div class="top-bar-right">
-        <ul class="menu">
-          <li><a href="/friends">Friends</a></li>
-          <li><a href="/cities">Cities</a></li>
-          <li><a href="/search">Search</a></li>
-          <li><a href="/places">Places</a></li>
-        </ul>
-      </div>
-    </div>
+{% block title %}Friends{% endblock %}
+
+{% block content %}
 
     <div class="row header">
       <h5>People</h5>
@@ -170,6 +146,5 @@
         </table>
       </div>
       <div class="large-4 columns show-for-large"></div>
-    </div>
-  </body>
-</html>
+
+{% endblock %}
