@@ -27,6 +27,6 @@ def init(dsn):
                             FOREIGN KEY ("user_id") REFERENCES users(id)
                       )""")
 
-        cursor.execute("INSERT INTO users (username, password_digest, email) VALUES (%s, %s, %s)", ["admin", bcrypt.hashpw("test", bcrypt.gensalt()), "test@mail.com"])
+        cursor.execute("INSERT INTO users (username, password_digest, email) VALUES (%s, %s, %s)", ["admin", bcrypt.hashpw("test".encode('utf-8'), bcrypt.gensalt()), "test@mail.com"])
 
     connection.commit()
