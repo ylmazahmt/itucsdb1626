@@ -16,7 +16,7 @@ def init(dsn):
                             username character varying(255) UNIQUE NOT NULL,
                             password character varying(255) NOT NULL,
                             email character varying(255) UNIQUE NOT NULL,
-                            activation_key uuid DEFAULT uuid_generate_v4() UNIQUE NOT NULL,
+                            activation_key uuid DEFAULT "public".uuid_generate_v4() UNIQUE NOT NULL,
                             inserted_at timestamp DEFAULT now() NOT NULL
                       )""")
 
