@@ -1,4 +1,5 @@
 import psycopg2 as db
+import bcrypt
 
 def init(dsn):
     with db.connect(dsn) as connection:
@@ -14,7 +15,7 @@ def init(dsn):
         cursor.execute("""CREATE TABLE users(
                             id SERIAL PRIMARY KEY,
                             username character varying(255) UNIQUE NOT NULL,
-                            password character varying(255) NOT NULL,
+                            password_digest character varying(255) NOT NULL,
                             email character varying(255) UNIQUE NOT NULL,
                             activation_key uuid DEFAULT "public".uuid_generate_v4() UNIQUE NOT NULL,
                             inserted_at timestamp DEFAULT now() NOT NULL
@@ -25,5 +26,7 @@ def init(dsn):
                             inserted_at timestamp DEFAULT now() NOT NULL,
                             FOREIGN KEY ("user_id") REFERENCES users(id)
                       )""")
+
+        cursor.execute("INSERT INTO users (username, password_digest, email) VALUES (%s, %s, %s)", ["admin", bcrypt.hashpw("test", bcrypt.gensalt()), "test@mail.com"])
 
     connection.commit()
