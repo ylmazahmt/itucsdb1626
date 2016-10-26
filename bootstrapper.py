@@ -4,8 +4,8 @@ def init(dsn):
     with db.connect(dsn) as connection:
         cursor = connection.cursor()
 
-        cursor.execute("DROP SCHEMA public CASCADE")
-        cursor.execute("CREATE SCHEMA public")
+        cursor.execute("DROP SCHEMA main CASCADE")
+        cursor.execute("CREATE SCHEMA main")
 
         cursor.execute("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
 
