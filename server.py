@@ -3,12 +3,15 @@ import os
 import json
 import re
 import psycopg2 as dbapi2
-
 from flask import Flask
 from flask import render_template
-from handlers import www
+from controllers import user_controller
 
 import bootstrapper
+from handlers import www
+from middleware import db
+
+from models import User
 
 app = Flask(__name__)
 app.register_blueprint(www)
@@ -40,5 +43,9 @@ if __name__ == '__main__':
     else:
         app.config['dsn'] = """host='localhost' port='5432' dbname='foodle_dev' user='mask' password='qwerty'"""
 
-    bootstrapper.init(app.config['dsn'])
+    db.__init__(app.config['dsn'])
+    bootstrapper.__init__()
+
+    app.register_blueprint(user_controller, url_prefix='/users')
+
     app.run(host='0.0.0.0', port=port, debug=debug)
