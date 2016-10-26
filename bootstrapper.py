@@ -7,6 +7,8 @@ def init(dsn):
         cursor.execute("DROP SCHEMA main CASCADE")
         cursor.execute("CREATE SCHEMA main")
 
+        cursor.execute("SET search_path = \"$user\",main")
+
         cursor.execute("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
 
         cursor.execute("""CREATE TABLE users(
