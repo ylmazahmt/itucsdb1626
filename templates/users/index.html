@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ Users }}{% endblock %}
+
+{% block content %}
+
+<div class="row content">
+  <div class="large-8 columns">
+    <div class="row sub-header">
+      <h5>Users&nbsp;<span>{{ users.__len__() }} user{{ 's' if users.__len__() > 1 else '' }} at total</span></h5>
+    </div>
+    <div class="row small-up-1 large-up-4">
+      {% for each_user in users %}
+      <div class="column">
+        <div class="callout friend-entity-large">
+          <img class="profile-image-small" src="https://scontent.xx.fbcdn.net/v/t1.0-1/p160x160/1237511_10151868918624660_239031100_n.jpg?oh=e17b00daf53561c0267e9ba3a204f27c&oe=58A37DAC" />
+          <h5><a href="#">{{ each_user.username }}</a></h5>
+          <h6 class="friend-entity-desc">Chief at <a class="friend-entity-place">Ramada Hotel, Warsaw</a></h6>
+          <h6 class="friend-entity-location">Warsaw, Poland</h6>
+          <p class="text-center">203k subscribers</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="large-4 columns show-for-large"></div>
+
+{% endblock %}

@@ -8,18 +8,40 @@ class User:
     The user model class representing users of the application.
     """
 
-
-    def __init__(self, username, password, email, persisted=False):
+    def __init__(self, username, password_digest, email, persisted=False):
         """
         Initializes a new instance of user.
         """
 
         self.id = None
         self.username = username
-        self.password_digest = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        self.password_digest = password_digest
         self.email = email
         self._persisted = persisted
 
+    @staticmethod
+    def All(limit=20, offset=0):
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT id, username, email, inserted_at
+        FROM users
+        LIMIT %s
+        OFFSET %s
+        """,
+        [limit, offset])
+
+        objects = cursor.fetchall()
+        users = []
+
+        for each_object in objects:
+            user = User(each_object[1], None, each_object[2], True)
+            user.id = each_object[0]
+            user.inserted_at = each_object[3]
+            users.append(user)
+
+        return users
 
     def save(self):
         """
@@ -102,7 +124,67 @@ class User:
 
             return cursor.fetchone()[0] == True
         else:
-            raise AbstractOperationException("User::activate()", "user is not persisted")
+            raise AbstractOperationException("User::is_active()", "user is not persisted")
+
+    def get_image(self):
+        """
+        Returns the image of the user.
+        """
+        if (self.id is not None) and (self._persisted is True):
+            cursor = db.connection.cursor()
+
+            cursor.execute(
+            """
+            SELECT data
+            FROM user_images
+            WHERE user_id = %s
+            """,
+            [self.id])
+
+            return cursor.fetchone()[0]
+        else:
+            raise AbstractOperationException("User::get_image()", "user is not persisted")
+
+    def assign_image(self, image):
+        """
+        Assigns an image to the user.
+        """
+
+        # FIXME: Transaction support
+        if (self.id is not None) and (self._persisted is True):
+            cursor = db.connection.cursor()
+
+            cursor.execute(
+            """
+            SELECT exists(
+                SELECT data
+                FROM user_images
+                WHERE user_id = %s
+            )
+            """,
+            [self.id])
+
+            if cursor.fetchone()[0]:
+                cursor.execute(
+                """
+                UPDATE user_images
+                SET data = %s
+                WHERE user_id = %s
+                """,
+                [image, self.id])
+            else:
+                cursor.execute(
+                """
+                INSERT INTO user_images
+                (user_id, data)
+                VALUES (%s, %s)
+                """,
+                [self.id, image])
+        else:
+            raise AbstractOperationException("User::assign_image()", "user is not persisted")
+
+    def hash_password(self):
+        self.password_digest = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 
 class UserAlreadyActivatedException(Exception):

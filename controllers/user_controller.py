@@ -2,15 +2,19 @@ from flask import Blueprint, render_template
 from datetime import datetime
 from flask import current_app
 
+from models import User
+
 user_controller = Blueprint('user_controller', __name__)
 
-@user_controller.route('/')
+@user_controller.route('/', methods=['GET'])
 def index():
-    return render_template('home.html', methods=['GET'])
+    users = User.All()
 
-@user_controller.route('/<int:id>')
+    return render_template('/users/index.html', users=users)
+
+@user_controller.route('/<int:id>', methods=['GET'])
 def show(id):
-    return render_template('search.html', methods=['GET'])
+    return render_template('search.html')
 
 @user_controller.route('/', methods=['POST'])
 def create():
