@@ -5,7 +5,6 @@ import re
 import psycopg2 as dbapi2
 from flask import Flask
 from flask import render_template
-from controllers import user_controller
 
 import bootstrapper
 from handlers import www
@@ -46,6 +45,12 @@ if __name__ == '__main__':
     db.__init__(app.config['dsn'])
     bootstrapper.__init__()
 
+    from controllers import user_controller
+    from controllers import session_controller
+    from controllers import feed_controller
+
     app.register_blueprint(user_controller, url_prefix='/users')
+    app.register_blueprint(session_controller, url_prefix='/sessions')
+    app.register_blueprint(feed_controller, url_prefix='/users')
 
     app.run(host='0.0.0.0', port=port, debug=debug)

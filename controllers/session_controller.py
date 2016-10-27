@@ -1,14 +1,14 @@
-class SessionController:
-    def index(conn, params):
+from flask import Blueprint, render_template
+from datetime import datetime
+from flask import current_app
+from models import User
 
-    def show(conn, params):
+session_controller = Blueprint('session_controller', __name__)
 
-    def new(conn, params):
+@session_controller.route('/new', methods=['GET'])
+def new():
+    return render_template('/sessions/new.html')
 
-    def create(conn, params):
-
-    def edit(conn, params):
-
-    def update(conn, params):
-
-    def delete(conn, params):
+@session_controller.route('/', methods=['POST'])
+def create():
+    return None
