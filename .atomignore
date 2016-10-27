@@ -1,0 +1,6 @@
+__pycache__/
+docs/
+Procfile
+runtime.txt
+LICENSE
+.cfignore

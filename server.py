@@ -6,8 +6,7 @@ import psycopg2 as dbapi2
 from flask import Flask
 from flask import render_template
 
-import bootstrapper
-from middleware import db
+from middleware import *
 
 from models import User
 
