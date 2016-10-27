@@ -7,13 +7,11 @@ from flask import Flask
 from flask import render_template
 
 import bootstrapper
-from handlers import www
 from middleware import db
 
 from models import User
 
 app = Flask(__name__)
-app.register_blueprint(www)
 
 def get_elephantsql_dsn(services_env):
     # Returns the data source name for ElephantSQL.
@@ -45,12 +43,12 @@ if __name__ == '__main__':
     db.__init__(app.config['dsn'])
     bootstrapper.__init__()
 
-    from controllers import user_controller
-    from controllers import session_controller
-    from controllers import feed_controller
+    from controllers import *
 
+    app.register_blueprint(application_controller)
     app.register_blueprint(user_controller, url_prefix='/users')
     app.register_blueprint(session_controller, url_prefix='/sessions')
     app.register_blueprint(feed_controller, url_prefix='/users')
+    app.register_blueprint(user_friends_controller, url_prefix='/users')
 
     app.run(host='0.0.0.0', port=port, debug=debug)

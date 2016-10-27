@@ -8,4 +8,4 @@ feed_controller = Blueprint('feed_controller', __name__)
 
 @feed_controller.route('/<int:id>/feed/', methods=['GET'])
 def index(id):
-    return render_template('/users/feed.html')
+    return render_template('/users/feed/index.html')
