@@ -65,6 +65,4 @@ if __name__ == '__main__':
     post = Post("sdagfdsgfdsfs", user.id)
     post.save()
 
-    print(Place.Count())
-
     app.run(host='0.0.0.0', port=port, debug=debug)
