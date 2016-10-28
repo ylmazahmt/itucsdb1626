@@ -10,6 +10,7 @@ from middleware import db
 from middleware import bootstrapper
 
 from models import User
+from models import Place
 
 app = Flask(__name__)
 
@@ -50,5 +51,15 @@ if __name__ == '__main__':
     app.register_blueprint(session_controller, url_prefix='/sessions')
     app.register_blueprint(feed_controller, url_prefix='/users')
     app.register_blueprint(user_friends_controller, url_prefix='/users')
+    app.register_blueprint(places_controller, url_prefix='/places')
+
+    user = User("kerem", "123456", "erke@itu.edu.tr")
+    user.hash_password()
+    user.save()
+
+    place = Place("Burger King", "The best burger place in town.", user.id)
+    place.save()
+
+    print(Place.Count())
 
     app.run(host='0.0.0.0', port=port, debug=debug)

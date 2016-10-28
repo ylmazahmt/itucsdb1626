@@ -3,3 +3,4 @@ from controllers.session_controller import session_controller
 from controllers.feed_controller import feed_controller
 from controllers.user_friends_controller import user_friends_controller
 from controllers.application_controller import application_controller
+from controllers.places_controller import places_controller
