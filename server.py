@@ -11,6 +11,7 @@ from middleware import bootstrapper
 
 from models import User
 from models import Place
+from models import Post
 
 app = Flask(__name__)
 
@@ -52,6 +53,7 @@ if __name__ == '__main__':
     app.register_blueprint(feed_controller, url_prefix='/users')
     app.register_blueprint(user_friends_controller, url_prefix='/users')
     app.register_blueprint(places_controller, url_prefix='/places')
+    app.register_blueprint(posts_controller , url_prefix='/posts')
 
     user = User("kerem", "123456", "erke@itu.edu.tr")
     user.hash_password()
@@ -60,6 +62,7 @@ if __name__ == '__main__':
     place = Place("Burger King", "The best burger place in town.", user.id)
     place.save()
 
-    print(Place.Count())
+    post = Post("sdagfdsgfdsfs", user.id)
+    post.save()
 
     app.run(host='0.0.0.0', port=port, debug=debug)

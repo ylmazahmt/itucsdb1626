@@ -45,3 +45,11 @@ CREATE TABLE places(
 -- Create `places.user_id` index
 
 CREATE INDEX places_user_id_idx ON places(user_id);
+
+-- Create `posts` table
+CREATE TABLE posts(
+  id serial PRIMARY KEY,
+  body text NOT NULL,
+  user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  inserted_at timestamp DEFAULT now() NOT NULL
+);
