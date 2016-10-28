@@ -8,14 +8,14 @@ class User:
     The user model class representing users of the application.
     """
 
-    def __init__(self, username, password_digest, email, persisted=False):
+    def __init__(self, username, password, email, persisted=False):
         """
         Initializes a new instance of user.
         """
 
         self.id = None
         self.username = username
-        self.password_digest = password_digest
+        self.password = password
         self.email = email
         self._persisted = persisted
 
@@ -50,7 +50,7 @@ class User:
 
         cursor = db.connection.cursor()
 
-        if self._persisted:
+        if not self._persisted:
             cursor.execute(
             """
             INSERT INTO users
