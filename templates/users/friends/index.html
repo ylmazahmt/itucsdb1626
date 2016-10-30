@@ -6,45 +6,67 @@
 
     <div class="row header">
       <h5>People</h5>
-      <h6><span class="friends-pending">{{request_count}} requests pending</span></h6>
+      <h6><span class="friends-pending">{{request_count}} pending requests</span></h6>
     </div>
+        <div class="row header">
+          <table>
+            
+            {% for request in requests %}
+              <tbody>
+                <tr>
+                <td><img class="profile-image-small" src="https://scontent.xx.fbcdn.net/v/t1.0-1/p160x160/1237511_10151868918624660_239031100_n.jpg?oh=e17b00daf53561c0267e9ba3a204f27c&oe=58A37DAC" />
+                </td>
+                <td class="identity">
+                  <h5><a href="#">{{request.username}}</a></h5>
+                  <h6 class="identity-desc">Chief at <a class="identity-place">Ramada Hotel, Warsaw</a></h6>
+                  <h6 class="identity-location">Warsaw, Poland</h6>
+                  <p class="text-left subs">203k subscribers</p><p class="text-left pushes">27 pushes/month</p>
+                </td>
 
-      <div class="row sub-header">
-          <h5>Pending Requests</h5>
+                <form  method="POST">
+                <td class="text-center"><button class="add-friend" name="add_friend" ><i class="fa fa-plus" aria-hidden="true"></i></br>Add friend</button></td>
+                </form>
+
+                </tr>
+              </tbody>
+            {%endfor%}
+              
+            
+          </table>
         </div>
-        <table>
-        <tbody>
-          <tbody>
-            <tr>
-              <td><img class="profile-image-small" src="https://scontent.xx.fbcdn.net/v/t1.0-1/p160x160/1237511_10151868918624660_239031100_n.jpg?oh=e17b00daf53561c0267e9ba3a204f27c&oe=58A37DAC" /></td>
-              <td class="identity"><div>
-                <h5><a href="#">{{requests[0].username}}</a></h5>
-                <h6 class="identity-desc">Chief at <a class="identity-place">Ramada Hotel, Warsaw</a></h6>
-                <h6 class="identity-location">Warsaw, Poland</h6>
-                <p class="text-left subs">203k subscribers</p><p class="text-left pushes">27 pushes/month</p>
-              </div></td>
-              <td class="text-center"><button class="add-friend"><i class="fa fa-plus" aria-hidden="true"></i></br>Add friend</button></td>
-            </tr>
-          </tbody>
-        </table>
 
     <div class="row content">
       <div class="large-8 columns">
         <div class="row sub-header">
           <h5>Your friends&nbsp;<span>{{friend_count}} friends at total</span></h5>
         </div>
+
+        <form  method="POST">
         <div class="row small-up-1 large-up-4">
-          <div class="column">
-            <div class="callout friend-entity-large">
-              <img class="profile-image-small" src="https://scontent.xx.fbcdn.net/v/t1.0-1/p160x160/1237511_10151868918624660_239031100_n.jpg?oh=e17b00daf53561c0267e9ba3a204f27c&oe=58A37DAC" />
-              <h5><a href="#">{{friends[0].username}}</a></h5>
-              <h6 class="friend-entity-desc">Chief at <a class="friend-entity-place">Ramada Hotel, Warsaw</a></h6>
-              <h6 class="friend-entity-location">Warsaw, Poland</h6>
-              <p class="text-center">203k subscribers</p>
-            </div>
-          </div>
+        <input type="text" name="search_friend" placeholder="Search friends">
         </div>
+        </form>
+        <div class="row small-up-1 large-up-4">
+          {% for friend in friends %}
+            <div class="column">
+              <div class="callout friend-entity-large">
+                <img class="profile-image-small" src="https://scontent.xx.fbcdn.net/v/t1.0-1/p160x160/1237511_10151868918624660_239031100_n.jpg?oh=e17b00daf53561c0267e9ba3a204f27c&oe=58A37DAC" />
+                <h5><a href="#">{{friend.username}}</a></h5>
+                <h6 class="friend-entity-desc">Chief at <a class="friend-entity-place">Ramada Hotel, Warsaw</a></h6>
+                <h6 class="friend-entity-location">Warsaw, Poland</h6>
+                <p class="text-center">203k subscribers</p>
+                  
+                <form  method="POST">
+                <td class="text-center"><button class="remove-friend" name="remove_friend"><i class="fa fa-minus" aria-hidden="true"></i></br>Remove friend</button></td>
+                </form>
+
+              </div>
+            </div>
+          {%endfor%}
+        </div>
+      </div>
+    </div>
         
-      <div class="large-4 columns show-for-large"></div>
+    <div class="large-4 columns show-for-large"></div>
 
 {% endblock %}
