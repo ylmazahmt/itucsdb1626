@@ -4,3 +4,4 @@ Procfile
 runtime.txt
 LICENSE
 .cfignore
+*.pyc
