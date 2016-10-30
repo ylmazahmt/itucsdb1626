@@ -53,3 +53,12 @@ CREATE TABLE posts(
   user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
   inserted_at timestamp DEFAULT now() NOT NULL
 );
+
+-- Create 'user_friends' table
+
+CREATE TABLE user_friends(
+    id serial PRIMARY KEY,
+    user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    friend_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    is_friend boolean NOT NULL
+);
