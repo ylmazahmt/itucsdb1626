@@ -186,6 +186,244 @@ class User:
     def hash_password(self):
         self.password_digest = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
+    def get_user(user_id):
+
+        #create a user object of given id
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT id, username, email, inserted_at
+        FROM users
+        WHERE id = %s
+        LIMIT 1
+        """,
+        [user_id])
+
+        data = cursor.fetchall()
+
+        if data is not None:
+            user = User(data[0][1], None, data[0][2], True)
+            user.id = data[0][0]
+            user.inserted_at = data[0][3]
+
+            return user
+        else:
+            return None
+        
+    def all_friends(self, limit=20, offset=0):
+
+        #fetch all friends of given user
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT friend_id
+        FROM user_friends
+        WHERE user_id = %s
+        AND is_friend
+        LIMIT %s
+        OFFSET %s
+        """,
+        [self.id, limit, offset])
+
+        objects = cursor.fetchall()
+
+        friends = []
+
+        for each_object in objects:
+            friend = User.get_user(each_object)
+            friends.append(friend)
+
+        return friends
+
+    def count_friends(self):
+
+        #count friends of given user
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT count(id)
+        FROM user_friends
+        WHERE user_id = %s
+        AND is_friend
+        """,
+        [self.id])
+
+        count = cursor.fetchone()[0]
+        db.connection.commit()
+
+        return count
+
+    def pending_requests(self, limit=20, offset=0):
+
+        #fetch all pending requests of given user
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT user_id
+        FROM user_friends
+        WHERE friend_id = %s
+        AND is_friend = False
+        LIMIT %s
+        OFFSET %s
+        """,
+        [self.id, limit, offset])
+
+        objects = cursor.fetchall()
+
+        requests = []
+
+        for each_object in objects:
+            request = User.get_user(each_object)
+            requests.append(request)
+
+        return requests
+
+    def count_requests(self):
+
+        #count pending requests of given user
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT count(id)
+        FROM user_friends
+        WHERE friend_id = %s
+        AND is_friend = False
+        """,
+        [self.id])
+
+        count = cursor.fetchone()[0]
+        db.connection.commit()
+
+        return count
+
+    def is_friend_or_pending(self, second_user):
+
+        # value = 3, friend request sent
+        # value = 2, friend
+        # value = 1, pending request
+        # value = 0, total stranger
+
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT user_id
+        FROM user_friends 
+        WHERE (user_id = %s
+        AND friend_id = %s)
+        OR (user_id = %s
+        AND friend_id = %s);
+        """,
+        [self.id, second_user.id, second_user.id, self.id])
+
+        data = cursor.fetchall() 
+
+        if len(data) == 1:
+            if data[0][0] == self.id:
+                return 3
+            else:
+                return 1
+        else:
+            return len(data) # 0 or 2
+
+    def add_friend(self, second_user):
+        """
+        add or update relevant relationship information about two given users
+        """
+        relationship = self.is_friend_or_pending(second_user)
+
+        if relationship == 2 or relationship == 3:
+            return False
+
+        cursor = db.connection.cursor()
+
+        #send friend request
+        if relationship == 0:
+            cursor.execute(
+            """
+            INSERT INTO user_friends
+            (user_id, friend_id, is_friend)
+            VALUES(%s, %s, False)
+            """,
+            [self.id, second_user.id])
+
+
+        #accept the friend request
+        elif relationship == 1:
+            cursor.execute(
+            """
+            INSERT INTO user_friends
+            (user_id, friend_id, is_friend)
+            VALUES(%s, %s, True)
+            """,
+            [self.id, second_user.id])
+
+            cursor.execute(
+            """
+            UPDATE user_friends
+            SET is_friend = True
+            WHERE user_id = %s
+            AND friend_id = %s
+            """,
+            [second_user.id, self.id])
+        
+        db.connection.commit()
+
+        return True
+
+    def find_in_friends(self, str_s, limit=20, offset=0):
+        #fetch all friends of given user
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT username,friend_id
+        FROM user_friends,users
+        WHERE friend_id = users.id
+        AND user_id = '{}'
+        AND username LIKE '{}%'
+        AND is_friend
+        LIMIT '{}'
+        OFFSET '{}'
+        """.format(self.id, str_s, limit, offset))
+
+        objects = cursor.fetchall()
+
+        friends = []
+
+        for each_object in objects:
+            friend = User.get_user(each_object[1])
+            friends.append(friend)
+
+        return friends
+
+    def remove_friend(first_user, second_user):
+        #delete friendship about two given users from database
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        DELETE 
+        FROM user_friends
+        WHERE (user_id = %s
+        AND friend_id = %s
+        AND is_friend)
+        OR (user_id = %s
+        AND friend_id = %s
+        AND is_friend)
+        """,
+        [first_user.id, second_user.id, second_user.id, first_user.id])
+
+        db.connection.commit()
+
+        return True
+
+
 
 class UserAlreadyActivatedException(Exception):
     """
