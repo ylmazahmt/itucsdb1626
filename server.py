@@ -13,14 +13,6 @@ from models import User
 from models import Place
 from models import Post
 
-##TEMPORARY##
-from controllers.user_friends_controller import add_friend
-##TEMPORARY##
-
-
-
-
-
 app = Flask(__name__)
 
 def get_elephantsql_dsn(services_env):
@@ -81,9 +73,9 @@ if __name__ == '__main__':
     user_5.hash_password()
     user_5.save()
 
-    add_friend(user,user_5)
-    add_friend(user_2,user_5)
-    add_friend(user_5,user_2)
+    user.add_friend(user_5)
+    user_2.add_friend(user_5)
+    user_5.add_friend(user_2)
 
 
     app.run(host='0.0.0.0', port=port, debug=debug)
