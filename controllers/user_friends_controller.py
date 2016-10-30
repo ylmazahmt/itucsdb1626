@@ -16,14 +16,6 @@ def index(id):
 		str_s = request.form['search_friend']
 		friends = User.find_in_friends(User.get_user(id),str_s)
 
-	"""elif 'add_friend' in request.form:
-		User.add_friend(User.get_user(id),request.form['request'])
-		friends = User.all_friends(User.get_user(id))
-
-	elif 'remove_friend' in request.form:
-		User.remove_friend(User.get_user(id),request.form['request'])
-		friends = User.all_friends(User.get_user(id))"""
-
 	requests = User.pending_requests(User.get_user(id))
 	friend_count = User.count_friends(User.get_user(id))
 	request_count = User.count_requests(User.get_user(id))
