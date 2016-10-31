@@ -53,6 +53,7 @@ if __name__ == '__main__':
     app.register_blueprint(places_controller, url_prefix='/places')
     app.register_blueprint(posts_controller, url_prefix='/posts')
     app.register_blueprint(check_ins_controller, url_prefix='/check_ins')
+    app.register_blueprint(database_initialization_controller, url_prefix='/database_initialization')
 
     user = User("kerem", "123456", "erke@itu.edu.tr")
     user.hash_password()
