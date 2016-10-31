@@ -9,9 +9,7 @@ from flask import render_template
 from middleware import db
 from middleware import bootstrapper
 
-from models import User
-from models import Place
-from models import Post
+from models import *
 
 app = Flask(__name__)
 
@@ -53,7 +51,8 @@ if __name__ == '__main__':
     app.register_blueprint(feed_controller, url_prefix='/users')
     app.register_blueprint(user_friends_controller, url_prefix='/users')
     app.register_blueprint(places_controller, url_prefix='/places')
-    app.register_blueprint(posts_controller , url_prefix='/posts')
+    app.register_blueprint(posts_controller, url_prefix='/posts')
+    app.register_blueprint(check_ins_controller, url_prefix='/check_ins')
 
     user = User("kerem", "123456", "erke@itu.edu.tr")
     user.hash_password()
@@ -65,23 +64,7 @@ if __name__ == '__main__':
     post = Post("sdagfdsgfdsfs", user.id)
     post.save()
 
-    user_2 = User("test_user", "654321", "ylmazahmt@mail.com")
-    user_2.hash_password()
-    user_2.save()
-
-    user_5 = User("control", "654321", "control@mail.com")
-    user_5.hash_password()
-    user_5.save()
-
-<<<<<<< HEAD
-    add_friend(user, user_5)
-    add_friend(user_2, user_5)
-    add_friend(user_5, user_2)
-=======
-    user.add_friend(user_5)
-    user_2.add_friend(user_5)
-    user_5.add_friend(user_2)
->>>>>>> d232c7039d17324b15b7c680fab5e28b07df32d8
-
+    check_in = CheckIn(user.id, place.id)
+    check_in.save()
 
     app.run(host='0.0.0.0', port=port, debug=debug)

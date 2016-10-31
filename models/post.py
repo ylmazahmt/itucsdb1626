@@ -117,6 +117,7 @@ class Post:
         db.connection.commit()
         self._persisted = True
 
+
     def owner(self):
         """
         Fetches the user of the post.
