@@ -122,6 +122,29 @@ class CheckIn:
         self._persisted = True
 
 
+    def delete(self):
+        """
+        Deletes the corresponding entity in persistent layer.
+        """
+
+        if self._persisted:
+            cursor = db.connection.cursor()
+
+            cursor.execute(
+            """
+            DELETE FROM check_ins
+            WHERE id = %s
+            """,
+            [self.id])
+
+            db.connection.commit()
+            self._persisted = False
+            self.id = None
+            self.inserted_at = None
+        else:
+            raise AbstractOperationException("CheckIn::delete()", "check-in is not persisted")
+
+
     def owner(self):
         """
         Returns the owner user of the check_in.

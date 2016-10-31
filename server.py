@@ -66,5 +66,6 @@ if __name__ == '__main__':
 
     check_in = CheckIn(user.id, place.id)
     check_in.save()
+    check_in.delete()
 
     app.run(host='0.0.0.0', port=port, debug=debug)
