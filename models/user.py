@@ -186,68 +186,49 @@ class User:
     def hash_password(self):
         self.password_digest = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-    def get_user(user_id):
+    def friends(self, limit=20, offset=0):
+        """
+        Fetches friends list of the user.
+        """
 
-        #create a user object of given id
         cursor = db.connection.cursor()
 
         cursor.execute(
         """
-        SELECT id, username, email, inserted_at
-        FROM users
-        WHERE id = %s
-        LIMIT 1
-        """,
-        [user_id])
-
-        data = cursor.fetchall()
-
-        if data is not None:
-            user = User(data[0][1], None, data[0][2], True)
-            user.id = data[0][0]
-            user.inserted_at = data[0][3]
-
-            return user
-        else:
-            return None
-        
-    def all_friends(self, limit=20, offset=0):
-
-        #fetch all friends of given user
-        cursor = db.connection.cursor()
-
-        cursor.execute(
-        """
-        SELECT friend_id
-        FROM user_friends
-        WHERE user_id = %s
-        AND is_friend
+        SELECT u.id, u.username, u.email, u.inserted_at
+        FROM user_friends AS uf
+        INNER JOIN users AS u ON u.id = uf.friend_id
+        WHERE uf.user_id = %s
         LIMIT %s
         OFFSET %s
         """,
         [self.id, limit, offset])
 
         objects = cursor.fetchall()
-
         friends = []
 
         for each_object in objects:
-            friend = User.get_user(each_object)
+            friend = User(each_object[1], None, each_object[2], True)
+            friend.id = each_object[0]
+            friend.inserted_at = each_object[3]
             friends.append(friend)
 
         return friends
 
     def count_friends(self):
+        """
+        Performs a count query and returns the number of friends
+        of a user.
+        """
 
-        #count friends of given user
         cursor = db.connection.cursor()
 
         cursor.execute(
         """
-        SELECT count(id)
-        FROM user_friends
-        WHERE user_id = %s
-        AND is_friend
+        SELECT count(uf.id)
+        FROM user_friends AS uf
+        INNER JOIN users AS u ON u.id = uf.friend_id
+        WHERE uf.user_id = %s AND uf.is_friend = TRUE
         """,
         [self.id])
 
@@ -258,41 +239,44 @@ class User:
 
     def pending_requests(self, limit=20, offset=0):
 
-        #fetch all pending requests of given user
         cursor = db.connection.cursor()
 
         cursor.execute(
         """
-        SELECT user_id
-        FROM user_friends
-        WHERE friend_id = %s
-        AND is_friend = False
+        SELECT u.id, u.username, u.email, u.inserted_at
+        FROM user_friends AS uf
+        INNER JOIN users AS u ON u.id = uf.friend_id
+        WHERE uf.user_id = %s AND uf.is_friend = FALSE
         LIMIT %s
         OFFSET %s
         """,
         [self.id, limit, offset])
 
         objects = cursor.fetchall()
-
         requests = []
 
         for each_object in objects:
-            request = User.get_user(each_object)
+            request = User(each_object[1], None, each_object[2], True)
+            request.id = each_object[0]
+            request.inserted_at = each_object[3]
             requests.append(request)
 
         return requests
 
     def count_requests(self):
+        """
+        Performs a count query and returns the number of
+        pending requests of the user.
+        """
 
-        #count pending requests of given user
         cursor = db.connection.cursor()
 
         cursor.execute(
         """
-        SELECT count(id)
-        FROM user_friends
-        WHERE friend_id = %s
-        AND is_friend = False
+        SELECT count(uf.id)
+        FROM user_friends AS uf
+        INNER JOIN users AS u ON u.id = uf.friend_id
+        WHERE uf.user_id = %s AND uf.is_friend = FALSE
         """,
         [self.id])
 
@@ -300,6 +284,7 @@ class User:
         db.connection.commit()
 
         return count
+
 
     def is_friend_or_pending(self, second_user):
 
@@ -313,7 +298,7 @@ class User:
         cursor.execute(
         """
         SELECT user_id
-        FROM user_friends 
+        FROM user_friends
         WHERE (user_id = %s
         AND friend_id = %s)
         OR (user_id = %s
@@ -321,7 +306,7 @@ class User:
         """,
         [self.id, second_user.id, second_user.id, self.id])
 
-        data = cursor.fetchall() 
+        data = cursor.fetchall()
 
         if len(data) == 1:
             if data[0][0] == self.id:
@@ -371,7 +356,7 @@ class User:
             AND friend_id = %s
             """,
             [second_user.id, self.id])
-        
+
         db.connection.commit()
 
         return True
@@ -382,15 +367,16 @@ class User:
 
         cursor.execute(
         """
-        SELECT username,friend_id
+        SELECT username, friend_id
         FROM user_friends,users
         WHERE friend_id = users.id
-        AND user_id = '{}'
-        AND username LIKE '{}%'
+        AND user_id = '%s'
+        AND username LIKE '%s'
         AND is_friend
-        LIMIT '{}'
-        OFFSET '{}'
-        """.format(self.id, str_s, limit, offset))
+        LIMIT %s
+        OFFSET %s
+        """,
+        [self.id, str_s, limit, offset])
 
         objects = cursor.fetchall()
 
@@ -408,8 +394,7 @@ class User:
 
         cursor.execute(
         """
-        DELETE 
-        FROM user_friends
+        DELETE FROM user_friends
         WHERE (user_id = %s
         AND friend_id = %s
         AND is_friend)
@@ -422,7 +407,6 @@ class User:
         db.connection.commit()
 
         return True
-
 
 
 class UserAlreadyActivatedException(Exception):
