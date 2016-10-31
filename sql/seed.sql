@@ -9,3 +9,9 @@ VALUES ('McDonalds', 'The worst burger place in the world. Seriously.', 1);
 
 INSERT INTO check_ins (user_id, place_id)
 VALUES (1, 1);
+
+INSERT INTO user_activations (user_id)
+VALUES (2);
+
+INSERT INTO posts (body, user_id)
+VALUES('Great place to eat and spent time', 2);
