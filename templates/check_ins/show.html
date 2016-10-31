@@ -1,1 +1,19 @@
-<h2>{{ check_in.id }}, {{ check_in.owner().email }}</h2>
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="row content">
+  <div class="large-2 columns show-for-large">
+    <p></p>
+  </div>
+  <div class="large-6 columns">
+    <div class="callout main-entity">
+      <p>{{ check_in.owner().username }} checked-in {{ check_in.place().name }}</p>
+    </div>
+  </div>
+  <div class="large-4 columns show-for-large"></div>
+</div>
+
+{% endblock %}

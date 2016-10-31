@@ -1,3 +1,24 @@
-{% for each_check_in in check_ins %}
-<h2>{{ each_check_in.id }}, {{ each_check_in.owner().email }}</h2>
-{% endfor %}
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="row content">
+  <div class="large-2 columns show-for-large">
+    <p></p>
+  </div>
+  <div class="large-6 columns">
+    {% for each_check_in in check_ins %}
+    <div class="callout main-entity">
+      <p>{{ each_check_in.owner().username }} checked-in {{ each_check_in.place().name }}</p>
+    </div>
+    {% endfor %}
+    <div class="callout load-more text-center">
+      <i class="fa fa-spinner" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="large-4 columns show-for-large"></div>
+</div>
+
+{% endblock %}
