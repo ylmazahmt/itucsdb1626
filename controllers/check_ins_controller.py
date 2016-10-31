@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from datetime import datetime
-from flask import current_app
+from flask import current_app, request, make_response
 
 from models import CheckIn
 check_ins_controller = Blueprint('check_ins_controller', __name__)
@@ -27,7 +27,13 @@ def show(id):
 
 @check_ins_controller.route('/', methods=['POST'])
 def create():
-    return None
+    check_in = CheckIn(request.json["user_id"], request.json["place_id"])
+    check_in.save()
+
+    response = make_response()
+    response.headers['location'] = "/check_ins/" + str(check_in.id)
+
+    return response, 201
 
 
 @check_ins_controller.route('/new', methods=['GET'])
