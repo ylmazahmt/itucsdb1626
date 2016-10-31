@@ -17,7 +17,11 @@ def index():
 def show(id):
     check_in = CheckIn.One(id)
 
-    return render_template('/check_ins/show.html', check_in=check_in)
+    if check_in is not None:
+
+        return render_template('/check_ins/show.html', check_in=check_in)
+    else:
+        return "Entity not found.", 404
 
 
 @check_ins_controller.route('/', methods=['POST'])

@@ -61,11 +61,14 @@ class CheckIn:
         data = cursor.fetchone()
         db.connection.commit()
 
-        check_in = CheckIn(data[1], data[2], True)
-        check_in.id = data[0]
-        check_in.inserted_at = data[3]
+        if data is not None:
+            check_in = CheckIn(data[1], data[2], True)
+            check_in.id = data[0]
+            check_in.inserted_at = data[3]
 
-        return check_in
+            return check_in
+        else:
+            return None
 
 
     @staticmethod
