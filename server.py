@@ -46,7 +46,7 @@ if __name__ == '__main__':
     from controllers import *
 
     app.register_blueprint(application_controller)
-    app.register_blueprint(user_controller, url_prefix='/users')
+    app.register_blueprint(users_controller, url_prefix='/users')
     app.register_blueprint(session_controller, url_prefix='/sessions')
     app.register_blueprint(feed_controller, url_prefix='/users')
     app.register_blueprint(user_friends_controller, url_prefix='/users')
