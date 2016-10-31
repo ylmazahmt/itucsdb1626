@@ -6,12 +6,12 @@ from models import Place
 
 class CheckIn:
     """
-    The model class representing checkins.
+    The model class representing check_ins.
     """
 
     def __init__(self, owner_id, place_id, persisted=False):
         """
-        Initializes a new instance of checkin.
+        Initializes a new instance of check_in.
         """
 
         self.id = None
@@ -26,23 +26,23 @@ class CheckIn:
         cursor.execute(
         """
         SELECT *
-        FROM checkins
+        FROM check_ins
         LIMIT %s
         OFFSET %s
         """,
         [limit, offset])
 
-        data = cursorfetchall()
+        data = cursor.fetchall()
         db.connection.commit()
-        checkins = []
+        check_ins = []
 
         for each_data in data:
-            checkin = CheckIn(each_data[1], each_data[2], True)
-            checkin.id = each_data[0]
-            checkin.inserted_at = each_data[3]
-            checkins.append(checkin)
+            check_in = CheckIn(each_data[1], each_data[2], True)
+            check_in.id = each_data[0]
+            check_in.inserted_at = each_data[3]
+            check_ins.append(check_in)
 
-        return checkins
+        return check_ins
 
 
     @staticmethod
@@ -52,7 +52,7 @@ class CheckIn:
         cursor.execute(
         """
         SELECT *
-        FROM checkins AS c
+        FROM check_ins AS c
         WHERE c.id = %s
         LIMIT 1
         """,
@@ -61,11 +61,11 @@ class CheckIn:
         data = cursor.fetchone()
         db.connection.commit()
 
-        checkin = CheckIn(data[1], data[2], True)
-        checkin.id = data[0]
-        checkin.inserted_at = data[3]
+        check_in = CheckIn(data[1], data[2], True)
+        check_in.id = data[0]
+        check_in.inserted_at = data[3]
 
-        return checkin
+        return check_in
 
 
     @staticmethod
@@ -75,7 +75,7 @@ class CheckIn:
         cursor.execute(
         """
         SELECT count(id)
-        FROM checkins
+        FROM check_ins
         """)
 
         count = cursor.fetchone()[0]
@@ -86,7 +86,7 @@ class CheckIn:
 
     def save(self):
         """
-        Persists the checkin in the database.
+        Persists the check_in in the database.
         """
 
         cursor = db.connection.cursor()
@@ -94,7 +94,7 @@ class CheckIn:
         if not self._persisted:
             cursor.execute(
             """
-            INSERT INTO checkins
+            INSERT INTO check_ins
             (user_id, place_id)
             VALUES (%s, %s)
             RETURNING id, inserted_at
@@ -108,7 +108,7 @@ class CheckIn:
         else:
             cursor.execute(
             """
-            UPDATE checkins
+            UPDATE check_ins
             SET user_id = %s,
                 place_id = %s
             WHERE id = %s
@@ -121,7 +121,7 @@ class CheckIn:
 
     def owner(self):
         """
-        Returns the owner user of the checkin.
+        Returns the owner user of the check_in.
         """
 
         cursor = db.connection.cursor()
@@ -146,7 +146,7 @@ class CheckIn:
 
     def place(self):
         """
-        Returns the place of the checkin.
+        Returns the place of the check_in.
         """
 
         cursor = db.connection.cursor()

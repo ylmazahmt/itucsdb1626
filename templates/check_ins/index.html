@@ -1,0 +1,3 @@
+{% for each_check_in in check_ins %}
+<h2>{{ each_check_in.id }}, {{ each_check_in.owner().email }}</h2>
+{% endfor %}

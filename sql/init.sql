@@ -61,13 +61,13 @@ CREATE TABLE user_friends(
     is_friend boolean NOT NULL
 );
 
---  Create `checkins` table
-CREATE TABLE checkins(
+--  Create `check_ins` table
+CREATE TABLE check_ins(
     id serial PRIMARY KEY,
     user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     place_id integer NOT NULL REFERENCES places(id) ON DELETE CASCADE ON UPDATE CASCADE,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
 
-CREATE INDEX checkins_user_id_idx ON checkins(user_id);
-CREATE INDEX checkins_place_id_idx ON checkins(place_id);
+CREATE INDEX check_ins_user_id_idx ON check_ins(user_id);
+CREATE INDEX check_ins_place_id_idx ON check_ins(place_id);

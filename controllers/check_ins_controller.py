@@ -5,26 +5,31 @@ from flask import current_app
 from models import CheckIn
 check_ins_controller = Blueprint('check_ins_controller', __name__)
 
+
 @check_ins_controller.route('/', methods=['GET'])
 def index():
-    checkins = CheckIn.All()
+    check_ins = CheckIn.All()
 
-    return render_template('/checkins/index.html', checkins=checkins)
+    return render_template('/check_ins/index.html', check_ins=check_ins)
+
 
 @check_ins_controller.route('/<int:id>', methods=['GET'])
 def show(id):
-    checkin = CheckIn.One(id)
+    check_in = CheckIn.One(id)
 
-    return render_template('/checkins/show.html', checkin=checkin)
+    return render_template('/check_ins/show.html', check_in=check_in)
+
 
 @check_ins_controller.route('/', methods=['POST'])
 def create():
     return None
 
+
 @check_ins_controller.route('/new', methods=['GET'])
 def new():
-    return render_template('/checkins/new.html')
+    return render_template('/check_ins/new.html')
+
 
 @check_ins_controller.route('/<int:id>', methods=['DELETE'])
 def delete():
-  return None
+    return None
