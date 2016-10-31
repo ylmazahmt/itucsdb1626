@@ -21,6 +21,7 @@ def show(id):
 
         return render_template('/check_ins/show.html', check_in=check_in)
     else:
+        
         return "Entity not found.", 404
 
 
