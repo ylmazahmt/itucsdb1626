@@ -21,7 +21,7 @@ def show(id):
 
         return render_template('/check_ins/show.html', check_in=check_in)
     else:
-        
+
         return "Entity not found.", 404
 
 
@@ -36,5 +36,13 @@ def new():
 
 
 @check_ins_controller.route('/<int:id>', methods=['DELETE'])
-def delete():
-    return None
+def delete(id):
+    check_in = CheckIn.One(id)
+
+    if check_in is not None:
+        check_in.delete()
+
+        return "", 204
+    else:
+
+        return "Entity not found.", 404
