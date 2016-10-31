@@ -9,16 +9,17 @@ user_friends_controller = Blueprint('user_friends_controller', __name__)
 
 @user_friends_controller.route('/<int:id>/friends/', methods=['GET','POST'])
 def index(id):
+	user = User.One(id)
 	if request.method == 'GET':
-		friends = User.all_friends(User.get_user(id))
+		friends = user.friends()
 
 	elif 'search_friend' in request.form:
 		str_s = request.form['search_friend']
-		friends = User.find_in_friends(User.get_user(id),str_s)
+		friends = user.find_in_friends(str_s)
 
-	requests = User.pending_requests(User.get_user(id))
-	friend_count = User.count_friends(User.get_user(id))
-	request_count = User.count_requests(User.get_user(id))
+	requests = user.pending_requests()
+	friend_count = user.count_friends()
+	request_count = user.count_requests()
 
 	return render_template('/users/friends/index.html', friends = friends, requests = requests, friend_count = friend_count, request_count = request_count)
 
