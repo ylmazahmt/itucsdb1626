@@ -2,20 +2,21 @@ import psycopg2
 from middleware import db
 from models.error_handling import AbstractOperationException
 from models import User
+from models import Place
 
-class Post:
+class CheckIn:
     """
-    The model class representing posts, who belong to places.
+    The model class representing checkins.
     """
 
-    def __init__(self, body, owner_id, persisted=False):
+    def __init__(self, owner_id, place_id, persisted=False):
         """
-        Initializes a new instance of post.
+        Initializes a new instance of checkin.
         """
 
         self.id = None
-        self.body = body
         self.owner_id = owner_id
+        self.place_id = place_id
         self._persisted = persisted
 
     @staticmethod
@@ -25,23 +26,23 @@ class Post:
         cursor.execute(
         """
         SELECT *
-        FROM posts
+        FROM checkins
         LIMIT %s
         OFFSET %s
         """,
         [limit, offset])
 
-        objects = cursor.fetchall()
+        data = cursorfetchall()
         db.connection.commit()
-        posts = []
+        checkins = []
 
-        for each_object in objects:
-            post = Post(each_object[1], each_object[2], True)
-            post.id = each_object[0]
-            post.inserted_at = each_object[3]
-            posts.append(post)
+        for each_data in data:
+            checkin = CheckIn(each_data[1], each_data[2], True)
+            checkin.id = each_data[0]
+            checkin.inserted_at = each_data[3]
+            checkins.append(checkin)
 
-        return posts
+        return checkins
 
 
     @staticmethod
@@ -51,8 +52,8 @@ class Post:
         cursor.execute(
         """
         SELECT *
-        FROM posts
-        WHERE id = %s
+        FROM checkins AS c
+        WHERE c.id = %s
         LIMIT 1
         """,
         [id])
@@ -60,14 +61,11 @@ class Post:
         data = cursor.fetchone()
         db.connection.commit()
 
-        if data is not None:
-            post = Post(data[1], data[2], True)
-            post.id = data[0]
-            post.inserted_at = data[3]
+        checkin = CheckIn(data[1], data[2], True)
+        checkin.id = data[0]
+        checkin.inserted_at = data[3]
 
-            return post
-        else:
-            return None
+        return checkin
 
 
     @staticmethod
@@ -77,7 +75,7 @@ class Post:
         cursor.execute(
         """
         SELECT count(id)
-        FROM posts
+        FROM checkins
         """)
 
         count = cursor.fetchone()[0]
@@ -88,7 +86,7 @@ class Post:
 
     def save(self):
         """
-        Persists the post in the database.
+        Persists the checkin in the database.
         """
 
         cursor = db.connection.cursor()
@@ -96,23 +94,26 @@ class Post:
         if not self._persisted:
             cursor.execute(
             """
-            INSERT INTO posts
-            (body, user_id)
+            INSERT INTO checkins
+            (user_id, place_id)
             VALUES (%s, %s)
-            RETURNING id
+            RETURNING id, inserted_at
             """,
-            [self.body, self.owner_id])
+            [self.owner_id, self.place_id])
 
-            self.id = cursor.fetchone()[0]
+            data = cursor.fetchone()
+
+            self.id = data[0]
+            self.inserted_at = data[1]
         else:
             cursor.execute(
             """
-            UPDATE posts
-            SET body = %s,
-                user_id = %s
+            UPDATE checkins
+            SET user_id = %s,
+                place_id = %s
             WHERE id = %s
             """,
-            [self.body, self.owner_id])
+            [self.owner_id, self.place_id, self.id])
 
         db.connection.commit()
         self._persisted = True
@@ -120,7 +121,7 @@ class Post:
 
     def owner(self):
         """
-        Fetches the user of the post.
+        Returns the owner user of the checkin.
         """
 
         cursor = db.connection.cursor()
@@ -134,7 +135,6 @@ class Post:
         [self.owner_id])
 
         data = cursor.fetchone()
-
         db.connection.commit()
 
         user = User(data[1], None, data[2], True)
@@ -142,3 +142,29 @@ class Post:
         user.inserted_at = data[3]
 
         return user
+
+
+    def place(self):
+        """
+        Returns the place of the checkin.
+        """
+
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT *
+        FROM places
+        WHERE id = %s
+        """,
+        [self.place_id])
+
+        data = cursor.fetchone()
+
+        db.connection.commit()
+
+        place = Place(data[1], data[2], data[3], True)
+        place.id = data[0]
+        place.inserted_at = data[4]
+
+        return place

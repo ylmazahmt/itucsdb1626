@@ -73,15 +73,8 @@ if __name__ == '__main__':
     user_5.hash_password()
     user_5.save()
 
-<<<<<<< HEAD
-    add_friend(user, user_5)
-    add_friend(user_2, user_5)
-    add_friend(user_5, user_2)
-=======
     user.add_friend(user_5)
     user_2.add_friend(user_5)
     user_5.add_friend(user_2)
->>>>>>> d232c7039d17324b15b7c680fab5e28b07df32d8
-
 
     app.run(host='0.0.0.0', port=port, debug=debug)
