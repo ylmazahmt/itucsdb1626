@@ -43,6 +43,35 @@ class User:
 
         return users
 
+    @staticmethod
+    def One(id):
+        """
+        Returns the user with given identifier.
+        """
+
+        cursor = db.connection.cursor()
+
+        cursor.execute(
+        """
+        SELECT id, username, email, inserted_at
+        FROM users
+        WHERE id = %s
+        LIMIT 1
+        """,
+        [id])
+
+        data = cursor.fetchone()
+
+        if data is not None:
+            user = User(data[1], None, data[2], True)
+            user.id = data[0]
+            user.inserted_at = data[3]
+
+            return user
+        else:
+            return None
+
+
     def save(self):
         """
         Persists the user in the database.

@@ -14,7 +14,14 @@ def index():
 
 @users_controller.route('/<int:id>', methods=['GET'])
 def show(id):
-    return render_template('search.html')
+    user = User.One(id)
+
+    if user is not None:
+
+        return render_template('users/show.html', user=user)
+    else:
+
+        return "Entity not found.", 404
 
 @users_controller.route('/', methods=['POST'])
 def create():
