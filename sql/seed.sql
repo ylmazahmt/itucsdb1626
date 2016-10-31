@@ -15,3 +15,9 @@ VALUES (2);
 
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 2);
+
+INSERT INTO user_friends (user_id, friend_id, is_friend) 
+VALUES (2,3,True);
+
+INSERT INTO user_friends (user_id, friend_id, is_friend) 
+VALUES (3,2,True);
