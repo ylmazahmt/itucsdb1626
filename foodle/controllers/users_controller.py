@@ -45,7 +45,7 @@ def show(id):
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT id, username, inserted_at
+            SELECT id, username, inserted_at, ip_address
             FROM users
             WHERE id = %s
             """,
@@ -53,8 +53,20 @@ def show(id):
 
             user = curs.fetchone()
 
+            curs.execute(
+            """
+            SELECT email
+            FROM user_emails
+            WHERE user_id = %s
+            ORDER BY inserted_at DESC
+            LIMIT 1
+            """,
+            [id])
+
+            email = curs.fetchone()
+
             if user is not None:
-                return render_template('/users/show.html', user=user)
+                return render_template('/users/show.html', user=user, email=email)
             else:
                 return "Entity not found.", 404
 
@@ -63,6 +75,7 @@ def show(id):
 def create():
     username = request.json['username']
     password = request.json['password']
+    ip_address = request.access_route[0]
 
     if not isinstance(username, str) or not isinstance(password, str):
         return "Request body is unprocessable.", 422
@@ -80,11 +93,11 @@ def create():
             curs.execute(
             """
             INSERT INTO users
-            (username, password_digest)
-            VALUES (%s, %s)
+            (username, password_digest, ip_address)
+            VALUES (%s, %s, %s)
             RETURNING *
             """,
-            [username, password_digest])
+            [username, password_digest, ip_address])
 
             user = curs.fetchone()
 

@@ -11,6 +11,7 @@ CREATE TABLE users(
     username character varying(255) UNIQUE NOT NULL,
     password_digest character varying(255) NOT NULL,
     activation_key uuid DEFAULT "public".uuid_generate_v4() UNIQUE NOT NULL,
+    ip_address inet NOT NULL,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
 
@@ -34,10 +35,9 @@ CREATE TABLE user_activations(
 
 --  Create `user_images` table
 CREATE TABLE user_images(
-    user_id integer PRIMARY KEY,
+    user_id integer PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     data bytea NOT NULL,
-    inserted_at timestamp DEFAULT now() NOT NULL,
-    FOREIGN KEY ("user_id") REFERENCES users(id)
+    inserted_at timestamp DEFAULT now() NOT NULL
 );
 
 -- Create `places` table
