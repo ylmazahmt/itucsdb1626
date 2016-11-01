@@ -1,33 +1,90 @@
 #!/usr/bin/env python3
-from flask import Blueprint, render_template
-from datetime import datetime
-from flask import current_app
-from flask import request
+import foodle
+import psycopg2
+from psycopg2.extras import DictCursor
 
-from models import User
+from flask import Blueprint, render_template, current_app, request, make_response
+
+import bcrypt
+
 
 user_friends_controller = Blueprint('user_friends_controller', __name__)
 
-@user_friends_controller.route('/<int:id>/friends/', methods=['GET','POST'])
+@user_friends_controller.route('/<int:id>/friends/', methods=['GET'])
 def index(id):
-	user = User.One(id)
-	if request.method == 'GET':
-		friends = user.friends()
+	limit = request.args.get('limit') or 20
+	offset = request.args.get('offset') or 0
 
-	elif 'search_friend' in request.form:
-		str_s = request.form['search_friend']
-		friends = user.find_in_friends(str_s)
+	with psycopg2.connect(foodle.app.config['dsn']) as conn:
+		with conn.cursor(cursor_factory=DictCursor) as curs:
+			curs.execute(
+			"""
+			SELECT u.id, u.username, u.inserted_at
+        	FROM user_friends AS uf
+        	INNER JOIN users AS u ON u.id = uf.friend_id
+        	WHERE uf.user_id = %s
+        	AND uf.is_friend = TRUE
+        	LIMIT %s
+        	OFFSET %s
+        	""",
+        	[id, limit, offset])
+			friends = curs.fetchall()
 
-	requests = user.pending_requests()
-	friend_count = user.count_friends()
-	request_count = user.count_requests()
+			curs.execute(
+			"""
+			SELECT count(uf.id)
+        	FROM user_friends AS uf
+        	INNER JOIN users AS u ON u.id = uf.friend_id
+        	WHERE uf.user_id = %s 
+        	AND uf.is_friend = TRUE
+        	""",
+        	[id])
 
-	return render_template('/users/friends/index.html', friends = friends, requests = requests, friend_count = friend_count, request_count = request_count)
+			friend_count = curs.fetchone()
 
-@user_friends_controller.route('/<int:id>/addasfriend', methods=['POST'])
-def addasfriend(session_owner, id):
-    return None
+	return render_template('/users/friends/index.html', friends = friends, friend_count = friend_count)
 
-@user_friends_controller.route('/<int:id>/deletefriend', methods=['POST'])
-def deletefriend(session_owner, id):
-    return None
+@user_friends_controller.route('/<int:id>/friends/', methods=['POST'])
+def remove(id):
+	second_user_id = request.form['user_to_get']
+	with psycopg2.connect(foodle.app.config['dsn']) as conn:
+		with conn.cursor(cursor_factory=DictCursor) as curs:
+			curs.execute(
+			"""
+			DELETE FROM user_friends
+        	WHERE (user_id = %s
+        	AND friend_id = %s
+        	AND is_friend)
+        	OR (user_id = %s
+        	AND friend_id = %s
+        	AND is_friend)
+        	""",
+        	[id, second_user_id, second_user_id, id])
+    
+	return render_template('/users/friends/index.html')
+
+@user_friends_controller.route('/<int:id>/friends/search', methods=['POST'])
+def search(id):
+	limit = request.args.get('limit') or 20
+	offset = request.args.get('offset') or 0
+
+	string_to_search = request.form['search_friend']
+
+	with psycopg2.connect(foodle.app.config['dsn']) as conn:
+		with conn.cursor(cursor_factory=DictCursor) as curs:
+			curs.execute(
+			"""
+			SELECT user_id,username,inserted_at
+			FROM user_friends,users
+			WHERE friend_id = users.id
+			AND user_id = '%s'
+			AND username = %s
+			AND is_friend
+			LIMIT '%s'
+			OFFSET '%s'
+			""",
+			[id, string_to_search,  limit, offset])
+
+			friends = curs.fetchall()
+
+	return render_template('/users/friends/index.html', friends = friends)
