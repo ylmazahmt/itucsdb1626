@@ -1,5 +1,5 @@
-INSERT INTO users (username, password_digest)
-VALUES ('test', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya');
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('test', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
 
 INSERT INTO user_emails (user_id, email)
 VALUES (2, 'test@mail.com');
