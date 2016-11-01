@@ -12,7 +12,7 @@ users_controller = Blueprint('users_controller', __name__)
 @users_controller.route('/', methods=['GET'])
 def index():
     limit = request.args.get('limit') or 20
-    offset = request.args.get('offset') or 20
+    offset = request.args.get('offset') or 0
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -25,9 +25,17 @@ def index():
             """,
             [limit, offset])
 
-            results = curs.fetchall()
+            users = curs.fetchall()
 
-            return render_template('/users/index.html', users=results)
+            curs.execute(
+            """
+            SELECT count(id)
+            FROM users
+            """)
+
+            count = curs.fetchone()[0]
+
+            return render_template('/users/index.html', users=users, count=count)
 
 
 @users_controller.route('/<int:id>', methods=['GET'])
