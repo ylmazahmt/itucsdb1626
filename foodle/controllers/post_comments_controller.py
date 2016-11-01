@@ -32,7 +32,7 @@ def index():
 
             count = curs.fetchone()[0]
 
-            return render_template('/post_comments/index.html', post_comments=post_comments, count = post_comments)
+            return render_template('/post_comments/index.html', post_comments=post_comments, count=count)
 
 
 @post_comments_controller.route('/<int:id>', methods=['GET'])
