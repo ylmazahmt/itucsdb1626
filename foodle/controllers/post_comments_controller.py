@@ -15,8 +15,9 @@ def index():
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT *
-            FROM post_comments
+            SELECT pc.id, u.username, pc.post_id, pc.body
+            FROM post_comments AS pc
+            INNER JOIN users AS u ON pc.user_id = u.id
             LIMIT %s
             OFFSET %s
             """,
@@ -111,7 +112,7 @@ def update(id):
                 return "Entity not found.", 404
 
 
-@post_comments_controller.route('/<int:id>', methods=['GET'])
+@post_comments_controller.route('/<int:id>/edit', methods=['GET'])
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:

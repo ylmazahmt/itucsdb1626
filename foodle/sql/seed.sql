@@ -18,3 +18,6 @@ VALUES (2);
 
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 2);
+
+INSERT INTO post_comments (user_id, post_id, body)
+VALUES(1,1,'FIRSTONEFIRSTONE FIRST ONE v FIRST ONE FIRST ONEFIRST ONEFIRST ONE')
