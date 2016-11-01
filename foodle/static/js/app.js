@@ -66,6 +66,9 @@ function dispatchUpdate(entity, identifier) {
       .success(function (data, textStatus, xhr) {
         window.location.replace(xhr.getResponseHeader('location'))
       })
+      .fail(function (data, textStatus, xhr) {
+        alert('Username and password, both needs to be typed and be 7 to 20 characters long.')
+      })
     } else {
       //  Set focus to the password field
       $('label.password').children().focus()

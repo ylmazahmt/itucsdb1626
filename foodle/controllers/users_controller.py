@@ -67,9 +67,10 @@ def create():
     if not isinstance(username, str) or not isinstance(password, str):
         return "Request body is unprocessable.", 422
 
-    pattern = re.compile("^([A-Z][a-z][0-9]{5-20})")
+    username_pattern = re.compile("[a-zA-Z0-9]{3,20}")
+    password_pattern = re.compile("[a-zA-Z0-9]{7,20}")
 
-    if not pattern.match(password) or not pattern.match(username):
+    if not password_pattern.match(password) or not username_pattern.match(username):
         return "Username and password should be alphanumeric and be 5 to 20 characters long.", 422
 
     password_digest = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')

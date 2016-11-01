@@ -9,6 +9,7 @@
     <div class="row sub-header">
       <h5>Users&nbsp;<span>{{ count }} user{{ 's' if count > 1 else '' }} at total</span></h5>
     </div>
+    <a href="/users/new">Add new user</a>
     <div class="row small-up-1 large-up-4">
       {% for each_user in users %}
       <div class="column">
