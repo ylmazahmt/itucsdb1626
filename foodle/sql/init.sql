@@ -1,9 +1,6 @@
 
---  Drop cascade the `main` schema
-DROP SCHEMA public CASCADE;
-
---  Reinitialize a schema with name `main`
-CREATE SCHEMA public;
+--  Drop cascade all tables
+DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, posts, user_friends, check_ins CASCADE;
 
 --  Recall `uuid-ossp` extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
