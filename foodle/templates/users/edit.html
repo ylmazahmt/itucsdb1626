@@ -1,9 +1,38 @@
 {% extends "layout.html" %}
 
-{% block title %}Edit {{ user.username }}{% endblock %}
+{% block title %}Edit {{ user['username'] }}{% endblock %}
 
 {% block content %}
 
-<h2> Hello world!</h2>
+<form>
+  <div class="row">
+    <div class="large-4 columns show-for-large"><p></p></div>
+    <div class="large-4 medium-12 columns">
+      <h3>Edit user information</h3>
+      <div class="row">
+        <div class="large-12 columns">
+          <label class="username">Username
+            <input type="text" placeholder="5 to 20 characters" value="{{ user['username'] }}">
+          </label>
+        </div>
+        <div class="large-12 columns">
+          <label class="password">Password
+            <input type="password" placeholder="">
+          </label>
+        </div>
+        <div class="large-12 columns">
+          <label class="password-duplicate">Re-enter password
+            <input type="password" placeholder="">
+          </label>
+        </div>
+        <div class="large-12 columns" style="margin-top: 20px;">
+          <button onclick="dispatchUpdate('user', {{ user['id'] }})" type="button" class="success button float-right">Save</button>
+          <button type="button" class="alert button float-right" style="margin-right: 10px;" onclick="window.history.back();">Discard</button>
+        </div>
+      </div>
+    </div>
+    <div class="large-4 columns show-for-large"></div>
+  </div>
+</form>
 
 {% endblock %}

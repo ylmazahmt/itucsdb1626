@@ -118,6 +118,6 @@ def delete():
             """, [id])
 
             if curs.rowcount is not 0:
-                return redirect('/posts/index.html')
+                return "", 204
             else:
                 return "Entity not found.", 404
