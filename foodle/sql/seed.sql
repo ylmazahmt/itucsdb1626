@@ -19,20 +19,20 @@ VALUES (2);
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 2);
 
-INSERT INTO users (username, password_digest)
-VALUES ('gugar', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya');
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('gugar', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
 
 INSERT INTO user_emails (user_id, email)
 VALUES (3, 'gugar@mail.com');
 
-INSERT INTO users (username, password_digest)
-VALUES ('test1', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya');
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('test1', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
 
 INSERT INTO user_emails (user_id, email)
 VALUES (4, 'test1@mail.com');
 
-INSERT INTO users (username, password_digest)
-VALUES ('test2', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya');
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('test2', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
 
 INSERT INTO user_emails (user_id, email)
 VALUES (5, 'test2@mail.com');
