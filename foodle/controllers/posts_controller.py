@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import foodle
 import psycopg2
+from psycopg2.extras import DictCursor
 from flask import Blueprint, render_template, current_app, request, redirect
 
 posts_controller = Blueprint('posts_controller', __name__)
