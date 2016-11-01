@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask import Blueprint
 from foodle.db import init
 

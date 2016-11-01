@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask import Blueprint, render_template
 from datetime import datetime
 from flask import current_app

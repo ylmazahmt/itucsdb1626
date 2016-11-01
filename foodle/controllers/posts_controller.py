@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import foodle
 import psycopg2
 from flask import Blueprint, render_template, current_app, request, redirect
