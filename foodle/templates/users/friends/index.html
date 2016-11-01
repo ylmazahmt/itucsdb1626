@@ -3,45 +3,17 @@
 {% block title %}Friends{% endblock %}
 
 {% block content %}
-
+    
     <div class="row header">
-      <h5>People</h5>
-      <h6><span class="friends-pending">{{request_count}} pending requests</span></h6>
-    </div>
-        <div class="row header">
-          <table>
-            
-            {% for request in requests %}
-              <tbody>
-                <tr>
-                <td><img class="profile-image-small" src="https://scontent.xx.fbcdn.net/v/t1.0-1/p160x160/1237511_10151868918624660_239031100_n.jpg?oh=e17b00daf53561c0267e9ba3a204f27c&oe=58A37DAC" />
-                </td>
-                <td class="identity">
-                  <h5><a href="#">{{request.username}}</a></h5>
-                  <h6 class="identity-desc">Chief at <a class="identity-place">Ramada Hotel, Warsaw</a></h6>
-                  <h6 class="identity-location">Warsaw, Poland</h6>
-                  <p class="text-left subs">203k subscribers</p><p class="text-left pushes">27 pushes/month</p>
-                </td>
-
-                <form  method="POST">
-                <td class="text-center"><button class="add-friend" name="add_friend" ><i class="fa fa-plus" aria-hidden="true"></i></br>Add friend</button></td>
-                </form>
-
-                </tr>
-              </tbody>
-            {%endfor%}
-              
-            
-          </table>
-        </div>
-
-    <div class="row content">
       <div class="large-8 columns">
         <div class="row sub-header">
-          <h5>Your friends&nbsp;<span>{{friend_count}} friends at total</span></h5>
+          <div class="row sub-header">
+          <h5><a href="../friend_requests">Friend Requests&nbsp;</a><span></span></h5>
+          <a href="./"><h6><span class="friends-pending">Friends {{friend_count}} at total</span></h6></a>
+          </div>
         </div>
 
-        <form  method="POST">
+        <form action="search" method="POST">
         <div class="row small-up-1 large-up-4">
         <input type="text" name="search_friend" placeholder="Search friends">
         </div>
@@ -57,7 +29,8 @@
                 <p class="text-center">203k subscribers</p>
                   
                 <form  method="POST">
-                <td class="text-center"><button class="remove-friend" name="remove_friend"><i class="fa fa-minus" aria-hidden="true"></i></br>Remove friend</button></td>
+                  <input type="hidden" name = "user_to_get" value="{{friend.id}}">
+                  <td class="text-center"><button class="remove-friend" name="remove_friend"><i class="fa fa-minus" aria-hidden="true"></i></br>Remove friend</button></td>
                 </form>
 
               </div>
