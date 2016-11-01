@@ -3,7 +3,7 @@ import foodle
 import psycopg2
 from psycopg2.extras import DictCursor
 
-from flask import Blueprint, render_template, current_app, request
+from flask import Blueprint, render_template, current_app, request, make_response
 
 import bcrypt
 
@@ -76,7 +76,10 @@ def create():
 
             user = curs.fetchone()
 
-            return render_template('/users/show.html', user=user)
+            resp = make_response()
+            resp.headers['location'] = '/users/' + str(user['id'])
+
+            return resp, 201
 
 
 @users_controller.route('/new', methods=['GET'])

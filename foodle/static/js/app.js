@@ -10,4 +10,27 @@ function humanizeTimestamps() {
   }
 }
 
+function signup() {
+  const username = $('label.username').children().val()
+  const password = $('label.password').children().val()
+  const passwordDuplicate = $('label.password-duplicate').children().val()
+
+  if (password === passwordDuplicate) {
+    $.ajax({
+      method: 'POST',
+      url: '/users/',
+      data: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      contentType: 'application/json'
+    }).success(function (data, textStatus, xhr) {
+      window.location.replace(xhr.getResponseHeader('location'))
+    })
+  } else {
+    //  Set focus to the password field
+    $('label.password').children().focus()
+  }
+}
+
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,37 +10,45 @@
     <script src="https://use.typekit.net/fsh1huw.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
   </head>
-  <body>
+  <body style="background-color: rgb(74, 150, 60);">
     <form>
       <div class="row">
-        <div class="large-12 columns">
-          <label>Username
-            <input type="text" placeholder="">
-          </label>
+        <div class="large-6 columns show-for-large"><p></p></div>
+        <div class="large-4 medium-12 columns">
+          <div class="callout main-entity" style="background-color: rgb(230, 230, 230);">
+            <h3>Sign Up</h3>
+            <div class="row">
+              <div class="large-12 columns">
+                <label class="username">Username
+                  <input type="text" placeholder="5 to 20 characters">
+                </label>
+              </div>
+              <div class="large-12 columns">
+                <label class="password">Password
+                  <input type="password" placeholder="">
+                </label>
+              </div>
+              <div class="large-12 columns">
+                <label class="password-duplicate">Re-enter password
+                  <input type="password" placeholder="">
+                </label>
+              </div>
+              <div class="large-12 columns" style="margin-top: 20px;">
+                <button onclick="signup()" type="button" class="button float-right" style="background-color: green">Sign Up</button>
+                <button type="button" class="button float-right" style="margin-right: 10px;" onclick="window.location.href='/';">Go back to sign in</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="large-12 columns">
-          <label>Password
-            <input type="password" placeholder="">
-          </label>
-        </div>
-        <div class="large-12 columns">
-          <label>Re-enter password
-            <input type="password" placeholder="">
-          </label>
-        </div>
-        <div class="large-12 columns">
-          <label>Email
-            <input type="text" placeholder="example@mail.com">
-          </label>
-        </div>
-        <div class="large-12 columns">
-          <button type="button" class="button">Sign Up</button>
-        </div>
+        <div class="large-2 columns show-for-large"></div>
       </div>
     </form>
 
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/dist/what-input.js') }}"></script>
     <script src="{{ url_for('static', filename='js/dist/foundation.min.js') }}"></script>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>
