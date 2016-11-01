@@ -34,16 +34,42 @@ function signup() {
   }
 }
 
-function dispatchDelete(a, b) {
-  if (a === 'user') {
+function dispatchDelete(entity, identifier) {
+  if (entity === 'user') {
     $.ajax({
       method: 'DELETE',
-      url: '/users/' + b
+      url: '/users/' + identifier
     })
     .success(function (data, textStatus, xhr) {
       alert('Operation completed.')
       window.location.replace('/users')
     })
+  }
+}
+
+function dispatchUpdate(entity, identifier) {
+  if (entity === 'user') {
+    const username = $('label.username').children().val()
+    const password = $('label.password').children().val()
+    const passwordDuplicate = $('label.password-duplicate').children().val()
+
+    if (password === passwordDuplicate) {
+      $.ajax({
+        method: 'PUT',
+        url: window.location.pathname.split('/').splice(0, 3).join('/'),
+        data: JSON.stringify({
+          username: username,
+          password: password
+        }),
+        contentType: 'application/json'
+      })
+      .success(function (data, textStatus, xhr) {
+        window.location.replace(xhr.getResponseHeader('location'))
+      })
+    } else {
+      //  Set focus to the password field
+      $('label.password').children().focus()
+    }
   }
 }
 
