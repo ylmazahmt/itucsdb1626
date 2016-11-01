@@ -24,7 +24,7 @@ def index():
 
             curs.execute(
             """
-            SELECT count(*)
+            SELECT count(id)
             FROM posts
             """)
 
@@ -99,6 +99,7 @@ def update(id):
                 return render_template('/posts/show.html', post=curs.fetchone())
             else:
                 return "Entity not found.", 404
+
 
 @posts_controller.route('/<int:id>/edit', methods=['GET'])
 def edit(id):
