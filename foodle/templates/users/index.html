@@ -15,9 +15,7 @@
         <div class="callout friend-entity-large">
           <img class="profile-image-small" src="https://scontent.xx.fbcdn.net/v/t1.0-1/p160x160/1237511_10151868918624660_239031100_n.jpg?oh=e17b00daf53561c0267e9ba3a204f27c&oe=58A37DAC" />
           <h5><a href="/users/{{ each_user['id'] }}">{{ each_user['username'] }}</a></h5>
-          <h6 class="friend-entity-desc">Chief at <a class="friend-entity-place">Ramada Hotel, Warsaw</a></h6>
-          <h6 class="friend-entity-location">Warsaw, Poland</h6>
-          <p class="text-center">203k subscribers</p>
+          <button type="button" onclick="dispatchDelete('user', {{ each_user['id'] }})" class="button float-right" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
       </div>
       {% endfor %}

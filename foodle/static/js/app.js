@@ -24,12 +24,26 @@ function signup() {
         password: password
       }),
       contentType: 'application/json'
-    }).success(function (data, textStatus, xhr) {
+    })
+    .success(function (data, textStatus, xhr) {
       window.location.replace(xhr.getResponseHeader('location'))
     })
   } else {
     //  Set focus to the password field
     $('label.password').children().focus()
+  }
+}
+
+function dispatchDelete(a, b) {
+  if (a === 'user') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/users/' + b
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/users')
+    })
   }
 }
 

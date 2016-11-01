@@ -106,6 +106,7 @@ def delete(id):
             """,
             [id])
 
-            print(curs.fetchone())
-
-            return "", 204
+            if curs.rowcount is 1:
+                return "", 204
+            else:
+                return "Entity not found.", 404

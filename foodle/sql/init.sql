@@ -17,7 +17,7 @@ CREATE TABLE users(
 --  Create `user_emails` table
 CREATE TABLE user_emails(
     id serial PRIMARY KEY,
-    user_id integer NOT NULL REFERENCES users(id),
+    user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     email character varying(40) NOT NULL,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
@@ -28,9 +28,8 @@ CREATE INDEX user_emails_email_idx ON user_emails(email);
 
 --  Create `user_activations` table
 CREATE TABLE user_activations(
-    user_id integer PRIMARY KEY,
-    inserted_at timestamp DEFAULT now() NOT NULL,
-    FOREIGN KEY ("user_id") REFERENCES users(id)
+    user_id integer PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    inserted_at timestamp DEFAULT now() NOT NULL
 );
 
 --  Create `user_images` table
