@@ -1,8 +1,7 @@
+import foodle
+import psycopg2
 from flask import Blueprint, render_template
-from datetime import datetime
 from flask import current_app
-
-from models import User
 
 application_controller = Blueprint('application_controller', __name__)
 

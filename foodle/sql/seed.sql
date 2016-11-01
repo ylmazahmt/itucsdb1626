@@ -1,5 +1,8 @@
-INSERT INTO users (username, password_digest, email)
-VALUES ('test', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', 'test@mail.com');
+INSERT INTO users (username, password_digest)
+VALUES ('test', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya');
+
+INSERT INTO user_emails (user_id, email)
+VALUES (2, 'test@mail.com');
 
 INSERT INTO user_images (user_id, data)
 VALUES (1, '00000');
@@ -15,9 +18,3 @@ VALUES (2);
 
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 2);
-
-INSERT INTO user_friends (user_id, friend_id, is_friend) 
-VALUES (2,3,True);
-
-INSERT INTO user_friends (user_id, friend_id, is_friend) 
-VALUES (3,2,True);

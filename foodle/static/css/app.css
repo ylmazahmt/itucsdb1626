@@ -1,0 +1,367 @@
+body {
+  margin-top: 200px;
+  font-family: "acumin-pro";
+  background-color: rgb(233, 235, 238);
+}
+
+h1 {
+  font-family: "acumin-pro";
+}
+
+div.top-bar {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  position: fixed;
+  background-color: rgb(74, 150, 60);
+  padding-top: 50px;
+  -webkit-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  -moz-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+}
+
+div.top-bar ul {
+  background-color: transparent;
+}
+
+div.top-bar li {
+  padding: 0;
+}
+
+div.top-bar li.menu-text {
+  font-size: 30pt;
+  font-weight: 200;
+  color: white;
+}
+
+div.top-bar li.menu-text a {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+div.top-bar input {
+  width: 400px;
+  max-width: 400px;
+  border-radius: 10px;
+  border-color: transparent;
+  font-weight: 200;
+}
+
+div.top-bar input:focus {
+  box-shadow: 0px 0px 0px black;
+}
+
+div.top-bar a {
+  color: white;
+}
+
+div.callout.main-entity {
+  border-radius: 3px;
+  border-color: transparent;
+  border-width: 0;
+  box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);
+  margin-bottom: 40px;
+}
+
+div.callout.main-entity h5 {
+  font-size: 10pt;
+  display: inline-block;
+  font-weight: 500;
+}
+
+div.callout.main-entity p {
+  font-size: 10pt;
+  font-weight: 300;
+  text-align: justify;
+}
+
+div.callout.main-entity img.post-image {
+  border: 1px rgb(74, 150, 60);
+  margin-bottom: 10px;
+}
+
+div.callout.main-entity p.cost {
+  display: inline-block;
+  background-color: rgb(74, 150, 60);
+  color: white;
+  border-radius: 3px;
+  margin-left: 10px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 10pt;
+  font-weight: 700;
+}
+
+div.row.content {
+  margin-top: 10px;
+}
+
+div.main-entity-image {
+  padding-right: 25px;
+}
+
+div.main-entity-identity {
+  padding-right: 0;
+  padding-left: 0px;
+  margin-left: -15px;
+}
+
+p.identity {
+  font-size: 10pt;
+  margin-bottom: 0.2rem;
+}
+
+span.name {
+  font-size: 12pt;
+  font-weight: 400;
+}
+
+span.place {
+  color: rgb(74, 150, 60);
+  font-weight: 600;
+}
+
+p.timestamp {
+  color: rgb(175, 175, 175);
+  font-size: 9pt;
+  font-weight: 500;
+}
+
+div.callout.main-entity p.score {
+  font-weight: 700;
+  font-size: 24pt;
+}
+
+p.results {
+  margin-left: 20px;
+}
+
+a.button.float-center.social-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: transparent;
+  color: rgb(74, 150, 60);
+  margin-bottom: 0;
+}
+
+a.button.float-center.social-button:hover {
+  background-color: rgb(74, 150, 60);
+  color: white;
+}
+
+div.place-background {
+  background-image: url("http://www.pdcdc.org/wp-content/uploads/2016/03/restaurant-939435_960_720.jpg");
+  padding:400 200px 0 200px;
+
+}
+
+h4.place-name {
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+h4.place-city {
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+h4.place-point {
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+div.callout.friend-entity-large {
+  border-radius: 3px;
+  border-color: transparent;
+  border-width: 0;
+  box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);
+  transition: box-shadow 0.5s;
+  -webkit-transition: box-shadow 0.5s;
+  margin-bottom: 40px;
+}
+
+div.callout.friend-entity-large:hover {
+  box-shadow: 5px 5px 35px -8px rgba(0,0,0,0.6);
+}
+
+div.callout.friend-entity-large img {
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+div.callout.friend-entity-large h5 {
+  line-height: 100%;
+}
+
+div.callout.friend-entity-large h5 a {
+  font-size: 10pt;
+  font-weight: 500;
+  color: black;
+  line-height: 8px;
+}
+
+div.callout.friend-entity-large h5 a:hover {
+  color: rgb(74, 150, 60);
+}
+
+div.callout.friend-entity-large h6.friend-entity-desc {
+  font-size: 9pt;
+  font-weight: 300;
+}
+
+div.callout.friend-entity-large h6.friend-entity-desc a.friend-entity-place {
+  font-size: 9pt;
+  font-weight: 500;
+  color: rgb(74, 150, 60);
+}
+
+div.callout.friend-entity-large h6.friend-entity-desc a.friend-entity-place:hover {
+  color: black;
+}
+
+div.callout.friend-entity-large h6.friend-entity-location {
+  font-size: 9pt;
+  font-weight: 500;
+}
+
+div.callout.friend-entity-large p {
+  color: white;
+  background-color: rgb(74, 150, 60);
+  border-radius: 3px;
+  font-size: 9.5pt;
+}
+
+div.row.header {
+  margin-top: 25px;
+}
+
+div.row.header h5 {
+  font-size: 30pt;
+  font-weight: 200;
+}
+
+div.row.header span.friends-pending {
+  color: white;
+  background-color: rgb(0, 97, 188);
+  border-radius: 3px;
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  font-size: 10pt;
+  font-weight: 500;
+}
+
+div.row.sub-header {
+  margin-top: 20px;
+}
+
+div.row.sub-header h5 {
+  font-size: 20pt;
+  font-weight: 200;
+}
+
+div.row.sub-header h5 span {
+  font-size: 10pt;
+  font-weight: 500;
+}
+
+table img {
+  border-radius: 3px;
+}
+
+table img.profile-image-small {
+  height: 120px;
+}
+
+table {
+  border-radius: 3px;
+}
+
+table td.identity h5 {
+  line-height: 100%;
+}
+
+table td.identity a {
+  font-size: 10pt;
+  font-weight: 500;
+  color: black;
+  line-height: 8px;
+}
+
+table td.identity a:hover {
+  color: rgb(74, 150, 60);
+}
+
+table td.identity h6.identity-desc {
+  font-size: 9pt;
+  font-weight: 300;
+}
+
+table td.identity h6.identity-desc a.identity-place {
+  font-size: 9pt;
+  font-weight: 500;
+  color: rgb(74, 150, 60);
+}
+
+table td.identity h6.identity-location {
+  font-size: 9pt;
+  font-weight: 500;
+}
+
+table td.identity p {
+  padding: 1px 10px 1px 10px;
+  margin-right: 5px;
+  display: inline-block;
+  color: white;
+
+  border-radius: 3px;
+  font-size: 9.5pt;
+}
+
+table td i.fa.fa-plus {
+  font-size: 20pt;
+}
+
+table td.identity p.subs {
+  background-color: rgb(74, 150, 60);
+}
+
+table td.identity p.pushes {
+  background-color: rgb(0, 97, 188);
+}
+
+table td button.add-friend {
+  padding: 5px;
+  border-radius: 3px;
+  color: white;
+  background-color: rgb(74, 150, 60);
+}
+
+div.callout.load-more {
+  margin-top: -20px;
+  margin-bottom: 100px;
+  border-color: transparent;
+  background-color: transparent;
+  font-size: 20pt;
+  color: rgb(160, 160, 160);
+}
+
+div.callout.load-more i {
+  position: absolute;
+  animation: rotatePermanently linear 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotatePermanently {
+  0% {
+    transform: rotate(-360deg);
+  }
+
+  75% {
+    transform: rotate(-140deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
