@@ -15,4 +15,4 @@ if __name__ == "__main__":
     init()
     bootstrap()
 
-    app.run(port=port, debug=debug, threaded=True)
+    app.run(host='0.0.0.0', port=port, debug=debug)
