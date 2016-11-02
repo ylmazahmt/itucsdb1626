@@ -40,7 +40,7 @@ def index(id):
         	""",
         	[id])
 
-			friend_count = curs.fetchone()
+			friend_count = curs.fetchone()[0]
 
 	return render_template('/users/friends/index.html', friends = friends, friend_count = friend_count)
 
