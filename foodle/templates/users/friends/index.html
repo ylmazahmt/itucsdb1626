@@ -3,7 +3,7 @@
 {% block title %}Friends{% endblock %}
 
 {% block content %}
-    
+
     <div class="row header">
       <div class="large-8 columns">
         <div class="row sub-header">
@@ -27,7 +27,7 @@
                 <h6 class="friend-entity-desc">Chief at <a class="friend-entity-place">Ramada Hotel, Warsaw</a></h6>
                 <h6 class="friend-entity-location">Warsaw, Poland</h6>
                 <p class="text-center">203k subscribers</p>
-                  
+
                 <form  method="POST">
                   <input type="hidden" name = "user_to_get" value="{{friend.id}}">
                   <td class="text-center"><button class="remove-friend" name="remove_friend"><i class="fa fa-minus" aria-hidden="true"></i></br>Remove friend</button></td>
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-        
+
     <div class="large-4 columns show-for-large"></div>
 
 {% endblock %}

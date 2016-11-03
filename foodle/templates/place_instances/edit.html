@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %} Place Instance nr. {{ place_instance['id'] }} {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+
+    <form>
+      <label>Name
+        <input type = "character varying(255)" placeholder="" value="{{ place_instance['name'] }}">
+      </label>
+      <label >Capacity
+        <input type = "character varying(255)" placeholder="" value="{{ place_instance['capacity'] }}">
+      </label>
+      <button class="button success" onclick="dispatchUpdate('place_instance', {{ place_instance['id'] }})">Submit changes</button>
+    </form>
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
+
+{% endblock %}
