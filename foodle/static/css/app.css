@@ -39,13 +39,7 @@ div.top-bar li.menu-text {
   color: white;
 }
 
-div.top-bar li.menu-text a {
-  margin-left: 100px;
-  margin-right: 100px;
-}
-
 div.top-bar input {
-  width: 400px;
   max-width: 400px;
   border-radius: 10px;
   border-color: transparent;

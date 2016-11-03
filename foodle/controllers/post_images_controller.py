@@ -5,10 +5,10 @@ from psycopg2.extras import DictCursor
 
 from flask import Blueprint, render_template, current_app, request, make_response
 
-post_image_controller = Blueprint('post_image_controller', __name__)
+post_images_controller = Blueprint('post_images_controller', __name__)
 
 
-@post_image_controller.route('/', methods=['GET'])
+@post_images_controller.route('/', methods=['GET'])
 def index():
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
@@ -38,7 +38,7 @@ def index():
         return render_template('/post_images/index.html', post_images = post_images, post_image_count=post_image_count)
 
 
-@post_image_controller.route('/<int:id>', methods=['GET'])
+@post_images_controller.route('/<int:id>', methods=['GET'])
 def show(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -58,7 +58,7 @@ def show(id):
                 return "Entity not found.", 404
 
 
-@post_image_controller.route('/', methods=['POST'])
+@post_images_controller.route('/', methods=['POST'])
 def create():
     # print('hey')
     link = request.json.get('link')
@@ -86,12 +86,12 @@ def create():
             return resp, 201
 
 
-@post_image_controller.route('/new', methods=['GET'])
+@post_images_controller.route('/new', methods=['GET'])
 def new():
     return render_template('/post_images/new.html')
 
 
-@post_image_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
+@post_images_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update(id):
     link = request.json.get('link')
 
@@ -118,7 +118,7 @@ def update(id):
                 return "Entity not found.", 404
 
 
-@post_image_controller.route('/<int:id>/edit', methods=['GET'])
+@post_images_controller.route('/<int:id>/edit', methods=['GET'])
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -138,7 +138,7 @@ def edit(id):
                 return "Entity not found.", 404
 
 
-@post_image_controller.route('/<int:id>', methods=['DELETE'])
+@post_images_controller.route('/<int:id>', methods=['DELETE'])
 def delete(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
