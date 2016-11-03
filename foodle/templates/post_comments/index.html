@@ -11,12 +11,14 @@
 
   <div class="large-4 medium-12 columns">
     <p>Total number of post comments: {{ count }}</p>
-
+    <a href="/post_comments/new">Add new comment</a>
     {% for each_post_comment in post_comments %}
     <div class="callout">
       <p><a href="/post_comments/{{ each_post_comment['id'] }}">{{ each_post_comment['body'] }}</a></p>
       <p>{{ each_post_comment['username'] }}</p>
       <p>{{ each_post_comment['post_id'] }}</p>
+      <button type="button" onclick="dispatchDelete('post_comment', {{ each_post_comment['id'] }})">Delete</button>
+
     </div>
     {% endfor %}
   </div>

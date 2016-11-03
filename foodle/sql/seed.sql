@@ -1,6 +1,12 @@
 INSERT INTO users (username, password_digest, ip_address)
 VALUES ('test', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
 
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('test22', '$s5jpfGihkNo4M3EEya', '0.0.0.0');
+
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('test23', '$2b$123N/fbLZ21CmTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
+
 INSERT INTO user_emails (user_id, email)
 VALUES (2, 'test@mail.com');
 
@@ -19,8 +25,14 @@ VALUES (2);
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 2);
 
+INSERT INTO posts (body, user_id)
+VALUES('Great place to eat and spent time', 3);
+
 INSERT INTO post_comments (user_id, post_id, body)
-VALUES(1,1,'FIRSTONEFIRSTONE FIRST ONE v FIRST ONE FIRST ONEFIRST ONEFIRST ONE')
+VALUES(1,1,'First comment for testing did i say that this is the first comment for testing');
+
+INSERT INTO post_comments (user_id, post_id, body)
+VALUES(2,2,'Another comment for testing for html positions');
 
 INSERT INTO users (username, password_digest, ip_address)
 VALUES ('gugar', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');

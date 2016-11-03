@@ -58,7 +58,10 @@ def show(id):
 
 @post_comments_controller.route('/', methods=['POST'])
 def create():
-    if not isinstance(request.json.get('body'), str) or not isinstance(request.json.get('user_id'), int):
+    user_id = request.json['user_id']
+    body = request.json['body']
+
+    if not isinstance(body, str) or not isinstance(user_id, int):
         return "Request body is unprocessable", 422
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
@@ -67,27 +70,27 @@ def create():
             """
             INSERT INTO post_comments
             (user_id, post_id, body)
-            VALUES (%(user_id)s, %(post_id)s, %(body)s)
+            VALUES (%s, %s, %s)
             RETURNING id
-            """, request.json)
+            """,
+            [user_id, post_id, body])
 
-            if curs.rowcount is not 0:
-                resp = make_response()
-                resp.headers['location'] = '/post_comments/' + str(curs.fetchone()['id'])
+            post_comment = curs.fetchone()
 
-                return resp, 201
-            else:
-                return "Entity not found.", 404
+            resp = make_response()
+            resp.headers['location'] = '/post_comments/' + str(post_comment['id'])
+
+            return resp, 201
 
 
 @post_comments_controller.route('/new', methods=['GET'])
 def new():
-    return render_template('/new.html')
+    return render_template('/post_comments/new.html')
 
 
 @post_comments_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update(id):
-    if request.json.get('id') is not None or not isinstance(request.json.get('post_id'), int) or not isinstance(request.json.get('user_id'), int) or isinstance(request.json.get('body'), str):
+    if request.json.get('id') is not None or not isinstance(request.json.get('body'), str):
         return "Request is unprocessable.", 422
 
     request.json['id'] = id
@@ -97,9 +100,7 @@ def update(id):
             curs.execute(
             """
             UPDATE post_comments
-            SET user_id = %(user_id)s,
-                post_id = %(post_id)s,
-                body = %(body)s
+            SET body = %(body)s
             WHERE id = %(id)s
             """, request.json)
 
@@ -133,14 +134,15 @@ def edit(id):
 
 
 @post_comments_controller.route('/<int:id>', methods=['DELETE'])
-def delete():
+def delete(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
             DELETE FROM post_comments
             WHERE id = %s
-            """, [id])
+            """,
+            [id])
 
             if curs.rowcount is not 0:
                 return "", 204
