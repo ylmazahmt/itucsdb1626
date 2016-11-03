@@ -1,6 +1,6 @@
 
 --  Drop cascade all tables
-DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, posts, user_friends, check_ins CASCADE;
+DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, posts, user_friends, check_ins, post_comments  CASCADE;
 
 --  Recall `uuid-ossp` extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -74,6 +74,15 @@ CREATE TABLE check_ins(
     user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     place_id integer NOT NULL REFERENCES places(id) ON DELETE CASCADE ON UPDATE CASCADE,
     inserted_at timestamp DEFAULT now() NOT NULL
+);
+
+--  Create `post_comments` table
+CREATE TABLE post_comments(
+  id serial PRIMARY KEY,
+  user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  post_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  body text,
+  inserted_at timestamp DEFAULT now() NOT NULL
 );
 
 CREATE INDEX check_ins_user_id_idx ON check_ins(user_id);
