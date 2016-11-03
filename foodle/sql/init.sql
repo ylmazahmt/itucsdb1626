@@ -65,6 +65,7 @@ CREATE TABLE post_images(
     id serial PRIMARY KEY,
     post_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
     link text NOT NULL,
+    ip_addr inet NOT NULL,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
 
@@ -88,11 +89,11 @@ CREATE TABLE check_ins(
 
 --  Create `post_comments` table
 CREATE TABLE post_comments(
-  id serial PRIMARY KEY,
-  user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  post_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  body text,
-  inserted_at timestamp DEFAULT now() NOT NULL
+    id serial PRIMARY KEY,
+    user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    post_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    body text,
+    inserted_at timestamp DEFAULT now() NOT NULL
 );
 
 --  Create `place_instances` table
@@ -107,3 +108,9 @@ CREATE TABLE place_instances(
 
 CREATE INDEX check_ins_user_id_idx ON check_ins(user_id);
 CREATE INDEX check_ins_place_id_idx ON check_ins(place_id);
+
+CREATE TABLE IF NOT EXISTS ipv4_blacklist(
+    id serial PRIMARY KEY,
+    ip_addr inet NOT NULL UNIQUE,
+    inserted_at timestamp DEFAULT now() NOT NULL
+);

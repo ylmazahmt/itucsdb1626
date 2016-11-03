@@ -25,8 +25,8 @@ VALUES (2);
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 2);
 
-INSERT INTO post_images (post_id, link)
-VALUES (1,'http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg');
+INSERT INTO post_images (post_id, link, ip_addr)
+VALUES (1,'http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg', '0.0.0.0');
 
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 3);

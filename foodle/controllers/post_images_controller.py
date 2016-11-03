@@ -17,8 +17,10 @@ def index():
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT *
-            FROM post_images
+            SELECT pi.*
+            FROM post_images AS pi
+            LEFT JOIN ipv4_blacklist AS b ON pi.ip_addr = b.ip_addr
+            WHERE b.id IS NULL
             LIMIT %s
             OFFSET %s
             """,
@@ -27,8 +29,10 @@ def index():
 
             curs.execute(
             """
-            SELECT count(id)
-            FROM post_images
+            SELECT count(pi.id)
+            FROM post_images AS pi
+            LEFT JOIN ipv4_blacklist AS b ON pi.ip_addr = b.ip_addr
+            WHERE b.id IS NULL
             LIMIT %s
             OFFSET %s
             """,
@@ -72,11 +76,11 @@ def create():
             curs.execute(
             """
             INSERT INTO post_images
-            (link, post_id)
-            VALUES (%s, %s)
-            RETURNING *
+            (link, post_id, ip_addr)
+            VALUES (%s, %s, %s)
+            RETURNING id
             """,
-            [link, post_id])
+            [link, post_id, request.access_route[0]])
 
             post_image = curs.fetchone()
 
@@ -96,6 +100,7 @@ def update(id):
     link = request.json.get('link')
 
     request.json['id'] = id
+    request.json['ip_addr'] = request.access_route[0]
 
     if not isinstance(link, str):
         return "Request body is unprocessable.", 422
@@ -105,7 +110,8 @@ def update(id):
             curs.execute(
             """
             UPDATE post_images
-            SET link = %(link)s
+            SET link = %(link)s,
+                ip_addr = %(ip_addr)s
             WHERE id = %(id)s
             """, request.json)
 
