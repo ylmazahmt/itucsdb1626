@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %} Post Images {% endblock %}
+
+{% block content %}
+<div class="row content">
+  <div class="large-2 columns show for large">
+    <p></p>
+  </div>
+  <div class="large-8 columns">
+    <a href="/post_images/new">Add new post image</a>
+    {% for each_post_image in post_images %}
+    <div class="column">
+      <div class="callout main-entity-large">
+        <img class="large-12 columns main-entity-image" src= {{ each_post_image['link'] }}>
+        <h5><a href="/post_images/{{ each_post_image['id'] }}">{{ each_post_image['post_id']  }}</a></h5>
+        <button type="button" onclick="dispatchDelete('post_image', {{ each_post_image[id] }})" class="button float-right" style="border-radius: 2000px; background-color: white; color:black; box-shadow: 6px 6px 50px -16px rgba(0,0,0,0.3);"><i class="fa fa-thrash" aria-hidden="true"></i></button>
+        <button type="button" onclick="window.location.replace('/post_images/{{ each_post_image['id'] }}/edit')" class="button float-right" style="border-radius: 2000px; background-color: white; color:black; box-shadow: 6px 6px 50px -16px rgba(0,0,0,0.3);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="large-2 columns show for large"></div>
+</div>
+{% endblock %}
