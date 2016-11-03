@@ -10,7 +10,7 @@ import bcrypt
 
 user_friend_requests_controller = Blueprint('user_friend_requests_controller', __name__)
 
-@user_friend_requests_controller.route('/<int:id>/friend_requests/', methods=['GET'])
+@user_friend_requests_controller.route('/<int:id>/friend_requests', methods=['GET'])
 def index(id):
 	limit = request.args.get('limit') or 20
 	offset = request.args.get('offset') or 0
@@ -39,12 +39,12 @@ def index(id):
 			""",
 			[id])
 
-			request_count = curs.fetchone()
+			request_count = curs.fetchone()[0]
 			
 	return render_template('/users/friends/requests_index.html', requests = requests, request_count = request_count)
 
 
-@user_friend_requests_controller.route('/<int:id>/friend_requests/', methods=['POST'])
+@user_friend_requests_controller.route('/<int:id>/friend_requests', methods=['POST'])
 def accept_friend_request(id):
 	second_user_id = request.form['user_to_get']
 	with psycopg2.connect(foodle.app.config['dsn']) as conn:

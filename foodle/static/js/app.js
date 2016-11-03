@@ -1,4 +1,3 @@
-'use strict';
 
 const timestamps = _.map($('.timestamp'), function (element) {
   return element.innerHTML;
@@ -56,6 +55,23 @@ function dispatchCreate(entity) {
   return false;
 }
 
+function addComment() {
+  const body = $('label.body').children().val()
+
+  $.ajax({
+    method: 'POST',
+    url: '/post_comments/',
+    data: JSON.stringify({
+      body: body
+    }),
+    contentType: 'application/json'
+  })
+  .success(function (data, textStatus, xhr) {
+    window.location.replace(xhr.getResponseHeader('location'))
+  })
+}
+
+
 function dispatchDelete(entity, identifier) {
   if (entity === 'user') {
     $.ajax({
@@ -76,6 +92,16 @@ function dispatchDelete(entity, identifier) {
       window.location.replace('/post_images')
     })
   }
+  else if (entity === 'post_comment') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/post_comments/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/post_comments')
+    })
+  }
 }
 
 function dispatchUpdate(entity, identifier) {
@@ -87,7 +113,7 @@ function dispatchUpdate(entity, identifier) {
     if (password === passwordDuplicate) {
       $.ajax({
         method: 'PUT',
-        url: window.location.pathname.split('/').splice(0, 3).join('/'),
+        url: '/users/' + identifier,
         data: JSON.stringify({
           username: username,
           password: password
@@ -112,6 +138,19 @@ function dispatchUpdate(entity, identifier) {
       url: '/post_images/' + identifier,
       data: JSON.stringify({
         link: link
+      })
+    })
+    .success(function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader('location')
+    })
+  } else if (entity === 'post_comment') {
+    const body = $('label.body').children().val()
+
+    $.ajax({
+      method: 'PUT',
+      url: '/post_comments/' + identifier,
+      data: JSON.stringify({
+        body: body
       }),
       contentType: 'application/json'
     })
