@@ -35,7 +35,7 @@ def index(id):
 			SELECT count(uf.id)
         	FROM user_friends AS uf
         	INNER JOIN users AS u ON u.id = uf.friend_id
-        	WHERE uf.user_id = %s 
+        	WHERE uf.user_id = %s
         	AND uf.is_friend = TRUE
         	""",
         	[id])
@@ -60,7 +60,7 @@ def remove(id):
         	AND is_friend)
         	""",
         	[id, second_user_id, second_user_id, id])
-    
+
 	return render_template('/users/friends/index.html')
 
 @user_friends_controller.route('/<int:id>/friends/search', methods=['POST'])

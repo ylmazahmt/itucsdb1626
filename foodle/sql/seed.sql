@@ -72,3 +72,6 @@ VALUES (2,4,'TRUE');
 
 INSERT INTO user_friends(user_id, friend_id, is_friend)
 VALUES (5,2,'FALSE');
+
+INSERT INTO place_instances (user_id, place_id, name, capacity)
+VALUES ('1', '1','Suadiye Mc', '200');

@@ -7,7 +7,6 @@ from flask import Blueprint, render_template, current_app, request, make_respons
 
 import bcrypt
 
-
 user_friend_requests_controller = Blueprint('user_friend_requests_controller', __name__)
 
 @user_friend_requests_controller.route('/<int:id>/friend_requests', methods=['GET'])
@@ -29,7 +28,7 @@ def index(id):
         	[id, limit, offset])
 
 			requests = curs.fetchall()
-			
+
 			curs.execute(
 			"""
 			SELECT count(uf.id)
@@ -40,7 +39,7 @@ def index(id):
 			[id])
 
 			request_count = curs.fetchone()[0]
-			
+
 	return render_template('/users/friends/requests_index.html', requests = requests, request_count = request_count)
 
 
