@@ -8,8 +8,8 @@ from flask import Blueprint, render_template, current_app, request, make_respons
 post_image_controller = Blueprint('post_image_controller', __name__)
 
 
-@post_image_controller.route('/<int:id>/post_images/', methods=['GET'])
-def index(id):
+@post_image_controller.route('post_images/', methods=['GET'])
+def index():
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
 
@@ -112,6 +112,26 @@ def update(id):
                 resp.headers['location'] = '/post_images/' + str(id)
 
                 return resp
+            else:
+                return "Entity not found.", 404
+
+
+@post_image_controller.route('/<int:id>/edit', methods=['GET'])
+def edit(id):
+    with psycopg2.connect(foodle.app.config['dsn']) as conn:
+        with conn.cursor(cursor_factory=DictCursor) as curs:
+            curs.execute(
+            """
+            SELECT id, post_id, link, inserted_at
+            FROM post_images
+            WHERE id = %s
+            """,
+            [id])
+
+            post_image = curs.fetchone()
+
+            if post_image is not None:
+                return render_template('/post_images/edit.html', post_image=post_image)
             else:
                 return "Entity not found.", 404
 
