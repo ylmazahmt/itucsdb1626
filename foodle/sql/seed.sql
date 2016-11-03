@@ -19,6 +19,9 @@ VALUES (2);
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 2);
 
+INSERT INTO post_images (post_id, link)
+VALUES (1,'http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg');
+
 INSERT INTO users (username, password_digest, ip_address)
 VALUES ('gugar', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
 
