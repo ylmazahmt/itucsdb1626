@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %} Place Instances {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+    <p>Total number of place instances: {{ count }}</p>
+    <a href="/place_instances/new">Add new place instance</a>
+    {% for each_place_instance in place_instances %}
+    <div class="callout">
+      <p><a href="/place_instances/{{ each_place_instance['id'] }}">Place Instance</a></p>
+      <p>User id : {{ each_place_instance['user_id'] }}</p>
+      <p>Place id : {{ each_place_instance['place_id'] }}</p>
+      <p>Name : {{ each_place_instance['name'] }}</p>
+      <p>Capacity : {{ each_place_instance['capacity'] }}</p>
+
+      <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
+
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
+
+{% endblock %}

@@ -1,5 +1,5 @@
-INSERT INTO users (username, password_digest)
-VALUES ('test', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya');
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('test', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
 
 INSERT INTO user_emails (user_id, email)
 VALUES (2, 'test@mail.com');
@@ -18,3 +18,43 @@ VALUES (2);
 
 INSERT INTO posts (body, user_id)
 VALUES('Great place to eat and spent time', 2);
+
+
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('gugar', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
+
+INSERT INTO user_emails (user_id, email)
+VALUES (3, 'gugar@mail.com');
+
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('test1', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
+
+INSERT INTO user_emails (user_id, email)
+VALUES (4, 'test1@mail.com');
+
+INSERT INTO users (username, password_digest, ip_address)
+VALUES ('test2', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
+
+INSERT INTO user_emails (user_id, email)
+VALUES (5, 'test2@mail.com');
+
+INSERT INTO user_friends(user_id, friend_id, is_friend)
+VALUES (1,2,'FALSE');
+
+INSERT INTO user_friends(user_id, friend_id, is_friend)
+VALUES (3,2,'TRUE');
+
+INSERT INTO user_friends(user_id, friend_id, is_friend)
+VALUES (2,3,'TRUE');
+
+INSERT INTO user_friends(user_id, friend_id, is_friend)
+VALUES (4,2,'TRUE');
+
+INSERT INTO user_friends(user_id, friend_id, is_friend)
+VALUES (2,4,'TRUE');
+
+INSERT INTO user_friends(user_id, friend_id, is_friend)
+VALUES (5,2,'FALSE');
+
+INSERT INTO place_instances (user_id, place_id, name, capacity)
+VALUES ('1', '1','Suadiye Mc', '200');

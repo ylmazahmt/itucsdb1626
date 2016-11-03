@@ -9,7 +9,7 @@ posts_controller = Blueprint('posts_controller', __name__)
 @posts_controller.route('/', methods=['GET'])
 def index():
     limit = request.args.get('limit') or 20
-    offset = request.args.get('offset') or 20
+    offset = request.args.get('offset') or 0
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -118,6 +118,6 @@ def delete():
             """, [id])
 
             if curs.rowcount is not 0:
-                return redirect('/posts/index.html')
+                return "", 204
             else:
                 return "Entity not found.", 404
