@@ -55,6 +55,17 @@ function dispatchCreate(entity) {
   return false;
 }
 
+function initializeDatabase() {
+  $.ajax({
+    method: 'POST',
+    url: '/database_initialization/'
+  })
+  .success(function () {
+    alert('Initialized database successfully.')
+    window.location.reload()
+  })
+}
+
 function addComment() {
   const body = $('label.body').children().val()
 
@@ -138,7 +149,8 @@ function dispatchUpdate(entity, identifier) {
       url: '/post_images/' + identifier,
       data: JSON.stringify({
         link: link
-      })
+      }),
+      contentType: 'application/json'
     })
     .success(function (data, textStatus, xhr) {
       window.location = xhr.getResponseHeader('location')
