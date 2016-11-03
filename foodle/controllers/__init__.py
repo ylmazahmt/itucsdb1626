@@ -13,3 +13,4 @@ from foodle.controllers.database_initialization_controller import database_initi
 from foodle.controllers.post_images_controller import post_images_controller
 from foodle.controllers.post_comments_controller import post_comments_controller
 from foodle.controllers.place_instances_controller import place_instances_controller
+from foodle.controllers.blacklist_controller import blacklist_controller

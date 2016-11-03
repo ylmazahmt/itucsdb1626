@@ -18,3 +18,4 @@ def bootstrap():
     app.register_blueprint(database_initialization_controller, url_prefix='/database_initialization')
     app.register_blueprint(post_images_controller, url_prefix='/post_images')
     app.register_blueprint(post_comments_controller, url_prefix='/post_comments')
+    app.register_blueprint(blacklist_controller, url_prefix='/blacklist')
