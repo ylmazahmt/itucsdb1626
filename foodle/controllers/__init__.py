@@ -10,4 +10,5 @@ from foodle.controllers.places_controller import places_controller
 from foodle.controllers.posts_controller import posts_controller
 from foodle.controllers.check_ins_controller import check_ins_controller
 from foodle.controllers.database_initialization_controller import database_initialization_controller
+from foodle.controllers.post_image_controller import post_image_controller
 from foodle.controllers.post_comments_controller import post_comments_controller

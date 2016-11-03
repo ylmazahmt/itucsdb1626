@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %} Post Images {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+
+    <form>
+      <label class="link">Link
+        <input type="text" placeholder="Enter the URL of the image">
+      </label>
+      <label class="post_id">Post Identifier
+        <input type="text" placeholder="Enter the associated post identifier">
+      </label>
+      <button class="button success" onclick="dispatchCreate('post_image')">Create image</button>
+    </form>
+  </div>
+
+  <div class="large-4 columns show-for-large">
+  </div>
+</div>
+
+{%  endblock %}

@@ -15,4 +15,8 @@ if __name__ == "__main__":
     init()
     bootstrap()
 
+    app.config['WTF_CSRF_ENABLED'] = False
+
+    print(app.config.get('WTF_CSRF_ENABLED'))
+
     app.run(host='0.0.0.0', port=port, debug=debug)
