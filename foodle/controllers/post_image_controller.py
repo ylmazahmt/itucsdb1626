@@ -8,7 +8,7 @@ from flask import Blueprint, render_template, current_app, request, make_respons
 post_image_controller = Blueprint('post_image_controller', __name__)
 
 
-@post_image_controller.route('post_images/', methods=['GET'])
+@post_image_controller.route('/', methods=['GET'])
 def index():
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
@@ -60,9 +60,11 @@ def show(id):
 
 @post_image_controller.route('/', methods=['POST'])
 def create():
-    link = request.json['link']
-    post_id = request.json['post_id']
-    if not isinstance(link, str):
+    # print('hey')
+    link = request.json.get('link')
+    post_id = request.json.get('post_id')
+
+    if not isinstance(link, str) and not isinstance(post_id, int):
         return "Request body is unprocessable.", 422
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
@@ -78,7 +80,7 @@ def create():
 
             post_image = curs.fetchone()
 
-            resp=make_response()
+            resp = make_response()
             resp.headers['location'] = '/post_images/' + str(post_image['id'])
 
             return resp, 201
@@ -93,7 +95,7 @@ def new():
 def update(id):
     link = request.json.get('link')
 
-    request.json['id']= id
+    request.json['id'] = id
 
     if not isinstance(link, str):
         return "Request body is unprocessable.", 422
@@ -103,7 +105,7 @@ def update(id):
             curs.execute(
             """
             UPDATE post_images
-            SET link = %(link)s,
+            SET link = %(link)s
             WHERE id = %(id)s
             """, request.json)
 
