@@ -1,10 +1,7 @@
 
 --  Drop cascade all tables
-<<<<<<< HEAD
-DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, posts, user_friends, check_ins, post_images CASCADE;
-=======
-DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, posts, user_friends, check_ins, post_comments  CASCADE;
->>>>>>> 55660b395655432e3792c89bde918cb33456b778
+
+DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, posts, user_friends, check_ins, post_images, post_comments CASCADE;
 
 --  Recall `uuid-ossp` extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
