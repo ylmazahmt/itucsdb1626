@@ -36,19 +36,18 @@ function signup() {
 function dispatchCreate(entity) {
   if (entity === 'post_image') {
     const link = $('label.link').children().val()
-    const post_id = parseInt($('label.post_id').children().val())
 
     $.ajax({
       method: 'POST',
       url: '/post_images/',
-      body: JSON.stringify({
+      data: JSON.stringify({
         link: link,
-        post_id: post_id
+        post_id: 1
       }),
       contentType: 'application/json'
     })
     .success(function (data, textStatus, xhr) {
-      // window.location = xhr.getResponseHeader('location')
+      window.location = xhr.getResponseHeader('location')
     })
   }
 

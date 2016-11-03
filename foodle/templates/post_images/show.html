@@ -11,8 +11,9 @@
     <a href="/post_images/new">Add new post image</a>
     <div class="column">
       <div class="callout main-entity-large">
-        <img class="large-12 columns main-entity-image" src= "{{ post_image['link'] }}">
-        <h5>Post No: <a href="/post_images/{{ post_image['id'] }}">{{ post_image['post_id']  }}</a></h5>
+        <p><a href="/post_images">Show all post images</a></p>
+        <img class="large-12 columns main-entity-image" src= "{{ post_image['link'] }}" href="/post_comments/{{ post_image['id'] }}" />
+        <!-- <h5>Post No: <a href="/post_images/{{ post_image['id'] }}">{{ post_image['post_id']  }}</a></h5> -->
         <button type="button" onclick="dispatchDelete('post_image', {{ post_image['post_id'] }})" class="button float-right" style="border-radius: 2000px; background-color: white; color: black; box-shadow: 6px 6px 50px -16px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i></button>
         <button type="button" onclick="window.location.replace('/post_images/{{ post_image['id'] }}/edit')" class="button float-right" style="border-radius: 2000px; background-color: white; color:black; box-shadow: 6px 6px 50px -16px rgba(0,0,0,0.3);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
       </div>
