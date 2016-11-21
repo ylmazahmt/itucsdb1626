@@ -62,3 +62,6 @@ target/
 
 # Vagrant
 .vagrant/
+
+# Node.js runtime
+generation/node_modules
