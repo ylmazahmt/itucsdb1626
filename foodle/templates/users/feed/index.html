@@ -9,72 +9,32 @@
     <p></p>
   </div>
   <div class="large-6 columns">
+    {% for each_feed in feeds %}
     <div class="callout main-entity">
       <div class="row callout-header">
         <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
         <div class="large-8 columns main-entity-identity">
           <p class="identity">
-            <span class="name">Muzu Seven Muz</span>, <!--
------------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
-          <p class="timestamp">5 hours ago</p>
+            <a href="/users/{{ each_feed.user_id }}"><span class="name">{{ each_feed.display_name }}</span></a>, <!--
+-----------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <a href="/places/{{ each_feed.place_id }}"><span class="place">{{ each_feed.place_name }}<span class="place"></a></p>
+          <p class="timestamp">{{ each_feed.inserted_at }}</p>
         </div>
         <div class="large-2 columns">
-          <p class="score">4.6</p>
+          <p class="score">{{ each_feed.post_score / 10 }}</p>
         </div>
       </div>
-      <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
-      <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
+      <h5>{{ each_feed.post_title }}</h5><p class="cost">€ {{ each_feed.cost_of_meal }}</p>
+      {% for each_feed_image in each_feed.post_images %}
+      <img class="post-image" src="{{ each_feed_image.link }}" />
+      {% endfor %}
+      <p>{{ each_feed.post_body }}</p>
       <div class="row">
         <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
         <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
         <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
       </div>
     </div>
-    <div class="callout main-entity">
-      <div class="row callout-header">
-        <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-        <div class="large-8 columns main-entity-identity">
-          <p class="identity">
-            <span class="name">Muzu Seven Muz</span>, <!--
------------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
-          <p class="timestamp">5 hours ago</p>
-        </div>
-        <div class="large-2 columns">
-          <p class="score">4.6</p>
-        </div>
-      </div>
-      <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
-      <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
-      <div class="row">
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
-      </div>
-    </div>
-    <div class="callout main-entity">
-      <div class="row callout-header">
-        <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-        <div class="large-8 columns main-entity-identity">
-          <p class="identity">
-            <span class="name">Muzu Seven Muz</span>, <!--
------------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
-          <p class="timestamp">5 hours ago</p>
-        </div>
-        <div class="large-2 columns">
-          <p class="score">4.6</p>
-        </div>
-      </div>
-      <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
-      <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
-      <div class="row">
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
-      </div>
-    </div>
+    {% endfor %}
     <div class="callout load-more text-center">
       <i class="fa fa-spinner" aria-hidden="true"></i>
     </div>

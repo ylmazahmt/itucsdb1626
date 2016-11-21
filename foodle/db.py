@@ -9,7 +9,7 @@ def init():
         with conn.cursor() as curs:
             curs.execute(open("foodle/sql/init.sql", "r").read())
 
-            curs.execute("INSERT INTO users (username, password_digest, ip_address) VALUES (%s, %s, %s) RETURNING id", ["admin", bcrypt.hashpw("test".encode('utf-8'), bcrypt.gensalt()).decode('utf-8'), "0.0.0.0"])
+            curs.execute("INSERT INTO users (username, display_name, password_digest, ip_address) VALUES (%s, %s, %s, %s) RETURNING id", ["admin", "Admin User", bcrypt.hashpw("test".encode('utf-8'), bcrypt.gensalt()).decode('utf-8'), "0.0.0.0"])
 
             id = curs.fetchone()[0]
 
