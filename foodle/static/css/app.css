@@ -46,6 +46,32 @@ div.top-bar a {
   color: white;
 }
 
+div.top-bar-extend {
+  top: 100px;
+  left: 50%;
+  margin-left: -400px;
+  width: 800px;
+  position: fixed;
+  z-index: 1000;
+  -webkit-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  -moz-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  border-radius: 10px;
+  visibility: hidden;
+  background-color: transparent;
+}
+
+div.top-bar-extend-cell {
+  visibility: hidden;
+  height: 45px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 0.2px solid rgb(223, 225, 228);
+}
+
+div.top-bar-extend-cell:hover {
+  background-color: rgb(240, 240, 240);
+}
+
 div.callout.main-entity {
   border-radius: 3px;
   border-color: transparent;

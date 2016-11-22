@@ -167,10 +167,31 @@ function dispatchUpdate(entity, identifier) {
     })
     .success(function (data, textStatus, xhr) {
       window.location = xhr.getResponseHeader('location')
-    })
+    });
   }
 
   return false;
 }
+
+$('#search').on('keydown', function (keyEvent) {
+  setTimeout(function () {
+    const result = $('#search').val();
+    console.log('result: ' + result)
+
+    if (result !== '') {
+      $.ajax({
+        method: 'GET',
+        url: '/search?parameter=' + result
+      })
+      .success(function (data, textStatus, xhr) {
+        $('.top-bar-extend').css('visibility', 'visible');
+        $('.top-bar-extend-cell').css('visibility', 'visible');
+      });
+    } else {
+      $('.top-bar-extend').css('visibility', 'hidden');
+      $('.top-bar-extend-cell').css('visibility', 'hidden');
+    }
+  }, 5);
+})
 
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);
