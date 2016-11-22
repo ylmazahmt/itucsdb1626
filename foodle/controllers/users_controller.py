@@ -45,28 +45,37 @@ def show(id):
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT id, username, inserted_at, ip_address
-            FROM users
-            WHERE id = %s
+            SELECT u.username,
+                   u.display_name,
+                   count(uf.id) number_of_friends,
+                   ui.data image_data,
+                   max(p.inserted_at) last_posted,
+                   count(p.id) number_of_posts
+            FROM users u
+            LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
+            LEFT OUTER JOIN user_friends uf ON uf.user_id = u.id
+            LEFT OUTER JOIN posts p ON p.user_id = u.id
+            GROUP BY u.id, ui.user_id
+            HAVING u.id = %s;
             """,
             [id])
 
             user = curs.fetchone()
 
+            print(user)
+
             curs.execute(
             """
-            SELECT email
-            FROM user_emails
-            WHERE user_id = %s
-            ORDER BY inserted_at DESC
-            LIMIT 1
+            SELECT *
+            FROM feed f
+            WHERE f.user_id = %s
             """,
             [id])
 
-            email = curs.fetchone()
+            feed= curs.fetchall()
 
             if user is not None:
-                return render_template('/users/show.html', user=user, email=email)
+                return ""
             else:
                 return "Entity not found.", 404
 
