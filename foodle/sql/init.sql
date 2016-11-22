@@ -38,7 +38,7 @@ CREATE TABLE user_activations(
 --  Create `user_images` table
 CREATE TABLE user_images(
     user_id integer PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    data bytea NOT NULL,
+    url character varying(255) NOT NULL,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
 
@@ -124,12 +124,12 @@ CREATE TABLE IF NOT EXISTS ipv4_blacklist(
 CREATE VIEW feed AS
     SELECT u.id user_id,
            u.display_name,
-           ui.data user_image,
+           ui.url user_image,
            po.id post_id,
            po.inserted_at,
            po.title post_title,
            po.body post_body,
-           po.cost cost_of_meal, 
+           po.cost cost_of_meal,
            po.score post_score,
            pl.name place_name,
            pl.id place_id

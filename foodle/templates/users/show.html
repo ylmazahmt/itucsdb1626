@@ -12,10 +12,10 @@
   <!-- User card -->
   <div class="medium-12 large-3 columns">
     <div class="callout main-entity" style="height: 445px;">
-      <div class="profile-image-meta" style="background-image: url('https://static.vidivodo.com/vidivodo-videos/uploads/2016/6/17/7/287D60B81F0DAD36/1466150234gTh61226267-620x410jpg.jpg'); margin: -16px; margin-bottom: 0;"></div>
+      <div class="profile-image-meta" style="background-image: url('{{ user.image_url }}'); margin: -16px; margin-bottom: 0;"></div>
       <h1 style="margin-top: 20px; margin-bottom: 0;">{{ user.display_name }}</h1>
       <h3 style="color: grey;">@{{ user.username }}</h3>
-      <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Istanbul</a></h5>
+      <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Sacramento, CA</a></h5>
       <div class="row profile-image-meta-alt">
         <div class="small-4 columns text-center" style="border-right: 0.5px solid black">
           <h3>{{ user.number_of_posts }}</h3>

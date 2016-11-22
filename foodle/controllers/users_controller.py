@@ -48,7 +48,7 @@ def show(id):
             SELECT u.username,
                    u.display_name,
                    count(uf.id) number_of_friends,
-                   ui.data image_data,
+                   ui.url image_url,
                    max(p.inserted_at) last_posted,
                    count(p.id) number_of_posts
             FROM users u

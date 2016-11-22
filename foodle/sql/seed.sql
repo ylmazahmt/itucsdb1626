@@ -1,11 +1,14 @@
 INSERT INTO users (username, display_name, password_digest, ip_address)
-VALUES ('test', 'Alexane Becker', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
+VALUES ('test', 'Emma Roberts', '$2b$12$N/fbLZ21CmeFVH9yHvlZxuqpOTo96698ZKes5jpfGihkNo4M3EEya', '0.0.0.0');
 
 INSERT INTO user_emails (user_id, email)
 VALUES (2, 'test@mail.com');
 
-INSERT INTO user_images (user_id, data)
-VALUES (1, '00000');
+INSERT INTO user_images (user_id, url)
+VALUES (1, 'https://static.vidivodo.com/vidivodo-videos/uploads/2016/6/17/7/287D60B81F0DAD36/1466150234gTh61226267-620x410jpg.jpg');
+
+INSERT INTO user_images (user_id, url)
+VALUES (2, 'https://images5.alphacoders.com/294/294527.jpg');
 
 INSERT INTO places (name, description, user_id)
 VALUES ('McDonalds', 'The worst burger place in the world. Seriously.', 1);
