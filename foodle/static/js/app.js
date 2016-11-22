@@ -173,52 +173,60 @@ function dispatchUpdate(entity, identifier) {
   return false;
 }
 
+var semaphore = 0;
+
 $('#search').on('keydown', function (keyEvent) {
   setTimeout(function () {
     const result = $('#search').val();
 
     if (result !== '') {
+      semaphore += 1;
+
       $.ajax({
         method: 'GET',
         url: '/search?parameter=' + result
       })
       .success(function (data, textStatus, xhr) {
-        for (var i = 0; i < 5; ++i) {
-          $('.cell-' + i).css('border-radius', '0');
-          $('.cell-' + i).css('visibility', 'hidden');
-        }
+        semaphore -= 1;
 
-        $('#search').css('color', 'black');
+        if (!semaphore) {
+          for (var i = 0; i < 5; ++i) {
+            $('.cell-' + i).css('border-radius', '0');
+            $('.cell-' + i).css('visibility', 'hidden');
+          }
 
-        $('.top-bar-extend').css('visibility', 'visible');
+          $('#search').css('color', 'black');
 
-        var dataCount = 0;
+          $('.top-bar-extend').css('visibility', 'visible');
 
-        $('.cell-0').css('border-radius', '10px 10px 0 0');
+          var dataCount = 0;
 
-        for (var i = 0; i < data[0].length; ++i, ++dataCount) {
-          $('.cell-' + dataCount).css('visibility', 'visible');
-          $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[0][i][2];
-          $('.cell-' + dataCount + ' span.username')[0].innerHTML = '@' + data[0][i][1];
-          $('.cell-' + dataCount + ' span.username').css('color', 'rgb(170, 170, 170)');
-          $('.cell-' + dataCount + ' a').attr('href', '/users/' + data[0][i][0]);
-          $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'url(' + data[0][i][3] + ')');
-        }
+          $('.cell-0').css('border-radius', '10px 10px 0 0');
 
-        for (var i = 0; i < data[1].length; ++i, ++dataCount) {
-          $('.cell-' + dataCount).css('visibility', 'visible');
-          $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[1][i][0];
-          $('.cell-' + dataCount + ' span.username')[0].innerHTML = data[1][i][1];
-          $('.cell-' + dataCount + ' a').attr('href', '/places/1');
-          $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'url(' + data[1][i][2] + ')');
-        }
+          for (var i = 0; i < data[0].length; ++i, ++dataCount) {
+            $('.cell-' + dataCount).css('visibility', 'visible');
+            $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[0][i][2];
+            $('.cell-' + dataCount + ' span.username')[0].innerHTML = '@' + data[0][i][1];
+            $('.cell-' + dataCount + ' span.username').css('color', 'rgb(170, 170, 170)');
+            $('.cell-' + dataCount + ' a').attr('href', '/users/' + data[0][i][0]);
+            $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'url(' + data[0][i][3] + ')');
+          }
 
-        if (dataCount === 1) {
-          $('.cell-0').css('border-radius', '10px');
-        } else if (dataCount === 0) {
-          $('#search').css('color', 'red');
-        } else {
-          $('.cell-' + (dataCount - 1)).css('border-radius', '0 0 10px 10px');
+          for (var i = 0; i < data[1].length; ++i, ++dataCount) {
+            $('.cell-' + dataCount).css('visibility', 'visible');
+            $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[1][i][0];
+            $('.cell-' + dataCount + ' span.username')[0].innerHTML = data[1][i][1];
+            $('.cell-' + dataCount + ' a').attr('href', '/places/1');
+            $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'url(' + data[1][i][2] + ')');
+          }
+
+          if (dataCount === 1) {
+            $('.cell-0').css('border-radius', '10px');
+          } else if (dataCount === 0) {
+            $('#search').css('color', 'red');
+          } else {
+            $('.cell-' + (dataCount - 1)).css('border-radius', '0 0 10px 10px');
+          }
         }
       });
     } else {
@@ -226,6 +234,7 @@ $('#search').on('keydown', function (keyEvent) {
       $('.top-bar-extend-cell').css('visibility', 'hidden');
     }
   }, 5);
-})
+});
 
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);
+$('#search').removeAttr('disabled');
