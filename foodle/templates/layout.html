@@ -14,11 +14,31 @@
       <input id="search" type="search" placeholder="Search people, restaurants and places..." style="display: inline;">
     </div>
     <div class="top-bar-extend">
-      <div class="top-bar-extend-cell cell-0" style="border-radius: 10px 10px 0 0;"></div>
-      <div class="top-bar-extend-cell cell-1"></div>
-      <div class="top-bar-extend-cell cell-2"></div>
-      <div class="top-bar-extend-cell cell-3"></div>
-      <div class="top-bar-extend-cell cell-4" style="border-bottom: 0px; border-radius: 0 0 10px 10px;"></div>
+      <div class="row top-bar-extend-cell cell-0" style="border-radius: 10px 10px 0 0;">
+        <div class="small-2 columns">
+          <div class="profile-image-search" style="background-image: url('https://images5.alphacoders.com/294/294527.jpg');"></div>
+        </div>
+        <div class="small-10 columns">
+          <p>Emma Roberts</p></br>
+          <p><span class="username">@test</span></p>
+        </div>
+      </div>
+      <div class="row top-bar-extend-cell cell-1">
+        <div class="small-1 columns"></div>
+        <div class="small-11 columns"></div>
+      </div>
+      <div class="row top-bar-extend-cell cell-2">
+        <div class="small-3 columns"></div>
+        <div class="small-9 columns"></div>
+      </div>
+      <div class="row top-bar-extend-cell cell-3">
+        <div class="small-3 columns"></div>
+        <div class="small-9 columns"></div>
+      </div>
+      <div class="row top-bar-extend-cell cell-4" style="border-bottom: 0px; border-radius: 0 0 10px 10px;">
+        <div class="small-3 columns"></div>
+        <div class="small-9 columns"></div>
+      </div>
     </div>
 
     {% block content %}{% endblock %}

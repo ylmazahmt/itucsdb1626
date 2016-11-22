@@ -49,8 +49,8 @@ div.top-bar a {
 div.top-bar-extend {
   top: 100px;
   left: 50%;
-  margin-left: -400px;
-  width: 800px;
+  margin-left: -250px;
+  width: 500px;
   position: fixed;
   z-index: 1000;
   -webkit-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
@@ -63,13 +63,45 @@ div.top-bar-extend {
 
 div.top-bar-extend-cell {
   visibility: hidden;
-  height: 45px;
+  height: 60px;
   background-color: rgba(255, 255, 255, 0.95);
   border-bottom: 0.2px solid rgb(223, 225, 228);
 }
 
 div.top-bar-extend-cell:hover {
   background-color: rgb(240, 240, 240);
+}
+
+div.top-bar-extend-cell .columns {
+  padding: 0;
+}
+
+div.top-bar-extend-cell .profile-image-search {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 19px;
+  margin-top: 11px;
+  height: 42px;
+  width: 42px;
+  border-radius: 21px;
+}
+
+div.top-bar-extend-cell .small-10 {
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+div.top-bar-extend-cell p {
+  margin-bottom: 0;
+  display: inline;
+  vertical-align: middle;
+  font-size: 13pt;
+}
+
+div.top-bar-extend-cell span.username {
+  font-size: 10pt;
+  color: rgb(200, 200, 200);
 }
 
 div.callout.main-entity {
