@@ -11,20 +11,7 @@
   </head>
   <body>
     <div class="top-bar">
-      <div class="top-bar-left">
-        <ul class="menu">
-          <li class="menu-text"><a href="/">Foodle</a></li>
-          <li><input type="search" placeholder="Search people, restaurants and places"></li>
-        </ul>
-      </div>
-      <div class="top-bar-right">
-        <ul class="menu">
-          <li><a href="/users">Users</a></li>
-          <li><a href="/post_comments">Post Comments</a></li>
-          <li><a href="/post_images">Post Images</a></li>
-          <li><button onclick="initializeDatabase()">Initialize DB</button></li>
-        </ul>
-      </div>
+      <input type="search" placeholder="Search people, restaurants and places..." style="display: inline;">
     </div>
 
     {% block content %}{% endblock %}
