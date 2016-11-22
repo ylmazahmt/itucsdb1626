@@ -1,0 +1,15 @@
+{
+  "name": "foodle_generator",
+  "version": "1.0.0",
+  "description": "Generator routine for foodle.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "test"
+  },
+  "keywords": [
+    "gen"
+  ],
+  "author": "itucsdb1626",
+  "license": "MIT"
+}
