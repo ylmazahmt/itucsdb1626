@@ -62,8 +62,6 @@ def show(id):
 
             user = curs.fetchone()
 
-            print(user)
-
             curs.execute(
             """
             SELECT *
@@ -72,10 +70,10 @@ def show(id):
             """,
             [id])
 
-            feed= curs.fetchall()
+            feeds = curs.fetchall()
 
             if user is not None:
-                return ""
+                return render_template('/users/show.html', user=user, feeds=feeds)
             else:
                 return "Entity not found.", 404
 

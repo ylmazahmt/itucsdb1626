@@ -17,35 +17,46 @@
       <h3 style="color: grey;">@{{ user.username }}</h3>
       <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Istanbul</a></h5>
       <div class="row profile-image-meta-alt">
-        <div class="small-4 columns text-center" style="border-right: 0.5px solid black"><h3>4</h3><p style="text-align: center;">friends</p></div>
-        <div class="small-4 columns text-center"><h3>2</h3><p style="text-align: center;">posts</p></div>
-        <div class="small-4 columns text-center" style="border-left: 0.5px solid black"><h3>70%</h3><p style="text-align: center;">activity</p></div>
+        <div class="small-4 columns text-center" style="border-right: 0.5px solid black">
+          <h3>{{ user.number_of_posts }}</h3>
+          <p style="text-align: center;">{{ 'posts' if user.number_of_posts > 1 else 'post' }}</p>
+        </div>
+        <div class="small-4 columns text-center">
+          <h3>{{ user.number_of_friends }}</h3>
+          <p style="text-align: center;">{{ 'friends' if user.number_of_posts > 1 else 'friend' }}</p>
+        </div>
+        <div class="small-4 columns text-center" style="border-left: 0.5px solid black">
+          <h3>70%</h3>
+          <p style="text-align: center;">activity</p>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- User feed -->
   <div class="medium-12 large-6 columns">
+    {% for each_feed in feeds %}
     <div class="callout main-entity">
       <div class="row callout-header">
         <div class="large-10 columns main-entity-identity" style="margin: 0; padding: 1rem; padding-bottom: 0;">
           <p class="identity">
-            <span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">Themogarden Molic Pub Restaurant<span class="place"></p>
-          <p class="timestamp">2016-11-22 00:39:45.978998</p>
+            <a href="/places/{{ each_feed.place_id }}"><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  {{ each_feed.place_name }}</span></a>
+          <p class="timestamp">{{ each_feed.inserted_at }}</p>
         </div>
         <div class="large-2 columns">
-          <p class="score">4.6</p>
+          <p class="score">{{ each_feed.post_score / 10 }}</p>
         </div>
       </div>
-      <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
+      <h5>{{ each_feed.post_title }}</h5><p class="cost">€ {{ each_feed.cost_of_meal }}</p>
       <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
+      <p>{{ each_feed.post_body }}</p>
       <div class="row">
         <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
         <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
         <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
       </div>
     </div>
+    {% endfor %}
   </div>
 
 
