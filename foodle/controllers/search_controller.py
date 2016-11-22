@@ -32,8 +32,9 @@ def index():
 
                     curs.execute(
                     """
-                    SELECT p.name, p.description
+                    SELECT p.name, p.description, pi.url
                     FROM places p
+                    LEFT OUTER JOIN place_images pi ON p.id = pi.place_id
                     WHERE p.name ILIKE %s OR
                           p.description ILIKE %s ESCAPE '='
                     LIMIT %s

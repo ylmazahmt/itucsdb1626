@@ -1,6 +1,6 @@
 
 --  Drop cascade all tables
-DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, posts, user_friends, check_ins, post_images, post_comments, place_instances CASCADE;
+DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, user_friends, check_ins, post_images, post_comments, place_instances CASCADE;
 DROP VIEW IF EXISTS feed;
 
 --  Recall `uuid-ossp` extension
@@ -53,6 +53,12 @@ CREATE TABLE places(
 
 -- Create `places.user_id` index
 CREATE INDEX places_user_id_idx ON places(user_id);
+
+CREATE TABLE place_images(
+    place_id serial PRIMARY KEY REFERENCES places(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    url character varying(255) NOT NULL,
+    inserted_at timestamp DEFAULT now() NOT NULL
+);
 
 -- Create `posts` table
 CREATE TABLE posts(

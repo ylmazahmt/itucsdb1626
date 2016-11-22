@@ -188,9 +188,9 @@ $('#search').on('keydown', function (keyEvent) {
           $('.cell-' + i).css('visibility', 'hidden');
         }
 
-        $('.top-bar-extend').css('visibility', 'visible');
+        $('#search').css('color', 'black');
 
-        console.log(data[0].length)
+        $('.top-bar-extend').css('visibility', 'visible');
 
         var dataCount = 0;
 
@@ -200,6 +200,7 @@ $('#search').on('keydown', function (keyEvent) {
           $('.cell-' + dataCount).css('visibility', 'visible');
           $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[0][i][2];
           $('.cell-' + dataCount + ' span.username')[0].innerHTML = '@' + data[0][i][1];
+          $('.cell-' + dataCount + ' span.username').css('color', 'rgb(170, 170, 170)');
           $('.cell-' + dataCount + ' a').attr('href', '/users/' + data[0][i][0]);
           $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'url(' + data[0][i][3] + ')');
         }
@@ -209,11 +210,13 @@ $('#search').on('keydown', function (keyEvent) {
           $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[1][i][0];
           $('.cell-' + dataCount + ' span.username')[0].innerHTML = data[1][i][1];
           $('.cell-' + dataCount + ' a').attr('href', '/places/1');
-          $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'none');
+          $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'url(' + data[1][i][2] + ')');
         }
 
         if (dataCount === 1) {
           $('.cell-0').css('border-radius', '10px');
+        } else if (dataCount === 0) {
+          $('#search').css('color', 'red');
         } else {
           $('.cell-' + (dataCount - 1)).css('border-radius', '0 0 10px 10px');
         }

@@ -1,7 +1,6 @@
 const faker = require('faker');
 
 function generate() {
-
   return {
     username: faker.name.firstName() + ' ' + faker.name.lastName(),
     inserted_at: new Date(),

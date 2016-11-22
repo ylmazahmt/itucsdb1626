@@ -13,6 +13,9 @@ VALUES (2, 'https://images5.alphacoders.com/294/294527.jpg');
 INSERT INTO places (name, description, user_id)
 VALUES ('McDonalds', 'The worst burger place in the world. Seriously.', 1);
 
+INSERT INTO place_images (place_id, url)
+VALUES (1, 'https://pbs.twimg.com/profile_images/658746945565954048/Zrf2h3RD_400x400.jpg');
+
 INSERT INTO check_ins (user_id, place_id)
 VALUES (1, 1);
 
