@@ -53,10 +53,6 @@ div.top-bar-extend {
   width: 500px;
   position: fixed;
   z-index: 1000;
-  -webkit-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
-  -moz-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
-  box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
-  border-radius: 10px;
   visibility: hidden;
   background-color: transparent;
 }
@@ -64,8 +60,11 @@ div.top-bar-extend {
 div.top-bar-extend-cell {
   visibility: hidden;
   height: 60px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.96);
   border-bottom: 0.2px solid rgb(223, 225, 228);
+  -webkit-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  -moz-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
 }
 
 div.top-bar-extend-cell:hover {
@@ -84,12 +83,11 @@ div.top-bar-extend-cell .profile-image-search {
   margin-top: 11px;
   height: 42px;
   width: 42px;
-  border-radius: 21px;
+  border-radius: 2px;
 }
 
-div.top-bar-extend-cell .small-10 {
-  margin-top: 3px;
-  margin-bottom: 10px;
+a, a:focus, a:hover {
+  color: black;
 }
 
 div.top-bar-extend-cell p {

@@ -176,7 +176,6 @@ function dispatchUpdate(entity, identifier) {
 $('#search').on('keydown', function (keyEvent) {
   setTimeout(function () {
     const result = $('#search').val();
-    console.log('result: ' + result)
 
     if (result !== '') {
       $.ajax({
@@ -184,8 +183,40 @@ $('#search').on('keydown', function (keyEvent) {
         url: '/search?parameter=' + result
       })
       .success(function (data, textStatus, xhr) {
+        for (var i = 0; i < 5; ++i) {
+          $('.cell-' + i).css('border-radius', '0');
+          $('.cell-' + i).css('visibility', 'hidden');
+        }
+
         $('.top-bar-extend').css('visibility', 'visible');
-        $('.top-bar-extend-cell').css('visibility', 'visible');
+
+        console.log(data[0].length)
+
+        var dataCount = 0;
+
+        $('.cell-0').css('border-radius', '10px 10px 0 0');
+
+        for (var i = 0; i < data[0].length; ++i, ++dataCount) {
+          $('.cell-' + dataCount).css('visibility', 'visible');
+          $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[0][i][2];
+          $('.cell-' + dataCount + ' span.username')[0].innerHTML = '@' + data[0][i][1];
+          $('.cell-' + dataCount + ' a').attr('href', '/users/' + data[0][i][0]);
+          $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'url(' + data[0][i][3] + ')');
+        }
+
+        for (var i = 0; i < data[1].length; ++i, ++dataCount) {
+          $('.cell-' + dataCount).css('visibility', 'visible');
+          $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[1][i][0];
+          $('.cell-' + dataCount + ' span.username')[0].innerHTML = data[1][i][1];
+          $('.cell-' + dataCount + ' a').attr('href', '/places/1');
+          $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'none');
+        }
+
+        if (dataCount === 1) {
+          $('.cell-0').css('border-radius', '10px');
+        } else {
+          $('.cell-' + (dataCount - 1)).css('border-radius', '0 0 10px 10px');
+        }
       });
     } else {
       $('.top-bar-extend').css('visibility', 'hidden');

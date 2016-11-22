@@ -16,10 +16,11 @@ def index():
             with conn.cursor(cursor_factory=DictCursor) as curs:
                 curs.execute(
                 """
-                SELECT u.username, u.display_name
+                SELECT u.id, u.username, u.display_name, ui.url
                 FROM users u
-                WHERE u.display_name LIKE %s OR
-                      u.username LIKE %s ESCAPE '='
+                INNER JOIN user_images ui ON u.id = ui.user_id
+                WHERE u.display_name ILIKE %s OR
+                      u.username ILIKE %s ESCAPE '='
                 LIMIT 5
                 """,
                 ['%' + parameter + '%', '%' + parameter + '%'])
@@ -33,16 +34,16 @@ def index():
                     """
                     SELECT p.name, p.description
                     FROM places p
-                    WHERE p.name LIKE %s OR
-                          p.description LIKE %s ESCAPE '='
+                    WHERE p.name ILIKE %s OR
+                          p.description ILIKE %s ESCAPE '='
                     LIMIT %s
                     """,
                     ['%' + parameter + '%', '%' + parameter + '%', remaining])
 
                     places = curs.fetchall()
 
-                    return jsonify([*users, *places])
+                    return jsonify([users, places])
                 else:
-                    return jsonify([*users])
+                    return jsonify([users])
     else:
         return "Invalid request.", 422
