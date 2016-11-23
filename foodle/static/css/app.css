@@ -236,7 +236,7 @@ a.button.float-center.social-button:hover {
 
 div.place-background {
   background-image: url("http://www.pdcdc.org/wp-content/uploads/2016/03/restaurant-939435_960_720.jpg");
-  padding:400 200px 0 200px;
+  padding: 400 200px 0 200px;
 
 }
 
@@ -473,4 +473,5 @@ div.callout.new-entity input {
   height: 25px;
   box-shadow: none;
   border-bottom: 1px solid rgb(192, 192, 192);
+  padding: 0;
 }

@@ -1,6 +1,6 @@
 
 --  Drop cascade all tables
-DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, user_friends, check_ins, post_images, post_comments, place_instances CASCADE;
+DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, post_likes, user_friends, check_ins, post_images, post_comments, place_instances CASCADE;
 DROP VIEW IF EXISTS feed;
 
 --  Recall `uuid-ossp` extension
@@ -99,6 +99,13 @@ CREATE TABLE check_ins(
     inserted_at timestamp DEFAULT now() NOT NULL
 );
 
+CREATE TABLE post_likes(
+    post_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    inserted_at timestamp DEFAULT now() NOT NULL,
+    PRIMARY KEY (post_id, user_id)
+);
+
 --  Create `post_comments` table
 CREATE TABLE post_comments(
     id serial PRIMARY KEY,
@@ -129,18 +136,21 @@ CREATE TABLE IF NOT EXISTS ipv4_blacklist(
 
 CREATE VIEW feed AS
     SELECT u.id user_id,
-           u.display_name,
-           ui.url user_image,
-           po.id post_id,
-           po.inserted_at,
-           po.title post_title,
-           po.body post_body,
-           po.cost cost_of_meal,
-           po.score post_score,
-           pl.name place_name,
-           pl.id place_id
+        u.display_name,
+        ui.url user_image,
+        po.id post_id,
+        po.inserted_at,
+        po.title post_title,
+        po.body post_body,
+        po.cost cost_of_meal,
+        po.score post_score,
+        pl.name place_name,
+        pl.id place_id,
+        count(l.user_id) like_count
     FROM posts po
     INNER JOIN places pl ON pl.id = po.place_id
     INNER JOIN users u ON u.id = po.user_id
     LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
+    LEFT OUTER JOIN post_likes l ON l.post_id = po.id
+    GROUP BY u.id, u.display_name, ui.url, po.id, po.inserted_at, po.title, po.body, po.cost, po.score, pl.name, pl.id, l.post_id
     ORDER BY po.inserted_at DESC;
