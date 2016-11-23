@@ -14,3 +14,4 @@ from foodle.controllers.post_comments_controller import post_comments_controller
 from foodle.controllers.place_instances_controller import place_instances_controller
 from foodle.controllers.blacklist_controller import blacklist_controller
 from foodle.controllers.search_controller import search_controller
+from foodle.controllers.like_controller import like_controller

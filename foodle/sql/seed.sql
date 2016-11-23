@@ -40,6 +40,9 @@ VALUES('Full breakfast including Weisenschaffer ham mould /w butter.', 'Lorem ip
 INSERT INTO post_images (post_id, link, ip_addr)
 VALUES (1, 'http://www.istanbul7hills.com/images/break.jpg', '0.0.0.0');
 
+INSERT INTO post_likes (post_id, user_id)
+VALUES (1,2);
+
 INSERT INTO post_comments (user_id, post_id, body)
 VALUES(1, 1, 'First comment for testing did i say that this is the first comment for testing');
 

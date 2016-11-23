@@ -19,3 +19,4 @@ def bootstrap():
     app.register_blueprint(post_comments_controller, url_prefix='/post_comments')
     app.register_blueprint(blacklist_controller, url_prefix='/blacklist')
     app.register_blueprint(search_controller, url_prefix='/search')
+    app.register_blueprint(like_controller)
