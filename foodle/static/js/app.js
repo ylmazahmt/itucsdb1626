@@ -287,24 +287,52 @@ $('#meal-place').autocomplete({
 })
 
 $.each($('.like-button'), function (i, element) {
-  element.click(function () {
-    console.log('click')
-    $.ajax({
-      method: 'POST',
-      url: element.attr('data-ajax'),
-      data: JSON.stringify({
-        user_id: 2
-      }),
-      contentType: 'application/json'
-    })
-    .success(function (data, textStatus, xhr) {
-      console.log(element.innerHTML.split(' ')[2]);
-    })
-    .fail(function () {
-      alert('Error.')
-    })
-  })
-})
+  $(element).attr('data-liked', false);
+
+  $(element).click(function () {
+    var self = this;
+
+    if ($(self).attr('data-liked') === 'false') {
+      $.ajax({
+        method: 'POST',
+        url: $(self).attr('data-ajax'),
+        data: JSON.stringify({
+          user_id: 2
+        }),
+        contentType: 'application/json'
+      })
+      .success(function () {
+        var split = $(self)[0].innerHTML.split(' ');
+        var count = parseInt(split[5]);
+        count += 1;
+        split[5] = '' + count;
+        $(self)[0].innerHTML = split.join(' ');
+
+        $(self).addClass('enabled');
+        $(self).attr('data-liked', true);
+      });
+    } else {
+      $.ajax({
+        method: 'POST',
+        url: $(self).attr('data-ajax'),
+        data: JSON.stringify({
+          user_id: 2
+        }),
+        contentType: 'application/json'
+      })
+      .success(function () {
+        var split = $(self)[0].innerHTML.split(' ');
+        var count = parseInt(split[5]);
+        count -= 1;
+        split[5] = '' + count;
+        $(self)[0].innerHTML = split.join(' ');
+
+        $(self).removeClass('enabled');
+        $(self).attr('data-liked', false);
+      });
+    }
+  });
+});
 
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);
 $('#search').removeAttr('disabled');

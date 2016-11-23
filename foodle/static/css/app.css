@@ -229,7 +229,7 @@ a.button.float-center.social-button {
   margin-bottom: 0;
 }
 
-a.button.float-center.social-button:hover {
+a.button.float-center.social-button:hover, a.button.float-center.social-button.enabled {
   background-color: rgb(74, 150, 60);
   color: white;
 }
