@@ -64,13 +64,13 @@ def create():
             curs.execute(
             """
             INSERT INTO posts
-            (body, user_id)
-            VALUES (%(body)s, %(user_id)s)
+            (title, body, cost, score, user_id, place_id)
+            VALUES (%(title)s, %(body)s, %(cost)s, %(score)s, %(user_id)s, %(place_id)s)
             RETURNING *
             """, request.json)
 
             if curs.rowcount is not 0:
-                return render_template('/posts/show.html', post=curs.fetchone())
+                return "Created.", 201
             else:
                 return "Entity not found.", 404
 

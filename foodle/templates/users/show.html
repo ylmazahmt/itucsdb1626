@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}{{ user.username }}{% endblock %}
+{% block title %}Foodle - {{ user.display_name }}{% endblock %}
 
 {% block content %}
 
@@ -35,32 +35,43 @@
 
   <!-- User feed -->
   <div class="medium-12 large-6 columns">
-    {% for each_feed in feeds %}
-    <div class="callout main-entity">
-      <div class="row callout-header">
-        <div class="large-10 columns main-entity-identity" style="margin: 0; padding: 1rem; padding-bottom: 0;">
-          <p class="identity">
-            <a href="/places/{{ each_feed.place_id }}"><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  {{ each_feed.place_name }}</span></a>
-          <p class="timestamp">{{ each_feed.inserted_at }}</p>
+    {% if feeds[0] %}
+      <p style="font-weight: 500; color: white; margin-bottom: 5px; background-color: rgb(74, 150, 60); border-radius: 3px; padding-left: 15px; vertical-align: center; line-height: 24pt;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Feed</p>
+      {% for each_feed in feeds %}
+      <div class="callout main-entity">
+        <div class="row callout-header">
+          <div class="large-10 columns main-entity-identity" style="margin: 0; padding: 1rem; padding-bottom: 0;">
+            <p class="identity">
+              <a href="/places/{{ each_feed.place_id }}"><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  {{ each_feed.place_name }}</span></a>
+            <p class="timestamp">{{ each_feed.inserted_at }}</p>
+          </div>
+          <div class="large-2 columns">
+            <p class="score">{{ each_feed.post_score / 10 }}</p>
+          </div>
         </div>
-        <div class="large-2 columns">
-          <p class="score">{{ each_feed.post_score / 10 }}</p>
+        <h5>{{ each_feed.post_title }}</h5><p class="cost">€ {{ each_feed.cost_of_meal }}</p>
+        {% for each_feed_image in each_feed.post_images %}
+        <img class="post-image" src="{{ each_feed_image.link }}" />
+        {% endfor %}
+        <p>{{ each_feed.post_body }}</p>
+        <div class="row">
+          <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
+          <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
+          <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
         </div>
       </div>
-      <h5>{{ each_feed.post_title }}</h5><p class="cost">€ {{ each_feed.cost_of_meal }}</p>
-      <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-      <p>{{ each_feed.post_body }}</p>
-      <div class="row">
-        <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
-        <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
-        <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
-      </div>
+      {% endfor %}
+    {% else %}
+    <div class="callout" style="margin-top:100px; border-color: transparent; border-radius: 5px; box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);">
+      <h5 class="text-center"><i class="fa fa-bomb" aria-hidden="true" style="font-size: 40pt; text-shadow: 2px 2px 11px rgba(150, 150, 150, 1);"></i></h5>
+      <p class="text-center" style="font-size: 20pt;">Weird.</p>
+      <p class="text-center">This is a bomb.</p>
+      <p class="text-center">It looks like all posts flee away.</br>Yet this user may have not written any post, either.</p>
     </div>
-    {% endfor %}
+    {% endif %}
   </div>
 
-
-  <div class="large-1 columns show-for-large">
+  <div class="large-3 columns show-for-large">
   </div>
 </div>
 

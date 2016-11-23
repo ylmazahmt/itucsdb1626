@@ -16,6 +16,18 @@ VALUES ('McDonalds', 'The worst burger place in the world. Seriously.', 1);
 INSERT INTO place_images (place_id, url)
 VALUES (1, 'https://pbs.twimg.com/profile_images/658746945565954048/Zrf2h3RD_400x400.jpg');
 
+INSERT INTO places (name, description, user_id)
+VALUES ('Burger King', 'You may eat something disgusting like that.', 1);
+
+INSERT INTO place_images (place_id, url)
+VALUES (2, 'https://pbs.twimg.com/profile_images/694921357864386563/p0nF8Bj8.jpg');
+
+INSERT INTO places (name, description, user_id)
+VALUES ('The House Café', 'Eat & Drink', 1);
+
+INSERT INTO place_images (place_id, url)
+VALUES (3, 'https://menumnette.com/uploads/u_2_logo_1472987297_5460.png');
+
 INSERT INTO check_ins (user_id, place_id)
 VALUES (1, 1);
 

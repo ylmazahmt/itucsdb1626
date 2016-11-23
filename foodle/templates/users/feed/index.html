@@ -9,11 +9,43 @@
     <p></p>
   </div>
   <div class="large-6 columns">
+    <p style="font-weight: 500; color: white; margin-bottom: 5px; background-color: rgb(74, 150, 60); border-radius: 3px; padding-left: 15px; vertical-align: center; line-height: 24pt;"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Write a new review</p>
+    <form id="new-entity" action="/posts/" method="post">
+      <div class="callout new-entity clearfix">
+        <div class="row" style="padding-left: 0.9725rem; margin-bottom: 1rem;">
+          <div class="large-1 columns" style="background-image: url('https://images5.alphacoders.com/294/294527.jpg'); background-size: cover; background-position: center; height: 50px; border-radius: 3px;"></div>
+          <div class="large-5 columns">
+            <input id="meal-place" name="place_name" type="text" placeholder="Where did you eat?" />
+          </div>
+          <div class="large-6 columns">
+            <input id="meal-rating" name="score" type="number" placeholder="How did you rate your meal?" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-6 columns">
+            <input id="post-title" name="title" type="text" placeholder="What did you eat?" />
+          </div>
+          <div class="large-6 columns">
+            <input id="meal-cost" name="cost" type="number" placeholder="How much did meal cost?" />
+          </div>
+        </div>
+        <div class="row">
+          <!-- Image push up here.-->
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <input id="post-body" type="text" name="body" placeholder="Write down few sentences about your experience here..." style="height: 100px; vertical-align: top;" />
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <p style="font-weight: 500; color: white; margin-bottom: 5px; background-color: rgb(74, 150, 60); border-radius: 3px; padding-left: 15px; vertical-align: center; line-height: 24pt;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Feed</p>
     {% for each_feed in feeds %}
     <div class="callout main-entity">
-      <div class="row callout-header">
-        <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-        <div class="large-8 columns main-entity-identity">
+      <div class="row callout-header" style="padding-left: 0.9375rem;">
+        <div class="large-1 columns main-entity-image" style="background-image: url('{{ each_feed.user_image }}'); background-size: cover; background-position: center; height: 50px; border-radius: 3px;"></div>
+        <div class="large-9 columns main-entity-identity">
           <p class="identity">
             <a href="/users/{{ each_feed.user_id }}"><span class="name">{{ each_feed.display_name }}</span></a>, <!--
 -----------------><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <a href="/places/{{ each_feed.place_id }}"><span class="place">{{ each_feed.place_name }}<span class="place"></a></p>

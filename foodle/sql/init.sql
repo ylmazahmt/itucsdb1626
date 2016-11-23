@@ -142,4 +142,5 @@ CREATE VIEW feed AS
     FROM posts po
     INNER JOIN places pl ON pl.id = po.place_id
     INNER JOIN users u ON u.id = po.user_id
-    LEFT OUTER JOIN user_images ui ON ui.user_id = u.id;
+    LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
+    ORDER BY po.inserted_at DESC;

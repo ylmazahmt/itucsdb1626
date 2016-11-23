@@ -186,12 +186,6 @@ div.main-entity-image {
   padding-right: 25px;
 }
 
-div.main-entity-identity {
-  padding-right: 0;
-  padding-left: 0px;
-  margin-left: -15px;
-}
-
 p.identity {
   font-size: 10pt;
   margin-bottom: 0.2rem;
@@ -463,4 +457,15 @@ form h3 {
 
 form button {
   border-radius: 10px !important;
+}
+
+div.callout.new-entity, div.callout.new-entity input {
+  border-color: transparent;
+  border-radius: 3px;
+}
+
+div.callout.new-entity input {
+  height: 25px;
+  box-shadow: none;
+  border-bottom: 1px solid rgb(192, 192, 192);
 }

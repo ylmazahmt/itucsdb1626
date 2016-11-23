@@ -236,5 +236,55 @@ $('#search').on('keydown', function (keyEvent) {
   }, 5);
 });
 
+$('div.callout.new-entity input').on('keydown', function (keyEvent) {
+  if (keyEvent.which == 13) {
+    var values = {};
+    $.each($('#new-entity').serializeArray(), function(i, field) {
+      values[field.name] = field.value;
+    });
+
+    values.user_id = 2;
+    values.place_id = selected;
+    values.score *= 10;
+
+    $.ajax({
+      method: 'POST',
+      url: '/posts/',
+      data: JSON.stringify(values),
+      contentType: 'application/json'
+    })
+    .success(function (data, textStatus, xhr) {
+      window.location.reload();
+    });
+  }
+})
+
+var autocompleteList = null;
+var selected = null;
+
+$('#meal-place').autocomplete({
+  source: function (request, response) {
+    $.ajax({
+      method: 'GET',
+      url: '/places?name=' + request.term,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .success(function (data, textStatus, xhr) {
+      autocompleteList = data;
+
+      response(data.map(function (element) {
+        return element[1];
+      }));
+    });
+  },
+  select: function (event, ui) {
+    selected = autocompleteList.filter(function (element) {
+      return element[1] == ui.item.label;
+    }).pop()[0];
+  }
+})
+
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);
 $('#search').removeAttr('disabled');

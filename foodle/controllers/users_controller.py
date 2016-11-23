@@ -2,7 +2,7 @@
 import foodle
 import psycopg2
 import re
-from psycopg2.extras import DictCursor
+from psycopg2.extras import RealDictCursor, DictCursor
 
 from flask import Blueprint, render_template, current_app, request, make_response
 
@@ -42,7 +42,7 @@ def index():
 @users_controller.route('/<int:id>', methods=['GET'])
 def show(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=DictCursor) as curs:
+        with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(
             """
             SELECT u.username,
@@ -71,6 +71,18 @@ def show(id):
             [id])
 
             feeds = curs.fetchall()
+
+            for each_feed in feeds:
+                curs.execute(
+                """
+                SELECT link
+                FROM post_images
+                WHERE post_id = %s
+                LIMIT 5
+                """,
+                [each_feed['post_id']])
+
+                each_feed['post_images'] = curs.fetchall()
 
             if user is not None:
                 return render_template('/users/show.html', user=user, feeds=feeds)

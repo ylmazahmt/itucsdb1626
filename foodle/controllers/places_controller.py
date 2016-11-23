@@ -2,37 +2,66 @@
 import foodle
 import psycopg2
 from psycopg2.extras import DictCursor
-from flask import Blueprint, render_template, current_app, request, redirect
+from flask import Blueprint, render_template, current_app, request, redirect, jsonify
 
 places_controller = Blueprint('places_controller', __name__)
 
 @places_controller.route('/', methods=['GET'])
 def index():
+    acceptType = request.headers.get('accept')
     limit = request.args.get('limit') or 20
-    offset = request.args.get('offset') or 20
+    offset = request.args.get('offset') or 0
+    name = request.args.get('name')
 
-    with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=DictCursor) as curs:
-            curs.execute(
-            """
-            SELECT *
-            FROM places
-            LIMIT %s
-            OFFSET %s
-            """,
-            [limit, offset])
+    if acceptType == 'application/json':
+        with psycopg2.connect(foodle.app.config['dsn']) as conn:
+            with conn.cursor(cursor_factory=DictCursor) as curs:
+                if name is not None:
+                    curs.execute(
+                    """
+                    SELECT *
+                    FROM places p
+                    WHERE p.name ILIKE %s
+                    LIMIT %s
+                    OFFSET %s
+                    """,
+                    ['%' + name + '%', limit, offset])
+                else:
+                    curs.execute(
+                    """
+                    SELECT *
+                    FROM places p
+                    LIMIT %s
+                    OFFSET %s
+                    """,
+                    [limit, offset])
 
-            places = curs.fetchall()
+                places = curs.fetchall()
 
-            curs.execute(
-            """
-            SELECT count(*)
-            FROM places
-            """)
+                return jsonify(places)
+    else:
+        with psycopg2.connect(foodle.app.config['dsn']) as conn:
+            with conn.cursor(cursor_factory=DictCursor) as curs:
+                curs.execute(
+                """
+                SELECT *
+                FROM places
+                LIMIT %s
+                OFFSET %s
+                """,
+                [limit, offset])
 
-            count = curs.fetchone()[0]
+                places = curs.fetchall()
 
-            return render_template('/places/index.html', places=places, count=count)
+                curs.execute(
+                """
+                SELECT count(*)
+                FROM places
+                """)
+
+                count = curs.fetchone()[0]
+
+                return render_template('/places/index.html', places=places, count=count)
 
 
 @places_controller.route('/<int:id>', methods=['GET'])
