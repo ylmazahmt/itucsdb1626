@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %} Check-in Comments {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+    <p>Total number of check_in comments: {{ count }}</p>
+    <a href="/check_in_comments/new">Add new comment</a>
+    {% for each_check_in_comment in check_in_comments %}
+    <div class="callout">
+      <p><a href="/check_in_comments/{{ each_check_in_comment['id'] }}">{{ each_check_in_comment['body'] }}</a></p>
+      <p>Username : {{ each_check_in_comment['username'] }}</p>
+      <p>User number : {{ each_check_in_comment['check_in_id'] }}</p>
+      <button type="button" onclick="dispatchDelete('check_in_comment', {{ each_check_in_comment['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
+
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
+
+{% endblock %}

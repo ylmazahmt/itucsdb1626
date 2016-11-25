@@ -1,6 +1,6 @@
 
 --  Drop cascade all tables
-DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, post_likes, user_friends, check_ins, post_images, post_comments, place_instances CASCADE;
+DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, post_likes, user_friends, check_ins, post_images, post_comments, place_instances, check_in_comments CASCADE;
 DROP VIEW IF EXISTS feed;
 
 --  Recall `uuid-ossp` extension
@@ -111,6 +111,15 @@ CREATE TABLE post_comments(
     id serial PRIMARY KEY,
     user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     post_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    body text,
+    inserted_at timestamp DEFAULT now() NOT NULL
+);
+
+--  Create `check_in_comments` table
+CREATE TABLE check_in_comments(
+    id serial PRIMARY KEY,
+    user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    check_in_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
     body text,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
