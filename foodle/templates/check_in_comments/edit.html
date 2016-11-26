@@ -13,7 +13,7 @@
 
     <form>
       <label class="body">Body
-        <input type="text" placeholder="" value="{{ check_in_comment['body'] }}">
+        <input id="comment_edit" type="text" placeholder="" value="{{ check_in_comment['body'] }}">
       </label>
       <button class="button success" onclick="dispatchUpdate('check_in_comment', {{ check_in_comment['id'] }})">Submit changes</button>
     </form>

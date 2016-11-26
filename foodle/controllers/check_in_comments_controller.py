@@ -4,6 +4,9 @@ import psycopg2
 from psycopg2.extras import DictCursor
 from flask import Blueprint, render_template, current_app, request, redirect, make_response
 
+import sys
+print(sys.version)
+
 check_in_comments_controller = Blueprint('check_in_comments_controller', __name__)
 
 @check_in_comments_controller.route('/', methods=['GET'])
@@ -15,9 +18,9 @@ def index():
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT pc.id, u.username, pc.check_in_id, pc.body
-            FROM check_in_comments AS pc
-            INNER JOIN users AS u ON pc.user_id = u.id
+            SELECT cic.id, u.username, cic.check_in_id, cic.body
+            FROM check_in_comments AS cic
+            INNER JOIN users AS u ON cic.user_id = u.id
             LIMIT %s
             OFFSET %s
             """,
@@ -49,7 +52,6 @@ def show(id):
             [id])
 
             check_in_comment = curs.fetchone()
-
             if check_in_comment is not None:
                 return render_template('/check_in_comments/show.html', check_in_comment=check_in_comment)
             else:
@@ -58,7 +60,8 @@ def show(id):
 
 @check_in_comments_controller.route('/', methods=['POST'])
 def create():
-    user_id = request.json['user_id']
+    user_id = int(request.json['user_id'])
+    check_in_id = int(request.json['check_in_id'])
     body = request.json['body']
 
     if not isinstance(body, str) or not isinstance(user_id, int):
@@ -85,7 +88,29 @@ def create():
 
 @check_in_comments_controller.route('/new', methods=['GET'])
 def new():
-    return render_template('/check_in_comments/new.html')
+    with psycopg2.connect(foodle.app.config['dsn']) as conn:
+        with conn.cursor(cursor_factory=DictCursor) as curs:
+            curs.execute(
+            """
+            SELECT id, username, inserted_at
+            FROM users
+            """,
+            )
+
+            users = curs.fetchall()
+
+            curs.execute(
+            """
+            SELECT ci.id, u.display_name, p.name
+            FROM check_ins AS ci 
+            INNER JOIN users AS u ON ci.user_id = u.id
+            INNER JOIN places AS p ON ci.place_id = p.id
+            """,
+            )
+
+            check_ins = curs.fetchall()
+
+    return render_template('/check_in_comments/new.html', users = users, check_ins = check_ins)
 
 
 @check_in_comments_controller.route('/<int:id>', methods=['PUT', 'PATCH'])

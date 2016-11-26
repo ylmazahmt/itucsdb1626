@@ -31,6 +31,9 @@ VALUES (3, 'https://menumnette.com/uploads/u_2_logo_1472987297_5460.png');
 INSERT INTO check_ins (user_id, place_id)
 VALUES (2, 1);
 
+INSERT INTO check_ins (user_id, place_id)
+VALUES (2, 1);
+
 INSERT INTO user_activations (user_id)
 VALUES (2);
 

@@ -20,12 +20,24 @@
             <div class="row">
               <div class="large-12 columns">
                 <label>Comment
-                  <input type="text" placeholder="Add Comment">
+                  <input id="comment_input" type="text" placeholder="Add Comment">
                 </label>
+                <label>As user:</label>
+                <select id="user_id_input">
+                  {% for user in users %}
+                    <option value="{{user.id}}">{{user.username}}</option>
+                  {% endfor %}
+                </select>
+                <label>To check-in:</label>
+                <select id="check_in_id_input">
+                  {% for check_in in check_ins %}
+                    <option value="{{check_in.id}}">{{check_in.id}},{{check_in.display_name}},{{check_in.name}} </option>
+                  {% endfor %}
+                </select>
               </div>
 
               <div class="large-12 columns" style="margin-top: 20px;">
-                <button onclick="addComment()" type="button" class="button float-right" style="background-color: green">Add Comment</button>
+                <button onclick="addComment('check_in_comment')" type="button" class="button float-right" style="background-color: green">Add Comment</button>
               </div>
             </div>
           </div>

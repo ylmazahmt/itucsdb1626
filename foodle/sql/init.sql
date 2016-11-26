@@ -119,7 +119,7 @@ CREATE TABLE post_comments(
 CREATE TABLE check_in_comments(
     id serial PRIMARY KEY,
     user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    check_in_id integer NOT NULL REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    check_in_id integer NOT NULL REFERENCES check_ins(id) ON DELETE CASCADE ON UPDATE CASCADE,
     body text,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
