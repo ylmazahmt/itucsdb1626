@@ -82,7 +82,7 @@ function addComment(entity) {
 	    }),
 	    contentType: 'application/json'
 	  })
-	  .success(function (data, textStatus, xhr) {
+	  .always(function (data, textStatus, xhr) {
 	    window.location.replace('/check_in_comments')
 	  });
 	}
@@ -106,7 +106,7 @@ function addComment(entity) {
 function addRating() {
 	const rating = $('#rating_input').val()
 	const user_id = $('#user_id_input').val()
-	const place_id = $('#places_id_input').val()
+	const place_id = $('#place_id_input').val()
 
 	$.ajax({
 	 	method: 'POST',
@@ -119,7 +119,7 @@ function addRating() {
 	    }),
 	    contentType: 'application/json'
 	})
-	.success(function (data, textStatus, xhr) {
+	.always(function (data, textStatus, xhr) {
 	window.location.replace('/place_ratings')
 	});
 }
@@ -241,7 +241,7 @@ function dispatchUpdate(entity, identifier) {
       }),
       contentType: 'application/json'
     })
-    .success(function (data, textStatus, xhr) {
+    .always(function (data, textStatus, xhr) {
       window.location = xhr.getResponseHeader('location')
     });
   } else if (entity === 'place_rating') {
@@ -255,7 +255,7 @@ function dispatchUpdate(entity, identifier) {
       }),
       contentType: 'application/json'
     })
-    .success(function (data, textStatus, xhr) {
+    .always(function (data, textStatus, xhr) {
       window.location = xhr.getResponseHeader('location')
     });
   }

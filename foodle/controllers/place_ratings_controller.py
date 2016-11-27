@@ -113,10 +113,8 @@ def new():
 @place_ratings_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update(id):
     rating = int(request.json['rating'])
-    if request.json.get('id') is not None or not isinstance(request.json.get('rating'), int):
+    if request.json.get('id') is not None or not isinstance(rating, int):
         return "Request is unprocessable.", 422
-
-    request.json['id'] = id
     
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
@@ -124,10 +122,10 @@ def update(id):
             curs.execute(
             """
             UPDATE place_ratings
-            SET rating = %d #BURAYA DIKKAT
-            WHERE id = %(id)s
+            SET rating = %s 
+            WHERE id = %s
             """, 
-            [rating, request.json])
+            [rating, id])
 
             if curs.rowcount is not 0:
                 resp = make_response()

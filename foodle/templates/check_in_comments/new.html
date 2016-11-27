@@ -31,7 +31,7 @@
                 <label>To check-in:</label>
                 <select id="check_in_id_input">
                   {% for check_in in check_ins %}
-                    <option value="{{check_in.id}}">{{check_in.id}},{{check_in.display_name}},{{check_in.name}} </option>
+                    <option value="{{check_in.id}}">{{check_in.display_name}},{{check_in.name}} </option>
                   {% endfor %}
                 </select>
               </div>
