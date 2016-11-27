@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %} Place Ratings {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+    <p>Total number of Ratings: {{ count }}</p>
+    <a href="/place_ratings/new">Add new rating</a>
+    {% for place_rating in place_ratings %}
+    <div class="callout">
+      <p><a href="/place_ratings/{{ place_rating['id'] }}">{{ place_rating['rating'] }}</a></p>
+      <p>Username : {{ place_rating['username'] }}</p>
+      <p>Place ID : {{ place_rating['place_id'] }}, {{ place_rating['name'] }} </p>
+      <button type="button" onclick="dispatchDelete('place_rating', {{ place_rating['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
+
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
+
+{% endblock %}

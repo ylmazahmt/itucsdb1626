@@ -1,6 +1,6 @@
 
 --  Drop cascade all tables
-DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, post_likes, user_friends, check_ins, post_images, post_comments, place_instances, check_in_comments CASCADE;
+DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, post_likes, user_friends, check_ins, post_images, post_comments, place_instances, check_in_comments, place_ratings CASCADE;
 DROP VIEW IF EXISTS feed;
 
 --  Recall `uuid-ossp` extension
@@ -131,6 +131,15 @@ CREATE TABLE place_instances(
     place_id integer NOT NULL REFERENCES places(id) ON DELETE CASCADE ON UPDATE CASCADE,
     name character varying(255) UNIQUE NOT NULL,
     capacity character varying(255) NOT NULL,
+    inserted_at timestamp DEFAULT now() NOT NULL
+);
+
+--  Create `place_ratings` table
+CREATE TABLE place_ratings(
+    id serial PRIMARY KEY,
+    user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    place_id integer NOT NULL REFERENCES places(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    rating int,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
 

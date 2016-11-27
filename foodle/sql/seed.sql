@@ -58,5 +58,11 @@ VALUES(2, 1, 'First comment for testing did i say that this is the first comment
 INSERT INTO check_in_comments (user_id, check_in_id, body)
 VALUES(2, 1, 'Another comment for testing for html positions');
 
+INSERT INTO place_ratings (user_id, place_id, rating)
+VALUES(2, 1, 5);
+
+INSERT INTO place_ratings (user_id, place_id, rating)
+VALUES(2, 1, 7);
+
 INSERT INTO place_instances (user_id, place_id, name, capacity)
 VALUES ('1', '1','Suadiye Mc', '200');

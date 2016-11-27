@@ -5,9 +5,9 @@ from psycopg2.extras import DictCursor
 from flask import Blueprint, render_template, current_app, request, redirect, make_response
 
 
-check_in_comments_controller = Blueprint('check_in_comments_controller', __name__)
+place_ratings_controller = Blueprint('place_ratings_controller', __name__)
 
-@check_in_comments_controller.route('/', methods=['GET'])
+@place_ratings_controller.route('/', methods=['GET'])
 def index():
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
@@ -16,75 +16,76 @@ def index():
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT cic.id, u.username, cic.check_in_id, cic.body
-            FROM check_in_comments AS cic
-            INNER JOIN users AS u ON cic.user_id = u.id
+            SELECT pr.id, u.username, pr.place_id, p.name, pr.rating
+            FROM place_ratings AS pr
+            INNER JOIN users AS u ON pr.user_id = u.id
+            INNER JOIN places AS p ON pr.place_id = p.id
             LIMIT %s
             OFFSET %s
             """,
             [limit, offset])
 
-            check_in_comments = curs.fetchall()
+            place_ratings = curs.fetchall()
 
             curs.execute(
             """
             SELECT count(id)
-            FROM check_in_comments
+            FROM place_ratings
             """)
 
             count = curs.fetchone()[0]
 
-            return render_template('/check_in_comments/index.html', check_in_comments=check_in_comments, count=count)
+            return render_template('/place_ratings/index.html', place_ratings=place_ratings, count=count)
 
 
-@check_in_comments_controller.route('/<int:id>', methods=['GET'])
+@place_ratings_controller.route('/<int:id>', methods=['GET'])
 def show(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
             SELECT *
-            FROM check_in_comments
+            FROM place_ratings
             WHERE id = %s
             """,
             [id])
 
-            check_in_comment = curs.fetchone()
-            if check_in_comment is not None:
-                return render_template('/check_in_comments/show.html', check_in_comment=check_in_comment)
+            place_rating = curs.fetchone()
+            if place_rating is not None:
+                return render_template('/place_ratings/show.html', place_rating=place_rating)
             else:
                 return "Entity not found.", 404
 
 
-@check_in_comments_controller.route('/', methods=['POST'])
+@place_ratings_controller.route('/', methods=['POST'])
 def create():
     user_id = int(request.json['user_id'])
-    check_in_id = int(request.json['check_in_id'])
-    body = request.json['body']
+    place_id = int(request.json['place_id'])
+    rating = int(request.json['rating'])
 
-    if not isinstance(body, str) or not isinstance(user_id, int):
-        return "Request body is unprocessable", 422
+    if not isinstance(rating, int) or not isinstance(user_id, int):
+        return "Request rating is unprocessable", 422
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            INSERT INTO check_in_comments
-            (user_id, check_in_id, body)
+            INSERT INTO place_ratings
+            (user_id, place_id, rating)
             VALUES (%s, %s, %s)
             RETURNING id
             """,
-            [user_id, check_in_id, body])
+            [user_id, place_id, rating])
 
-            check_in_comment = curs.fetchone()
+            place_rating = curs.fetchone()
 
             resp = make_response()
-            resp.headers['location'] = '/check_in_comments/' + str(check_in_comment['id'])
+            resp.headers['location'] = '/place_ratings/' + str(place_rating['id'])
 
             return resp, 201
 
 
-@check_in_comments_controller.route('/new', methods=['GET'])
+@place_ratings_controller.route('/new', methods=['GET'])
 def new():
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -99,70 +100,71 @@ def new():
 
             curs.execute(
             """
-            SELECT ci.id, u.display_name, p.name
-            FROM check_ins AS ci 
-            INNER JOIN users AS u ON ci.user_id = u.id
-            INNER JOIN places AS p ON ci.place_id = p.id
+            SELECT id,name
+            FROM places 
             """,
             )
 
-            check_ins = curs.fetchall()
+            places = curs.fetchall()
 
-    return render_template('/check_in_comments/new.html', users = users, check_ins = check_ins)
+    return render_template('/place_ratings/new.html', users = users, places = places)
 
 
-@check_in_comments_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
+@place_ratings_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update(id):
-    if request.json.get('id') is not None or not isinstance(request.json.get('body'), str):
+    rating = int(request.json['rating'])
+    if request.json.get('id') is not None or not isinstance(request.json.get('rating'), int):
         return "Request is unprocessable.", 422
 
     request.json['id'] = id
+    
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            UPDATE check_in_comments
-            SET body = %(body)s
+            UPDATE place_ratings
+            SET rating = %d #BURAYA DIKKAT
             WHERE id = %(id)s
-            """, request.json)
+            """, 
+            [rating, request.json])
 
             if curs.rowcount is not 0:
                 resp = make_response()
-                resp.headers['location'] = '/check_in_comments/' + str(id)
+                resp.headers['location'] = '/place_ratings/' + str(id)
 
                 return resp, 200
             else:
                 return "Entity not found.", 404
 
 
-@check_in_comments_controller.route('/<int:id>/edit', methods=['GET'])
+@place_ratings_controller.route('/<int:id>/edit', methods=['GET'])
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
             SELECT *
-            FROM check_in_comments
+            FROM place_ratings
             WHERE id = %s
             """,
             [id])
 
-            check_in_comment = curs.fetchone()
+            place_rating = curs.fetchone()
 
-            if check_in_comment is not None:
-                return render_template('/check_in_comments/edit.html', check_in_comment=check_in_comment)
+            if place_rating is not None:
+                return render_template('/place_ratings/edit.html', place_rating=place_rating)
             else:
                 return "Entity not found.", 404
 
 
-@check_in_comments_controller.route('/<int:id>', methods=['DELETE'])
+@place_ratings_controller.route('/<int:id>', methods=['DELETE'])
 def delete(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            DELETE FROM check_in_comments
+            DELETE FROM place_ratings
             WHERE id = %s
             """,
             [id])

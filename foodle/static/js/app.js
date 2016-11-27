@@ -83,7 +83,7 @@ function addComment(entity) {
 	    contentType: 'application/json'
 	  })
 	  .success(function (data, textStatus, xhr) {
-	    window.location = '/check_in_comments';
+	    window.location.replace('/check_in_comments')
 	  });
 	}
 	else {
@@ -103,6 +103,26 @@ function addComment(entity) {
 	}
 }
 
+function addRating() {
+	const rating = $('#rating_input').val()
+	const user_id = $('#user_id_input').val()
+	const place_id = $('#places_id_input').val()
+
+	$.ajax({
+	 	method: 'POST',
+	    url: '/place_ratings/',
+	    dataType: "json",
+	    data: JSON.stringify({
+	    	rating: rating,
+	    	user_id: user_id,
+	    	place_id: place_id
+	    }),
+	    contentType: 'application/json'
+	})
+	.success(function (data, textStatus, xhr) {
+	window.location.replace('/place_ratings')
+	});
+}
 
 function dispatchDelete(entity, identifier) {
   if (entity === 'user') {
@@ -142,6 +162,16 @@ function dispatchDelete(entity, identifier) {
     .success(function (data, textStatus, xhr) {
       alert('Operation completed.')
       window.location.replace('/check_in_comments')
+    })
+  }
+  else if (entity === 'place_rating') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/place_ratings/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/place_ratings')
     })
   }
 }
@@ -208,6 +238,20 @@ function dispatchUpdate(entity, identifier) {
       url: '/check_in_comments/' + identifier,
       data: JSON.stringify({
         body: message
+      }),
+      contentType: 'application/json'
+    })
+    .success(function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader('location')
+    });
+  } else if (entity === 'place_rating') {
+    const rating = $('#rating_edit').val()
+
+    $.ajax({
+      method: 'PUT',
+      url: '/place_ratings/' + identifier,
+      data: JSON.stringify({
+        rating: rating
       }),
       contentType: 'application/json'
     })
