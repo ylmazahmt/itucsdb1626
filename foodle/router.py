@@ -17,6 +17,8 @@ def bootstrap():
     app.register_blueprint(check_ins_controller, url_prefix='/check_ins')
     app.register_blueprint(database_initialization_controller, url_prefix='/database_initialization')
     app.register_blueprint(post_comments_controller, url_prefix='/post_comments')
+    app.register_blueprint(check_in_comments_controller, url_prefix='/check_in_comments')
+    app.register_blueprint(place_ratings_controller, url_prefix='/place_ratings')     
     app.register_blueprint(blacklist_controller, url_prefix='/blacklist')
     app.register_blueprint(search_controller, url_prefix='/search')
     app.register_blueprint(like_controller)

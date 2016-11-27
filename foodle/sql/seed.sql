@@ -29,7 +29,10 @@ INSERT INTO place_images (place_id, url)
 VALUES (3, 'https://menumnette.com/uploads/u_2_logo_1472987297_5460.png');
 
 INSERT INTO check_ins (user_id, place_id)
-VALUES (1, 1);
+VALUES (2, 1);
+
+INSERT INTO check_ins (user_id, place_id)
+VALUES (2, 1);
 
 INSERT INTO user_activations (user_id)
 VALUES (2);
@@ -48,6 +51,18 @@ VALUES(1, 1, 'First comment for testing did i say that this is the first comment
 
 INSERT INTO post_comments (user_id, post_id, body)
 VALUES(1, 1, 'Another comment for testing for html positions');
+
+INSERT INTO check_in_comments (user_id, check_in_id, body)
+VALUES(2, 1, 'First comment for testing did i say that this is the first comment for testing');
+
+INSERT INTO check_in_comments (user_id, check_in_id, body)
+VALUES(2, 1, 'Another comment for testing for html positions');
+
+INSERT INTO place_ratings (user_id, place_id, rating)
+VALUES(2, 1, 5);
+
+INSERT INTO place_ratings (user_id, place_id, rating)
+VALUES(2, 1, 7);
 
 INSERT INTO place_instances (user_id, place_id, name, capacity)
 VALUES ('1', '1','Suadiye Mc', '200');

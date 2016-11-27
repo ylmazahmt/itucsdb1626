@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %} Check-in Comment nr. {{ check_in_comment['id'] }} {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+
+    <div class="callout">
+      <p>{{ check_in_comment['body'] }}</p>
+      <p>{{ check_in_comment['username'] }}</p>
+      <p>{{ check_in_comment['check_in_id'] }}</p>
+      <p><a href="/check_in_comments/{{ check_in_comment['id'] }}/edit">Edit</a></p>
+    </div>
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
+
+{% endblock %}
