@@ -395,7 +395,7 @@ $.each($('.like-button'), function (i, element) {
         method: 'POST',
         url: $(self).attr('data-ajax'),
         data: JSON.stringify({
-          user_id: $('#new-entity').attr('data-sender-id')
+          user_id: $('#container').attr('data-sender-id')
         }),
         contentType: 'application/json'
       })
@@ -414,7 +414,7 @@ $.each($('.like-button'), function (i, element) {
         method: 'DELETE',
         url: $(self).attr('data-ajax'),
         data: JSON.stringify({
-          user_id: $('#new-entity').attr('data-sender-id')
+          user_id: $('#container').attr('data-sender-id')
         }),
         contentType: 'application/json'
       })

@@ -4,13 +4,13 @@
 
 {% block content %}
 
-<div class="row content">
+<div id="container" class="row content" data-sender-id="{{ user_id }}">
   <div class="large-2 columns show-for-large">
     <p></p>
   </div>
   <div class="large-6 columns">
     <p style="font-weight: 500; color: white; margin-bottom: 5px; background-color: rgb(74, 150, 60); border-radius: 3px; padding-left: 15px; vertical-align: center; line-height: 24pt;"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Write a new review</p>
-    <form id="new-entity" action="/posts/" method="post" data-sender-id="{{ user_id }}">
+    <form id="new-entity" action="/posts/" method="post" >
       <div class="callout new-entity clearfix">
         <div class="row" style="padding-left: 0.9725rem; margin-bottom: 1rem;">
           <div class="large-1 columns" style="background-image: url('{{ image_url }}'); background-size: cover; background-position: center; height: 50px; border-radius: 3px;"></div>

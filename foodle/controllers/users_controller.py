@@ -65,11 +65,12 @@ def show(id):
 
             curs.execute(
             """
-            SELECT *
+            SELECT f.*, pl.user_id IS NOT NULL is_liked
             FROM feed f
+            LEFT OUTER JOIN post_likes pl ON (f.post_id = pl.post_id AND pl.user_id = %s)
             WHERE f.user_id = %s
             """,
-            [id])
+            [2, id])
 
             feeds = curs.fetchall()
 

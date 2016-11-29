@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="row content">
+<div id="container" class="row content" data-sender-id="{{ user.id }}">
   <div class="large-2 columns show-for-large">
     <p></p>
   </div>
@@ -56,7 +56,7 @@
         {% endfor %}
         <p>{{ each_feed.post_body }}</p>
         <div class="row">
-          <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
+          <div class="large-4 columns"><a class="button float-center social-button like-button" data-ajax="/posts/{{ each_feed.post_id }}/like" data-exists="{{ each_feed.is_liked }}"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  {{ each_feed.like_count }} like</a></div>
           <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
           <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
         </div>
