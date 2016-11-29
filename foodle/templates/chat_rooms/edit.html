@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}  Edit Chat Room:  {{ chat_room['name'] }} {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+
+    <form>
+      <label>Edit Chat Room</label>
+      <label class="name">Room Name
+        <input type="text" placeholder="2 to 20 characters">
+      </label>
+      <button class="button success" onclick="dispatchUpdate('chat_room', {{ chat_room['id'] }})">Edit</button>
+    </form>
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
+
+{% endblock %}
