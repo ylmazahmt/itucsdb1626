@@ -124,48 +124,6 @@ function addRating() {
 	});
 }
 
-function addChatRoom() {
-
-  const user_id = $('#user_id_input').val()
-  const name = $('label.name').children().val()
-
-  $.ajax({
-    method: 'POST',
-      url: '/chat_rooms/',
-      dataType: "json",
-      data: JSON.stringify({
-        user_id: user_id,
-        name: name
-      }),
-      contentType: 'application/json'
-  })
-  .always(function (data, textStatus, xhr) {
-    window.location.replace('/chat_rooms')
-  });
-}
-
-function addChatRoomMessage() {
-  const user_id = $('#user_id_input').val()
-  const chat_room_id = $('#chat_room_id_input').val()
-  const body = $('label.body').children().val()
-  $.ajax({
-    method: 'POST',
-      url: '/chat_room_messages/',
-      dataType: "json",
-      data: JSON.stringify({
-        user_id: user_id,
-        chat_room_id: chat_room_id,
-        body: body
-      }),
-      contentType: 'application/json'
-  })
-  .always(function (data, textStatus, xhr) {
-    window.location.replace('/chat_room_messages')
-  });
-}
-
-
-
 function dispatchDelete(entity, identifier) {
   if (entity === 'user') {
     $.ajax({
@@ -215,26 +173,7 @@ function dispatchDelete(entity, identifier) {
       alert('Operation completed.')
       window.location.replace('/place_ratings')
     })
-  } else if (entity === 'chat_room') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/chat_rooms/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/chat_rooms')
-    })
   }
-  else if (entity === 'chat_room_message') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/chat_room_messages/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/chat_room_messages')
-    })
-
 }
 
 function dispatchUpdate(entity, identifier) {
@@ -318,35 +257,6 @@ function dispatchUpdate(entity, identifier) {
     })
     .always(function (data, textStatus, xhr) {
       window.location = xhr.getResponseHeader('location')
-    });
-  } else if(entity === 'chat_room') {
-    const name = $('label.name').children().val();
-
-    $.ajax({
-      method: 'PUT',
-      url: '/chat_rooms/' + identifier,
-      data: JSON.stringify({
-        name: name
-      }),
-      contentType: 'application/json'
-    })
-    .always(function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader('location');
-    });
-
-  } else if(entity === 'chat_room_message') {
-    const body = $('label.body').children().val();
-
-    $.ajax({
-      method: 'PUT',
-      url: '/chat_room_messages/' + identifier,
-      data: JSON.stringify({
-        body: body
-      }),
-      contentType: 'application/json'
-    })
-    .always(function (data, textStatus, xhr) {
-      window.location.replace('../');
     });
   }
 
