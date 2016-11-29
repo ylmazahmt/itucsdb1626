@@ -45,7 +45,8 @@ def show(id):
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(
             """
-            SELECT u.username,
+            SELECT u.id,
+                   u.username,
                    u.display_name,
                    count(uf.id) number_of_friends,
                    ui.url image_url,

@@ -15,14 +15,28 @@ def index(id):
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(
             """
-            SELECT *
-            FROM feed
+            SELECT url
+            FROM user_images
+            WHERE user_id = %s
+            """,
+            [id])
+
+            image_url = curs.fetchone()['url']
+
+            curs.execute(
+            """
+            SELECT f.*, pl.user_id IS NOT NULL is_liked
+            FROM feed f
+            LEFT OUTER JOIN post_likes pl ON f.post_id = pl.post_id
+            WHERE pl.user_id = %s OR pl.user_id IS NULL
             LIMIT %s
             OFFSET %s
             """,
-            [limit, offset])
+            [id, limit, offset])
 
             feeds = curs.fetchall()
+
+            print(feeds)
 
             for each_feed in feeds:
                 curs.execute(
@@ -36,4 +50,4 @@ def index(id):
 
                 each_feed['post_images'] = curs.fetchall()
 
-            return render_template('/users/feed/index.html', feeds=feeds)
+            return render_template('/users/feed/index.html', feeds=feeds, image_url=image_url, user_id=id)

@@ -33,6 +33,7 @@ def show(post_id):
 @like_controller.route('/posts/<int:post_id>/like', methods=['POST'])
 def create(post_id):
     user_id = request.json['user_id']
+
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(
@@ -50,16 +51,20 @@ def create(post_id):
             else:
                 return 404
 
+
 @like_controller.route('/posts/<int:post_id>/like', methods=['DELETE'])
 def delete(post_id):
+    user_id = request.json['user_id']
+
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(
             """
             DELETE FROM post_likes
-            WHERE post_id = %s
+            WHERE post_id = %s AND
+                  user_id = %s
             """,
-            [post_id])
+            [post_id, user_id])
 
             if curs.rowcount is 1:
                 return "", 204

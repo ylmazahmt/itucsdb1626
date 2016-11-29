@@ -378,22 +378,24 @@ $('#meal-place').autocomplete({
     }).pop()[0];
   },
   open: function () {
-    
+
   }
 })
 
 $.each($('.like-button'), function (i, element) {
-  $(element).attr('data-liked', false);
+  if ($(this).attr('data-exists') === 'True') {
+    $(this).addClass('enabled');
+  }
 
   $(element).click(function () {
     var self = this;
 
-    if ($(self).attr('data-liked') === 'false') {
+    if ($(self).attr('data-exists') === 'False') {
       $.ajax({
         method: 'POST',
         url: $(self).attr('data-ajax'),
         data: JSON.stringify({
-          user_id: 2
+          user_id: $('#new-entity').attr('data-sender-id')
         }),
         contentType: 'application/json'
       })
@@ -405,14 +407,14 @@ $.each($('.like-button'), function (i, element) {
         $(self)[0].innerHTML = split.join(' ');
 
         $(self).addClass('enabled');
-        $(self).attr('data-liked', true);
+        $(self).attr('data-exists', 'True');
       });
     } else {
       $.ajax({
-        method: 'POST',
+        method: 'DELETE',
         url: $(self).attr('data-ajax'),
         data: JSON.stringify({
-          user_id: 2
+          user_id: $('#new-entity').attr('data-sender-id')
         }),
         contentType: 'application/json'
       })
@@ -424,11 +426,24 @@ $.each($('.like-button'), function (i, element) {
         $(self)[0].innerHTML = split.join(' ');
 
         $(self).removeClass('enabled');
-        $(self).attr('data-liked', false);
+        $(self).attr('data-exists', 'False');
       });
     }
   });
 });
+
+$('#delete-user').click(function () {
+  const identifier = $('#delete-user').attr('data-user-id');
+
+  $.ajax({
+    method: 'DELETE',
+    url: '/users/' + identifier
+  })
+  .success(function (data, textStatus, xhr) {
+    alert('Operation completed.')
+    window.location.replace('/users')
+  })
+})
 
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);
 $('#search').removeAttr('disabled');
