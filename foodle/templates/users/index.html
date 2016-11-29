@@ -14,7 +14,7 @@
       <div class="column">
         <div class="callout friend-entity-large">
           <img class="profile-image-small" src="{{ each_user.url }}" />
-          <h5><a href="/users/{{ each_user['id'] }}">{{ each_user['username'] }}</a></h5>
+          <h5><a href="/users/{{ each_user['id'] }}">{{ each_user['display_name'] }}, @{{ each_user.username }}</a></h5>
           <button type="button" onclick="dispatchDelete('user', {{ each_user['id'] }})" class="button float-right" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i></button>
           <button type="button" onclick="window.location.replace('/users/{{ each_user['id'] }}/edit')" class="button float-right" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
         </div>

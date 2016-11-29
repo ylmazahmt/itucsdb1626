@@ -239,7 +239,7 @@ $('div.callout.new-entity input').on('keydown', function (keyEvent) {
       values[field.name] = field.value;
     });
 
-    values.user_id = 2;
+    values.user_id = parseInt($('#container').attr('data-sender-id'));
     values.place_id = selected;
     values.score *= 10;
 

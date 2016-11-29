@@ -19,7 +19,7 @@ def index():
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT u.id, u.username, u.inserted_at, ui.url
+            SELECT u.id, u.username, u.display_name, u.inserted_at, ui.url
             FROM users u
             LEFT OUTER JOIN user_images ui ON u.id = ui.user_id
             LIMIT %s

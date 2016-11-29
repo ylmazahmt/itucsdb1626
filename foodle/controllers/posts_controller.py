@@ -22,7 +22,19 @@ def create():
             RETURNING *
             """, request.json)
 
-            if curs.rowcount is not 0:
+            rowCount = curs.rowcount
+            post = curs.fetchone()
+            
+            if request.json.get('image-url') is not None:
+                curs.execute(
+                """
+                INSERT INTO post_images
+                (post_id, link, ip_addr)
+                VALUES (%s, %s, %s)
+                """,
+                [post['id'], request.json.get('image-url'), request.access_route[0]])
+
+            if rowCount is not 0:
                 return "Created.", 201
             else:
                 return "Entity not found.", 404
