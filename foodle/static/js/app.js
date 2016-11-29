@@ -453,12 +453,44 @@ $('#update-user').click(function () {
     url: '/users/' + identifier,
     data: JSON.stringify({
       display_name: $('#displayName')[0].innerHTML,
-      username: $('#username')[0].innerHTML.split('').splice(1).join('')
+      username: $('#username')[0].innerHTML[0] === '@' ? $('#username')[0].innerHTML.split('').splice(1).join(''):$('#username')[0].innerHTML,
+      user_image_url: $('#user_image_url')[0].innerHTML
     }),
     contentType: 'application/json'
   })
   .success(function () {
     window.location.replace('/users/' + identifier);
+  });
+});
+
+$('#update-post').click(function () {
+  const identifier = $('#update-post').attr('data-post-id');
+
+  $.ajax({
+    method: 'PUT',
+    url: '/posts/' + $('#update-post').attr('data-post-id'),
+    data: JSON.stringify({
+      title: $('#post-title')[0].innerHTML,
+      body: $('#post-body')[0].innerHTML,
+      cost: $('#post-cost')[0].innerHTML[0] === '€' ? $('#post-cost')[0].innerHTML.split('').splice(1).join(''):$('#post-cost')[0].innerHTML,
+      score: parseFloat($('#post-score')[0].innerHTML) * 10
+    }),
+    contentType: 'application/json'
+  })
+  .success(function () {
+    window.location.replace('/users/' + $('#update-post').attr('data-user-id'));
+  });
+});
+
+$('#delete-post').click(function () {
+  const identifier = $('#delete-post').attr('data-post-id');
+
+  $.ajax({
+    method: 'DELETE',
+    url: '/posts/' + $('#delete-post').attr('data-post-id')
+  })
+  .success(function () {
+    window.location.replace('/users/' + $('#delete-post').attr('data-user-id'));
   });
 });
 

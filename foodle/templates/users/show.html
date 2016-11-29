@@ -37,8 +37,9 @@
 
   <!-- User feed -->
   <div class="medium-12 large-6 columns">
+      <p style="font-weight: 500; color: white; margin-bottom: 5px; background-color: #1583cc; border-radius: 3px; padding-left: 15px; vertical-align: center; line-height: 24pt;"><i class="fa fa-rss" aria-hidden="true"></i><a style="color: white;" href="/users/{{ user.id }}/feed">&nbsp;&nbsp;&nbsp;Show user's feed from his/her eyes</a></p>
     {% if feeds[0] %}
-      <p style="font-weight: 500; color: white; margin-bottom: 5px; background-color: rgb(74, 150, 60); border-radius: 3px; padding-left: 15px; vertical-align: center; line-height: 24pt;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Feed</p>
+      <p style="font-weight: 500; color: white; margin-bottom: 5px; background-color: rgb(74, 150, 60); border-radius: 3px; padding-left: 15px; vertical-align: center; line-height: 24pt;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Activity</p>
       {% for each_feed in feeds %}
       <div class="callout main-entity">
         <div class="row callout-header">
@@ -56,6 +57,12 @@
         <img class="post-image" src="{{ each_feed_image.link }}" />
         {% endfor %}
         <p>{{ each_feed.post_body }}</p>
+        <div class="row">
+          <div class="large-3 columns"><p></p></div>
+          <div class="large-3 columns"><a class="small extended button" style="border-radius: 3px;" href="/posts/{{ each_feed.post_id }}/edit">Edit post</a></div>
+          <div class="large-3 columns"><button id="delete-post" class="small extended alert button" style="border-radius: 3px;" data-post-id="{{ each_feed.post_id }}" data-user-id="{{ each_feed.user_id }}">Delete post</a></div>
+          <div class="large-3 columns"><p></p></div>
+        </div>
         <div class="row">
           <div class="large-4 columns"><a class="button float-center social-button like-button" data-ajax="/posts/{{ each_feed.post_id }}/like" data-exists="{{ each_feed.is_liked }}"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  {{ each_feed.like_count }} like</a></div>
           <div class="small-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>

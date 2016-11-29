@@ -137,6 +137,7 @@ def new():
 def update(id):
     username = request.json.get('username')
     password = request.json.get('password')
+    user_image_url = request.json.get('user_image_url')
 
     request.json['id'] = id
 
@@ -150,6 +151,20 @@ def update(id):
             with conn.cursor(cursor_factory=DictCursor) as curs:
                 curs.execute(
                 """
+                BEGIN
+                """
+                )
+
+                curs.execute(
+                """
+                UPDATE user_images
+                SET url = %s
+                WHERE user_id = %s
+                """,
+                [user_image_url, id])
+
+                curs.execute(
+                """
                 UPDATE users
                 SET username = %(username)s,
                     password_digest = %(password_digest)s,
@@ -157,7 +172,15 @@ def update(id):
                 WHERE id = %(id)s
                 """, request.json)
 
-                if curs.rowcount is not 0:
+                rowCount = curs.rowcount
+
+                curs.execute(
+                """
+                COMMIT
+                """
+                )
+
+                if rowCount is not 0:
                     resp = make_response()
                     resp.headers['location'] = '/users/' + str(id)
 
@@ -172,13 +195,35 @@ def update(id):
             with conn.cursor(cursor_factory=DictCursor) as curs:
                 curs.execute(
                 """
+                BEGIN
+                """
+                )
+
+                curs.execute(
+                """
+                UPDATE user_images
+                SET url = %s
+                WHERE user_id = %s
+                """,
+                [user_image_url, id])
+
+                curs.execute(
+                """
                 UPDATE users
                 SET username = %(username)s,
                     display_name = %(display_name)s
                 WHERE id = %(id)s
                 """, request.json)
 
-                if curs.rowcount is not 0:
+                rowCount = curs.rowcount
+
+                curs.execute(
+                """
+                COMMIT
+                """
+                )
+
+                if rowCount is not 0:
                     resp = make_response()
                     resp.headers['location'] = '/users/' + str(id)
 

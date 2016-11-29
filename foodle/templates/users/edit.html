@@ -8,7 +8,11 @@
   <div class="large-4 columns"><p></p></div>
   <div class="medium-12 large-4 columns">
     <div class="callout main-entity" style="height: 445px;">
-      <div class="profile-image-meta" style="background-image: url('{{ user.image_url }}'); margin: -16px; margin-bottom: 0;"></div>
+      <div class="profile-image-meta clearfix" style="background-image: url('{{ user.image_url }}'); margin: -16px; margin-bottom: 0;">
+        <div id="profile-image-change" class="float-center">
+          <p id="user_image_url" class="text-center" style="color: white;" contenteditable="true">{{ user.image_url }}</p>
+        </div>
+      </div>
       <h1 id="displayName" style="margin-top: 20px; margin-bottom: 0;" contenteditable="true">{{ user.display_name }}</h1>
       <h3 id="username" style="color: grey;" contenteditable="true">@{{ user.username }}</h3>
       <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Sacramento, CA</a></h5>

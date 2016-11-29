@@ -6,54 +6,6 @@ from flask import Blueprint, render_template, current_app, request, redirect
 
 posts_controller = Blueprint('posts_controller', __name__)
 
-@posts_controller.route('/', methods=['GET'])
-def index():
-    limit = request.args.get('limit') or 20
-    offset = request.args.get('offset') or 0
-
-    with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=DictCursor) as curs:
-            curs.execute(
-            """
-            SELECT *
-            FROM posts
-            LIMIT %s
-            OFFSET %s
-            """,
-            [limit, offset])
-
-            posts = curs.fetchall()
-
-            curs.execute(
-            """
-            SELECT count(id)
-            FROM posts
-            """)
-
-            count = curs.fetchone()[0]
-
-            return render_template('/posts/index.html', posts=posts, count=posts)
-
-
-@posts_controller.route('/<int:id>', methods=['GET'])
-def show(id):
-    with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=DictCursor) as curs:
-            curs.execute(
-            """
-            SELECT *
-            FROM posts
-            WHERE id = %s
-            """,
-            [id])
-
-            post = curs.fetchone()
-
-            if post is not None:
-                return render_template('/posts/show.html', post=post)
-            else:
-                return "Entity not found.", 404
-
 
 @posts_controller.route('/', methods=['POST'])
 def create():
@@ -76,14 +28,9 @@ def create():
                 return "Entity not found.", 404
 
 
-@posts_controller.route('/new', methods=['GET'])
-def new():
-    return render_template('/posts/new.html')
-
-
 @posts_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update(id):
-    if request.json.get('id') is not None or not isinstance(request.json.get('name'), str) or not isinstance(request.json.get('user_id'), int):
+    if request.json.get('id') is not None:
         return "Request body is unprocessable.", 422
 
     request.json['id'] = id
@@ -93,8 +40,10 @@ def update(id):
             curs.execute(
             """
             UPDATE posts
-            SET body = %(body)s,
-                user_id = %(user_id)s
+            SET title = %(title)s,
+                body = %(body)s,
+                cost = %(cost)s,
+                score = %(score)s
             WHERE id = %(id)s
             RETURNING *
             """, request.json)
@@ -107,11 +56,48 @@ def update(id):
 
 @posts_controller.route('/<int:id>/edit', methods=['GET'])
 def edit(id):
-    return None
-    
+    with psycopg2.connect(foodle.app.config['dsn']) as conn:
+        with conn.cursor(cursor_factory=DictCursor) as curs:
+            curs.execute(
+            """
+            SELECT p.id post_id,
+                   p.body,
+                   p.title,
+                   p.cost,
+                   p.score,
+                   p.inserted_at,
+                   u.id user_id,
+                   u.display_name,
+                   u.username,
+                   pl.id place_id,
+                   pl.name place_name
+            FROM posts p
+            INNER JOIN users u ON u.id = p.user_id
+            INNER JOIN places pl ON pl.id = p.place_id
+            WHERE p.id = %s
+            """,
+            [id])
+
+            post = curs.fetchone()
+
+            curs.execute(
+            """
+            SELECT link
+            FROM post_images pi
+            WHERE pi.post_id = %s
+            """,
+            [id])
+
+            post_image_urls = curs.fetchall()
+
+            if post is not None:
+                return render_template('/posts/edit.html', post=post, post_image_urls=post_image_urls)
+            else:
+                return "Entity not found.", 404
+
 
 @posts_controller.route('/<int:id>', methods=['DELETE'])
-def delete():
+def delete(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(

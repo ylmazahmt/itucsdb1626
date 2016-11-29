@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit {{ post.display_name }}'s post{% endblock %}
+
+{% block content %}
+<div class="row content">
+  <div class="large-3 columns"><p></p></div>
+  <div class="large-6 columns">
+    <div class="callout main-entity">
+      <div class="row callout-header">
+        <div class="large-10 columns main-entity-identity" style="margin: 0; padding: 1rem; padding-bottom: 0;">
+          <p class="identity">
+            <a href="/places/{{ post.place_id }}"><span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  {{ post.place_name }}</span></a>
+          <p class="timestamp">{{ post.inserted_at }}</p>
+        </div>
+        <div class="large-2 columns">
+          <p id="post-score" class="score" contenteditable="true">{{ post.score / 10 }}</p>
+        </div>
+      </div>
+      <h5 id="post-title" contenteditable="true">{{ post.title }}</h5><p id="post-cost" class="cost" contenteditable="true">€ {{ post.cost }}</p>
+      {% for url in post_image_urls %}
+      <img class="post-image" src="{{ url[0] }}" />
+      {% endfor %}
+      <p id="post-body" contenteditable="true">{{ post.body }}</p>
+    </div>
+    <div class="row">
+      <button id="update-post" class="extended success button" style="width: 100%; border-radius: 3px;" data-post-id="{{ post.post_id }}" data-user-id="{{ post.user_id }}">Save changes</button>
+      <a class="extended button" style="width: 100%; border-radius: 3px; background-color: grey;" href="/users/{{ post.user_id }}">Discard changes</a>
+      <button id="delete-post" class="extended alert button" style="width: 100%; border-radius: 3px;" data-post-id="{{ post.post_id }}" data-user-id="{{ post.user_id }}">Delete post</button>
+    </div>
+  </div>
+  <div class="large-3 columns"><p></p></div>
+</div>
+
+{% endblock %}
