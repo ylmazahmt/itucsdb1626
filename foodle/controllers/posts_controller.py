@@ -49,7 +49,7 @@ def update(id):
             """, request.json)
 
             if curs.rowcount is not 0:
-                return render_template('/posts/show.html', post=curs.fetchone())
+                return "Changed.", 201
             else:
                 return "Entity not found.", 404
 
