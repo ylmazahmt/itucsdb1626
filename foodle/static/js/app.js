@@ -251,6 +251,9 @@ $('div.callout.new-entity input').on('keydown', function (keyEvent) {
     })
     .success(function (data, textStatus, xhr) {
       window.location.reload();
+    })
+    .error(function () {
+      alert('Please make sure you selected place from the autocomplete dropdown.')
     });
   }
 })
