@@ -65,3 +65,5 @@ target/
 
 # Node.js runtime
 generation/node_modules
+
+*.DS_Store

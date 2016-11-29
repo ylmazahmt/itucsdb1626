@@ -102,3 +102,9 @@ VALUES ('1', '1','Suadiye Mc', '200','1', 'Bağdat Caddesi');
 
 INSERT INTO cities (user_id, name,description)
 VALUES('1',' Istanbul','Best city in the World it is the best one i have ever seen in my entire life');
+
+INSERT INTO chat_rooms (user_id, name)
+VALUES('1','Desert Chat');
+
+INSERT INTO chat_room_messages (user_id, chat_room_id, body)
+VALUES('1','1','Hi there this is a test message to see something on the screen, work hard play harder');

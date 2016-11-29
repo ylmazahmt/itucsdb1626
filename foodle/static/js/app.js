@@ -124,76 +124,43 @@ function addRating() {
 	});
 }
 
-function addCity() {
+function addChatRoom() {
 
-    const user_id = $('#user_id_input').val()
-    const name = $('label.name').children().val()
-    const description = $('label.description').children().val()
-    $.ajax({
-      method: 'POST',
-        url: '/cities/',
-        dataType: "json",
-        data: JSON.stringify({
-          user_id: user_id,
-          name: name,
-          description: description
-        }),
-        contentType: 'application/json'
-    })
-    .always(function (data, textStatus, xhr) {
-      window.location.replace('/cities')
-    });
-}
-
-function addPlace() {
-  const user_id = $('#user_id_input').val();
-  const name = $('label.name').children().val();
-  const description = $('label.description').children().val();
+  const user_id = $('#user_id_input').val()
+  const name = $('label.name').children().val()
 
   $.ajax({
     method: 'POST',
-      url: '/places/',
+      url: '/chat_rooms/',
       dataType: "json",
       data: JSON.stringify({
         user_id: user_id,
-        name: name,
-        description: description
+        name: name
       }),
       contentType: 'application/json'
   })
   .always(function (data, textStatus, xhr) {
-    window.location.replace('/places')
+    window.location.replace('/chat_rooms')
   });
-
 }
 
-function addPlaceInstance() {
-  const user_id = $('#user_id_input').val();
-  const place_id = $('#place_id_input').val();
-  const city_id = $('#city_id_input').val();
-  const name = $('label.name').children().val();
-  const address = $('label.address').children().val();
-  const capacity = $('label.capacity').children().val();
-
+function addChatRoomMessage() {
+  const user_id = $('#user_id_input').val()
+  const chat_room_id = $('#chat_room_id_input').val()
+  const body = $('label.body').children().val()
   $.ajax({
     method: 'POST',
-      url: '/place_instances/',
+      url: '/chat_room_messages/',
       dataType: "json",
       data: JSON.stringify({
         user_id: user_id,
-        place_id: place_id,
-        city_id: city_id,
-        name: name,
-        address: address,
-        capacity: capacity
+        chat_room_id: chat_room_id,
       }),
       contentType: 'application/json'
   })
   .always(function (data, textStatus, xhr) {
-    window.location.replace('/place_instances')
+    window.location.replace('/chat_room_messages')
   });
-
-
 }
 
 function dispatchDelete(entity, identifier) {
@@ -245,39 +212,26 @@ function dispatchDelete(entity, identifier) {
       alert('Operation completed.')
       window.location.replace('/place_ratings')
     })
-  } else if (entity === 'city') {
+  } else if (entity === 'chat_room') {
     $.ajax({
       method: 'DELETE',
-      url: '/cities/' + identifier
+      url: '/chat_rooms/' + identifier
     })
     .success(function (data, textStatus, xhr) {
       alert('Operation completed.')
-      window.location.replace('/cities')
+      window.location.replace('/chat_rooms')
     })
-
-  }  else if (entity === 'place') {
-
-    $.ajax({
-      method: 'DELETE',
-      url: '/places/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/places')
-    })
-
-  } else if (entity === 'place_instance') {
-
-    $.ajax({
-      method: 'DELETE',
-      url: '/place_instances/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/place_instances')
-    })
-
   }
+  else if (entity === 'chat_room_message') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/chat_room_messages/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/chat_room_messages')
+    })
+
 }
 
 function dispatchUpdate(entity, identifier) {
@@ -362,50 +316,28 @@ function dispatchUpdate(entity, identifier) {
     .always(function (data, textStatus, xhr) {
       window.location = xhr.getResponseHeader('location')
     });
-  } else if (entity === 'city') {
+  } else if(entity === 'chat_room') {
     const name = $('label.name').children().val();
-    const description = $('label.description').children().val();
 
     $.ajax({
       method: 'PUT',
-      url: '/cities/' + identifier,
+      url: '/chat_rooms/' + identifier,
       data: JSON.stringify({
-        name: name,
-        description: description
+        name: name
       }),
       contentType: 'application/json'
     })
     .always(function (data, textStatus, xhr) {
       window.location = xhr.getResponseHeader('location');
     });
-  } else if(entity === 'place') {
-    const name = $('label.name').children().val()
-    const description = $('label.description').children().val()
+  } else if(entity === 'chat_room_message') {
+    const body = $('label.body').children().val();
 
     $.ajax({
       method: 'PUT',
-      url: '/places/' + identifier,
+      url: '/chat_room_messages/' + identifier,
       data: JSON.stringify({
-        name: name,
-        description: description
-      }),
-      contentType: 'application/json'
-    })
-    .always(function (data, textStatus, xhr) {
-      window.location.replace('../');
-    });
-  } else if(entity === 'place_instances') {
-    const name = $('label.name').children().val()
-    const address = $('label.address').children().val()
-    const capacity = $('label.capacity').children().val()
-
-    $.ajax({
-      method: 'PUT',
-      url: '/place_instances/' + identifier,
-      data: JSON.stringify({
-        name: name,
-        address: address,
-        capacity: capacity
+        body: body
       }),
       contentType: 'application/json'
     })
