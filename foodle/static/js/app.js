@@ -231,7 +231,7 @@ function dispatchDelete(entity, identifier) {
       alert('Operation completed.')
       window.location.replace('/chat_room_messages')
     })
-
+  }
 }
 
 function dispatchUpdate(entity, identifier) {

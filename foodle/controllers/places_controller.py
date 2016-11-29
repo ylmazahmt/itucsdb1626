@@ -8,43 +8,72 @@ places_controller = Blueprint('places_controller', __name__)
 
 @places_controller.route('/', methods=['GET'])
 def index():
-    limit = request.args.get('limit') or 20
-    offset = request.args.get('offset') or 0
+        acceptType = request.headers.get('accept')
+        limit = request.args.get('limit') or 20
+        offset = request.args.get('offset') or 0
+        name = request.args.get('name')
 
-    with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=RealDictCursor) as curs:
-            curs.execute(
-            """
-            SELECT p.name, p.id, p.description, u.username
-            FROM places as p
-            INNER JOIN users as u ON p.user_id=u.id
-            LIMIT %s
-            OFFSET %s
-            """,
-            [limit, offset])
+        if acceptType == 'application/json':
+            with psycopg2.connect(foodle.app.config['dsn']) as conn:
+                with conn.cursor(cursor_factory=DictCursor) as curs:
+                    if name is not None:
+                        curs.execute(
+                        """
+                        SELECT p.id, p.name, p.description
+                        FROM places p
+                        WHERE p.name ILIKE %s
+                        LIMIT %s
+                        OFFSET %s
+                        """,
+                        ['%' + name + '%', limit, offset])
+                    else:
+                        curs.execute(
+                        """
+                        SELECT *
+                        FROM places p
+                        LIMIT %s
+                        OFFSET %s
+                        """,
+                        [limit, offset])
 
-            places = curs.fetchall()
+                    places = curs.fetchall()
 
-            curs.execute(
-            """
-            SELECT count(*)
-            FROM places
-            """)
-            count = curs.fetchone()['count']
+                    return jsonify(places)
+        else:
+            with psycopg2.connect(foodle.app.config['dsn']) as conn:
+                with conn.cursor(cursor_factory=RealDictCursor) as curs:
+                    curs.execute(
+                    """
+                    SELECT p.name, p.id, p.description, u.username
+                    FROM places as p
+                    INNER JOIN users as u ON p.user_id=u.id
+                    LIMIT %s
+                    OFFSET %s
+                    """,
+                    [limit, offset])
 
-            for place in places:
-                curs.execute(
-                """
-                SELECT *
-                FROM place_instances
-                WHERE place_id = %s
-                LIMIT 10
-                """,
-                [place['id']])
+                    places = curs.fetchall()
 
-                place['place_instances'] = curs.fetchall()
+                    curs.execute(
+                    """
+                    SELECT count(*)
+                    FROM places
+                    """)
+                    count = curs.fetchone()['count']
 
-            return render_template('/places/index.html', places=places, count=count)
+                    for place in places:
+                        curs.execute(
+                        """
+                        SELECT *
+                        FROM place_instances
+                        WHERE place_id = %s
+                        LIMIT 10
+                        """,
+                        [place['id']])
+
+                        place['place_instances'] = curs.fetchall()
+
+                    return render_template('/places/index.html', places=places, count=count)
 
 
 @places_controller.route('/<int:id>', methods=['GET'])

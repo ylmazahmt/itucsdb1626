@@ -4,65 +4,36 @@ from psycopg2.extras import DictCursor
 
 from flask import Blueprint, render_template, current_app, request, redirect, make_response
 
-place_instances_controller = Blueprint('place_instances_controller',__name__)
+place_instances_controller = Blueprint('place_instances_controller', __name__)
 
 @place_instances_controller.route('/', methods=['GET'])
 def index():
 
-    acceptType = request.headers.get('accept')
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
-    name = request.args.get('name')
 
-    if acceptType == 'application/json':
-        with psycopg2.connect(foodle.app.config['dsn']) as conn:
-            with conn.cursor(cursor_factory=DictCursor) as curs:
-                if name is not None:
-                    curs.execute(
-                    """
-                    SELECT *
-                    FROM places p
-                    WHERE p.name ILIKE %s
-                    LIMIT %s
-                    OFFSET %s
-                    """,
-                    ['%' + name + '%', limit, offset])
-                else:
-                    curs.execute(
-                    """
-                    SELECT *
-                    FROM places p
-                    LIMIT %s
-                    OFFSET %s
-                    """,
-                    [limit, offset])
+    with psycopg2.connect(foodle.app.config['dsn']) as conn:
+        with conn.cursor(cursor_factory = DictCursor) as curs:
+            curs.execute(
+            """
+            SELECT *
+            FROM place_instances
+            LIMIT %s
+            OFFSET %s
+            """,
+            [limit, offset])
 
-                places = curs.fetchall()
+            place_instances = curs.fetchall()
 
-                return jsonify(places)
-    else:
-        with psycopg2.connect(foodle.app.config['dsn']) as conn:
-            with conn.cursor(cursor_factory = DictCursor) as curs:
-                curs.execute(
-                """
-                SELECT *
-                FROM place_instances
-                LIMIT %s
-                OFFSET %s
-                """,
-                [limit, offset])
+            curs.execute(
+            """
+            SELECT count(id)
+            FROM place_instances
+            """
+            )
+            count = curs.fetchone()[0]
 
-                place_instances = curs.fetchall()
-
-                curs.execute(
-                """
-                SELECT count(id)
-                FROM place_instances
-                """
-                )
-                count = curs.fetchone()[0]
-
-                return render_template('place_instances/index.html', place_instances=place_instances, count=count)
+            return render_template('place_instances/index.html', place_instances=place_instances, count=count)
 
 @place_instances_controller.route('/<int:id>',methods=['GET'])
 def show(id):
