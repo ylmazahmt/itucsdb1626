@@ -163,191 +163,7 @@ function addChatRoomMessage() {
   });
 }
 
-function dispatchDelete(entity, identifier) {
-  if (entity === 'user') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/users/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/users')
-    })
-  } else if (entity === 'post_image') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/post_images/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/post_images')
-    })
-  }
-  else if (entity === 'post_comment') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/post_comments/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/post_comments')
-    })
-  }
-  else if (entity === 'check_in_comment') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/check_in_comments/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/check_in_comments')
-    })
-  }
-  else if (entity === 'place_rating') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/place_ratings/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/place_ratings')
-    })
-  } else if (entity === 'chat_room') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/chat_rooms/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/chat_rooms')
-    })
-  }
-  else if (entity === 'chat_room_message') {
-    $.ajax({
-      method: 'DELETE',
-      url: '/chat_room_messages/' + identifier
-    })
-    .success(function (data, textStatus, xhr) {
-      alert('Operation completed.')
-      window.location.replace('/chat_room_messages')
-    })
-  }
-}
 
-function dispatchUpdate(entity, identifier) {
-  if (entity === 'user') {
-    const username = $('label.username').children().val()
-    const password = $('label.password').children().val()
-    const passwordDuplicate = $('label.password-duplicate').children().val()
-
-    if (password === passwordDuplicate) {
-      $.ajax({
-        method: 'PUT',
-        url: '/users/' + identifier,
-        data: JSON.stringify({
-          username: username,
-          password: password
-        }),
-        contentType: 'application/json'
-      })
-      .success(function (data, textStatus, xhr) {
-        window.location.replace(xhr.getResponseHeader('location'))
-      })
-      .fail(function (data, textStatus, xhr) {
-        alert('Username and password, both needs to be typed and be 7 to 20 characters long.')
-      })
-    } else {
-      //  Set focus to the password field
-      $('label.password').children().focus()
-    }
-  } else if (entity === 'post_image') {
-    const link = $('label.link').children().val()
-
-    $.ajax({
-      method: 'PUT',
-      url: '/post_images/' + identifier,
-      data: JSON.stringify({
-        link: link
-      }),
-      contentType: 'application/json'
-    })
-    .success(function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader('location')
-    });
-  } else if (entity === 'post_comment') {
-    const body = $('label.body').children().val()
-
-    $.ajax({
-      method: 'PUT',
-      url: '/post_comments/' + identifier,
-      data: JSON.stringify({
-        body: body
-      }),
-      contentType: 'application/json'
-    })
-    .success(function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader('location')
-    });
-  } else if (entity === 'check_in_comment') {
-    const message = $('#comment_edit').val()
-
-    $.ajax({
-      method: 'PUT',
-      url: '/check_in_comments/' + identifier,
-      data: JSON.stringify({
-        body: message
-      }),
-      contentType: 'application/json'
-    })
-    .always(function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader('location')
-    });
-  } else if (entity === 'place_rating') {
-    const rating = $('#rating_edit').val()
-
-    $.ajax({
-      method: 'PUT',
-      url: '/place_ratings/' + identifier,
-      data: JSON.stringify({
-        rating: rating
-      }),
-      contentType: 'application/json'
-    })
-    .always(function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader('location')
-    });
-  } else if(entity === 'chat_room') {
-    const name = $('label.name').children().val();
-
-    $.ajax({
-      method: 'PUT',
-      url: '/chat_rooms/' + identifier,
-      data: JSON.stringify({
-        name: name
-      }),
-      contentType: 'application/json'
-    })
-    .always(function (data, textStatus, xhr) {
-      window.location = xhr.getResponseHeader('location');
-    });
-  } else if(entity === 'chat_room_message') {
-    const body = $('label.body').children().val();
-
-    $.ajax({
-      method: 'PUT',
-      url: '/chat_room_messages/' + identifier,
-      data: JSON.stringify({
-        body: body
-      }),
-      contentType: 'application/json'
-    })
-    .always(function (data, textStatus, xhr) {
-      window.location.replace('../');
-    });
-  }
-
-  return false;
-}
 
 var semaphore = 0;
 
@@ -609,3 +425,190 @@ $('#activate-user').click(function () {
 
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);
 $('#search').removeAttr('disabled');
+
+function dispatchUpdate(entity, identifier) {
+  if (entity === 'user') {
+    const username = $('label.username').children().val()
+    const password = $('label.password').children().val()
+    const passwordDuplicate = $('label.password-duplicate').children().val()
+
+    if (password === passwordDuplicate) {
+      $.ajax({
+        method: 'PUT',
+        url: '/users/' + identifier,
+        data: JSON.stringify({
+          username: username,
+          password: password
+        }),
+        contentType: 'application/json'
+      })
+      .success(function (data, textStatus, xhr) {
+        window.location.replace(xhr.getResponseHeader('location'))
+      })
+      .fail(function (data, textStatus, xhr) {
+        alert('Username and password, both needs to be typed and be 7 to 20 characters long.')
+      })
+    } else {
+      //  Set focus to the password field
+      $('label.password').children().focus()
+    }
+  } else if (entity === 'post_image') {
+    const link = $('label.link').children().val()
+
+    $.ajax({
+      method: 'PUT',
+      url: '/post_images/' + identifier,
+      data: JSON.stringify({
+        link: link
+      }),
+      contentType: 'application/json'
+    })
+    .success(function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader('location')
+    });
+  } else if (entity === 'post_comment') {
+    const body = $('label.body').children().val()
+
+    $.ajax({
+      method: 'PUT',
+      url: '/post_comments/' + identifier,
+      data: JSON.stringify({
+        body: body
+      }),
+      contentType: 'application/json'
+    })
+    .success(function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader('location')
+    });
+  } else if (entity === 'check_in_comment') {
+    const message = $('#comment_edit').val()
+
+    $.ajax({
+      method: 'PUT',
+      url: '/check_in_comments/' + identifier,
+      data: JSON.stringify({
+        body: message
+      }),
+      contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader('location')
+    });
+  } else if (entity === 'place_rating') {
+    const rating = $('#rating_edit').val()
+
+    $.ajax({
+      method: 'PUT',
+      url: '/place_ratings/' + identifier,
+      data: JSON.stringify({
+        rating: rating
+      }),
+      contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader('location')
+    });
+  } else if(entity === 'chat_room') {
+    const name = $('label.name').children().val();
+
+    $.ajax({
+      method: 'PUT',
+      url: '/chat_rooms/' + identifier,
+      data: JSON.stringify({
+        name: name
+      }),
+      contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader('location');
+    });
+  } else if(entity === 'chat_room_message') {
+    const body = $('label.body').children().val();
+
+    $.ajax({
+      method: 'PUT',
+      url: '/chat_room_messages/' + identifier,
+      data: JSON.stringify({
+        body: body
+      }),
+      contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location.replace('../');
+    });
+  }
+
+  return false;
+}
+
+
+function dispatchDelete(entity, identifier) {
+  if (entity === 'user') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/users/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/users')
+    })
+  } else if (entity === 'post_image') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/post_images/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/post_images')
+    })
+  }
+  else if (entity === 'post_comment') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/post_comments/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/post_comments')
+    })
+  }
+  else if (entity === 'check_in_comment') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/check_in_comments/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/check_in_comments')
+    })
+  }
+  else if (entity === 'place_rating') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/place_ratings/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/place_ratings')
+    })
+  } else if (entity === 'chat_room') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/chat_rooms/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/chat_rooms')
+    })
+  }
+  else if (entity === 'chat_room_message') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/chat_room_messages/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/chat_room_messages')
+    })
+  }
+}
