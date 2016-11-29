@@ -536,6 +536,56 @@ function dispatchUpdate(entity, identifier) {
     .always(function (data, textStatus, xhr) {
       window.location.replace('../');
     });
+  } else if (entity === 'city') {
+    const name = $('label.name').children().val();
+    const description = $('label.description').children().val();
+
+    $.ajax({
+      method: 'PUT',
+      url: '/cities/' + identifier,
+      data: JSON.stringify({
+        name: name,
+        description: description
+      }),
+      contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location = xhr.getResponseHeader('location');
+    });
+  } else if(entity === 'place') {
+    const name = $('label.name').children().val()
+    const description = $('label.description').children().val()
+
+    $.ajax({
+      method: 'PUT',
+      url: '/places/' + identifier,
+      data: JSON.stringify({
+        name: name,
+        description: description
+      }),
+      contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location.replace('../');
+    });
+  } else if(entity === 'place_instances') {
+    const name = $('label.name').children().val()
+    const address = $('label.address').children().val()
+    const capacity = $('label.capacity').children().val()
+
+    $.ajax({
+      method: 'PUT',
+      url: '/place_instances/' + identifier,
+      data: JSON.stringify({
+        name: name,
+        address: address,
+        capacity: capacity
+      }),
+      contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location.replace('../');
+    });
   }
 
   return false;
@@ -610,5 +660,109 @@ function dispatchDelete(entity, identifier) {
       alert('Operation completed.')
       window.location.replace('/chat_room_messages')
     })
+  } else if (entity === 'place') {
+
+    $.ajax({
+      method: 'DELETE',
+      url: '/places/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/places')
+    })
+
+  } else if (entity === 'place_instance') {
+
+    $.ajax({
+      method: 'DELETE',
+      url: '/place_instances/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/place_instances')
+    })
+
+  } else if (entity === 'city') {
+    $.ajax({
+      method: 'DELETE',
+      url: '/cities/' + identifier
+    })
+    .success(function (data, textStatus, xhr) {
+      alert('Operation completed.')
+      window.location.replace('/cities')
+    })
+
   }
 }
+
+function addCity() {
+
+    const user_id = $('#user_id_input').val()
+    const name = $('label.name').children().val()
+    const description = $('label.description').children().val()
+    $.ajax({
+      method: 'POST',
+        url: '/cities/',
+        dataType: "json",
+        data: JSON.stringify({
+          user_id: user_id,
+          name: name,
+          description: description
+        }),
+        contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location.replace('/cities')
+    });
+}
+
+function addPlace() {
+    const user_id = $('#user_id_input').val();
+    const name = $('label.name').children().val();
+    const description = $('label.description').children().val();
+
+    $.ajax({
+      method: 'POST',
+        url: '/places/',
+        dataType: "json",
+        data: JSON.stringify({
+          user_id: user_id,
+          name: name,
+          description: description
+        }),
+        contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location.replace('/places')
+    });
+
+  }
+
+  function addPlaceInstance() {
+    const user_id = $('#user_id_input').val();
+    const place_id = $('#place_id_input').val();
+    const city_id = $('#city_id_input').val();
+    const name = $('label.name').children().val();
+    const address = $('label.address').children().val();
+    const capacity = $('label.capacity').children().val();
+
+    $.ajax({
+      method: 'POST',
+        url: '/place_instances/',
+        dataType: "json",
+        data: JSON.stringify({
+          user_id: user_id,
+          place_id: place_id,
+          city_id: city_id,
+          name: name,
+          address: address,
+          capacity: capacity
+        }),
+        contentType: 'application/json'
+    })
+    .always(function (data, textStatus, xhr) {
+      window.location.replace('/place_instances')
+    });
+
+
+  }
