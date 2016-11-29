@@ -1,6 +1,6 @@
 
 --  Drop cascade all tables
-DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, post_likes, user_friends, check_ins, post_images, post_comments, place_instances, check_in_comments, place_ratings CASCADE;
+DROP TABLE IF EXISTS users, user_emails, user_activations, user_images, places, place_images, posts, post_likes, user_friends, check_ins, post_images, post_comments, place_instances, check_in_comments, place_ratings, chat_rooms, chat_room_messages CASCADE;
 DROP VIEW IF EXISTS feed;
 
 --  Recall `uuid-ossp` extension
@@ -142,6 +142,24 @@ CREATE TABLE place_ratings(
     rating int,
     inserted_at timestamp DEFAULT now() NOT NULL
 );
+
+-- Create 'chat_rooms' table
+CREATE TABLE chat_rooms(
+  id serial PRIMARY KEY,
+  user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  name character varying(255) UNIQUE NOT NULL,
+  inserted_at timestamp DEFAULT now() NOT NULL
+);
+
+-- Create 'chat_room_messages' table
+CREATE TABLE chat_room_messages(
+  id serial PRIMARY KEY,
+  user_id integer NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  chat_room_id integer NOT NULL REFERENCES chat_rooms(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  body text UNIQUE NOT NULL,
+  inserted_at timestamp DEFAULT now() NOT NULL
+);
+
 
 CREATE INDEX check_ins_user_id_idx ON check_ins(user_id);
 CREATE INDEX check_ins_place_id_idx ON check_ins(place_id);
