@@ -99,3 +99,9 @@ VALUES(2, 1, 7);
 
 INSERT INTO place_instances (user_id, place_id, name, capacity)
 VALUES ('1', '1','Suadiye Mc', '200');
+
+INSERT INTO chat_rooms (user_id, name)
+VALUES('1','Desert Chat');
+
+INSERT INTO chat_room_messages (user_id, chat_room_id, body)
+VALUES('1','1','Hi there this is a test message to see something on the screen, work hard play harder');

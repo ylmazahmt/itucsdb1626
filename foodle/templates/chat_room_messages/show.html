@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %} Chat Room Message {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+
+    <div class="callout">
+      <p>Chat Room Name: {{ chat_room_message['name']}} </p>
+      <p>Message Owner : {{ chat_room_message['username'] }}</p>
+      <p>Message : {{ chat_room_message['body'] }}</p>
+      <p><a href="/chat_room_messages/{{ chat_room_message['id'] }}/edit">Edit</a></p>
+    </div>
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
+
+{% endblock %}
