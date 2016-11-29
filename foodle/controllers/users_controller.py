@@ -140,34 +140,51 @@ def update(id):
 
     request.json['id'] = id
 
-    if not isinstance(username, str) or not isinstance(password, str):
-        return "Request body is unprocessable.", 422
+    if password is not None:
+        if not isinstance(username, str) or not isinstance(password, str):
+            return "Request body is unprocessable.", 422
 
-    username_pattern = re.compile("[a-zA-Z0-9]{3,20}")
-    password_pattern = re.compile("[a-zA-Z0-9]{7,20}")
+        request.json['password_digest'] = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-    if not password_pattern.match(password) or not username_pattern.match(username):
-        return "Username and password should be alphanumeric and be 5 to 20 characters long.", 422
+        with psycopg2.connect(foodle.app.config['dsn']) as conn:
+            with conn.cursor(cursor_factory=DictCursor) as curs:
+                curs.execute(
+                """
+                UPDATE users
+                SET username = %(username)s,
+                    password_digest = %(password_digest)s,
+                    display_name = %(display_name)s
+                WHERE id = %(id)s
+                """, request.json)
 
-    request.json['password_digest'] = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+                if curs.rowcount is not 0:
+                    resp = make_response()
+                    resp.headers['location'] = '/users/' + str(id)
 
-    with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=DictCursor) as curs:
-            curs.execute(
-            """
-            UPDATE users
-            SET username = %(username)s,
-                password_digest = %(password_digest)s
-            WHERE id = %(id)s
-            """, request.json)
+                    return resp
+                else:
+                    return "Entity not found.", 404
+    else:
+        if not isinstance(username, str):
+            return "Request body is unprocessable.", 422
 
-            if curs.rowcount is not 0:
-                resp = make_response()
-                resp.headers['location'] = '/users/' + str(id)
+        with psycopg2.connect(foodle.app.config['dsn']) as conn:
+            with conn.cursor(cursor_factory=DictCursor) as curs:
+                curs.execute(
+                """
+                UPDATE users
+                SET username = %(username)s,
+                    display_name = %(display_name)s
+                WHERE id = %(id)s
+                """, request.json)
 
-                return resp
-            else:
-                return "Entity not found.", 404
+                if curs.rowcount is not 0:
+                    resp = make_response()
+                    resp.headers['location'] = '/users/' + str(id)
+
+                    return resp
+                else:
+                    return "Entity not found.", 404
 
 
 @users_controller.route('/<int:id>/edit', methods=['GET'])
@@ -176,9 +193,19 @@ def edit(id):
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT id, username, inserted_at
-            FROM users
-            WHERE id = %s
+            SELECT u.id,
+                   u.username,
+                   u.display_name,
+                   count(uf.id) number_of_friends,
+                   ui.url image_url,
+                   max(p.inserted_at) last_posted,
+                   count(p.id) number_of_posts
+            FROM users u
+            LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
+            LEFT OUTER JOIN user_friends uf ON uf.user_id = u.id
+            LEFT OUTER JOIN posts p ON p.user_id = u.id
+            GROUP BY u.id, ui.user_id
+            HAVING u.id = %s;
             """,
             [id])
 

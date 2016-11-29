@@ -443,7 +443,24 @@ $('#delete-user').click(function () {
     alert('Operation completed.');
     window.location.replace('/users');
   });
-})
+});
+
+$('#update-user').click(function () {
+  const identifier = $('#update-user').attr('data-user-id');
+
+  $.ajax({
+    method: 'PUT',
+    url: '/users/' + identifier,
+    data: JSON.stringify({
+      display_name: $('#displayName')[0].innerHTML,
+      username: $('#username')[0].innerHTML.split('').splice(1).join('')
+    }),
+    contentType: 'application/json'
+  })
+  .success(function () {
+    window.location.replace('/users/' + identifier);
+  });
+});
 
 $('#init-db').click(function () {
   $.ajax({
@@ -454,7 +471,7 @@ $('#init-db').click(function () {
     alert('Operation completed.');
     window.location.replace('/users/2/feed');
   });
-})
+});
 
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);
 $('#search').removeAttr('disabled');

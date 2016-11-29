@@ -4,35 +4,34 @@
 
 {% block content %}
 
-<form>
-  <div class="row">
-    <div class="large-4 columns show-for-large"><p></p></div>
-    <div class="large-4 medium-12 columns">
-      <h3>Edit user information</h3>
-      <div class="row">
-        <div class="large-12 columns">
-          <label class="username">Username
-            <input type="text" placeholder="5 to 20 characters" value="{{ user['username'] }}">
-          </label>
+<div class="row content">
+  <div class="large-4 columns"><p></p></div>
+  <div class="medium-12 large-4 columns">
+    <div class="callout main-entity" style="height: 445px;">
+      <div class="profile-image-meta" style="background-image: url('{{ user.image_url }}'); margin: -16px; margin-bottom: 0;"></div>
+      <h1 id="displayName" style="margin-top: 20px; margin-bottom: 0;" contenteditable="true">{{ user.display_name }}</h1>
+      <h3 id="username" style="color: grey;" contenteditable="true">@{{ user.username }}</h3>
+      <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Sacramento, CA</a></h5>
+      <div class="row profile-image-meta-alt">
+        <div class="small-4 columns text-center" style="border-right: 0.5px solid black">
+          <h3>{{ user.number_of_posts }}</h3>
+          <p style="text-align: center;">{{ 'posts' if user.number_of_posts > 1 else 'post' }}</p>
         </div>
-        <div class="large-12 columns">
-          <label class="password">Password
-            <input type="password" placeholder="">
-          </label>
+        <div class="small-4 columns text-center">
+          <h3>{{ user.number_of_friends }}</h3>
+          <p style="text-align: center;">{{ 'friends' if user.number_of_posts > 1 else 'friend' }}</p>
         </div>
-        <div class="large-12 columns">
-          <label class="password-duplicate">Re-enter password
-            <input type="password" placeholder="">
-          </label>
-        </div>
-        <div class="large-12 columns" style="margin-top: 20px;">
-          <button onclick="dispatchUpdate('user', {{ user['id'] }})" type="button" class="success button float-right">Save</button>
-          <button type="button" class="alert button float-right" style="margin-right: 10px;" onclick="window.history.back();">Discard</button>
+        <div class="small-4 columns text-center" style="border-left: 0.5px solid black">
+          <h3>70%</h3>
+          <p style="text-align: center;">activity</p>
         </div>
       </div>
     </div>
-    <div class="large-4 columns show-for-large"></div>
+    <button id="update-user" data-user-id="{{ user.id }}" type="button" class="expanded success button" style="border-radius: 3px;">Save</button>
+    <a href="/users/{{ user.id }}" class="expanded button" style="border-radius: 3px; background-color: grey;">Discard changes</a>
+    <button id="delete-user" data-user-id="{{ user.id }}" type="button" class="small expanded alert button" style="border-radius: 3px;"><i class="fa fa-times" aria-hidden="true"></i>  Delete User</button>
   </div>
-</form>
+  <div class="large-4 columns"><p></p></div>
+</div>
 
 {% endblock %}

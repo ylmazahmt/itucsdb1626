@@ -34,6 +34,7 @@ def index():
 
             return render_template('/posts/index.html', posts=posts, count=posts)
 
+
 @posts_controller.route('/<int:id>', methods=['GET'])
 def show(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
@@ -79,6 +80,7 @@ def create():
 def new():
     return render_template('/posts/new.html')
 
+
 @posts_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update(id):
     if request.json.get('id') is not None or not isinstance(request.json.get('name'), str) or not isinstance(request.json.get('user_id'), int):
@@ -106,6 +108,7 @@ def update(id):
 @posts_controller.route('/<int:id>/edit', methods=['GET'])
 def edit(id):
     return None
+    
 
 @posts_controller.route('/<int:id>', methods=['DELETE'])
 def delete():
