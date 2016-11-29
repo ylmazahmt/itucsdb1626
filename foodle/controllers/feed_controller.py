@@ -27,16 +27,13 @@ def index(id):
             """
             SELECT f.*, pl.user_id IS NOT NULL is_liked
             FROM feed f
-            LEFT OUTER JOIN post_likes pl ON f.post_id = pl.post_id
-            WHERE pl.user_id = %s OR pl.user_id IS NULL
+            LEFT OUTER JOIN post_likes pl ON (f.post_id = pl.post_id AND pl.user_id = %s)
             LIMIT %s
             OFFSET %s
             """,
             [id, limit, offset])
 
             feeds = curs.fetchall()
-
-            print(feeds)
 
             for each_feed in feeds:
                 curs.execute(

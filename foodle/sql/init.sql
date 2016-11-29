@@ -171,4 +171,4 @@ CREATE VIEW feed AS
     LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
     LEFT OUTER JOIN post_likes l ON l.post_id = po.id
     GROUP BY u.id, u.display_name, ui.url, po.id, po.inserted_at, po.title, po.body, po.cost, po.score, pl.name, pl.id, l.post_id
-    ORDER BY po.inserted_at DESC;
+    ORDER BY po.inserted_at DESC, po.id DESC;
