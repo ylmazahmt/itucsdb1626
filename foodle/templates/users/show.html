@@ -31,6 +31,9 @@
         </div>
       </div>
     </div>
+    {% if not user.is_activated %}
+    <a href="/users/{{ user.id }}/user_activation/new" class="small expanded success button" style="border-radius: 3px;">Activate User</a>
+    {% endif %}
     <a href="/users/{{ user.id }}/edit" class="small expanded button" style="border-radius: 3px;"><i class="fa fa-pencil" aria-hidden="true"></i>  Edit User</a>
     <button id="delete-user" data-user-id="{{ user.id }}" type="button" class="small expanded alert button" style="border-radius: 3px;"><i class="fa fa-times" aria-hidden="true"></i>  Delete User</button>
   </div>

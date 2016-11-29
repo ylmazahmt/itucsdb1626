@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Foodle - {{ user.display_name }}{% endblock %}
+
+{% block content %}
+
+<div id="container" class="row content" data-sender-id="{{ user.id }}">
+  <div class="large-2 columns show-for-large">
+    <p></p>
+  </div>
+  <div class="large-6 columns">
+    <div class="callout main-entity">
+      <p>Activation key: {{ user.activation_key }}</p>
+      <input id="activation_key" name="activation_key" type="text" placeholder="Type in your activation key here." />
+      <button id="activate-user" class="extended success button">Activate user</button>
+    </div>
+  </div>
+  <div class="large-2 columns show-for-large">
+    <p></p>
+  </div>
+</div>
+
+{% endblock %}

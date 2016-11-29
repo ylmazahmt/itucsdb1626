@@ -51,12 +51,14 @@ def show(id):
                    count(uf.id) number_of_friends,
                    ui.url image_url,
                    max(p.inserted_at) last_posted,
-                   count(p.id) number_of_posts
+                   count(p.id) number_of_posts,
+                   ua.user_id IS NOT NULL is_activated
             FROM users u
             LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
             LEFT OUTER JOIN user_friends uf ON uf.user_id = u.id
             LEFT OUTER JOIN posts p ON p.user_id = u.id
-            GROUP BY u.id, ui.user_id
+            LEFT OUTER JOIN user_activations ua ON ua.user_id = u.id
+            GROUP BY u.id, ui.user_id, ua.user_id
             HAVING u.id = %s;
             """,
             [id])

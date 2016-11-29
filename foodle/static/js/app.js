@@ -505,5 +505,21 @@ $('#init-db').click(function () {
   });
 });
 
+$('#activate-user').click(function () {
+  const identifier = $('#container').attr('data-sender-id');
+
+  $.ajax({
+    method: 'POST',
+    url: '/users/' + identifier + '/user_activation',
+    data: JSON.stringify({
+      activation_key: $('#activation_key').val()
+    }),
+    contentType: 'application/json'
+  })
+  .success(function () {
+    window.location.replace('/users/' + identifier);
+  });
+});
+
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);
 $('#search').removeAttr('disabled');

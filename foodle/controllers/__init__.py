@@ -17,3 +17,4 @@ from foodle.controllers.place_instances_controller import place_instances_contro
 from foodle.controllers.blacklist_controller import blacklist_controller
 from foodle.controllers.search_controller import search_controller
 from foodle.controllers.like_controller import like_controller
+from foodle.controllers.user_user_activation_controller import user_user_activation_controller
