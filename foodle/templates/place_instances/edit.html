@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %} Place Instance nr. {{ place_instance['id'] }} {% endblock %}
+{% block title %}  Edit Place Instance:  {{ place_instance['name'] }} {% endblock %}
 
 {% block content %}
 
@@ -12,13 +12,17 @@
   <div class="large-4 medium-12 columns">
 
     <form>
-      <label>Name
-        <input type = "character varying(255)" placeholder="" value="{{ place_instance['name'] }}">
+      <label>Edit Place Instance</label>
+      <label class="name">Place Instance Name
+        <input type="text" placeholder={{place_instance['name']}}>
       </label>
-      <label >Capacity
-        <input type = "character varying(255)" placeholder="" value="{{ place_instance['capacity'] }}">
+      <label class="address" placeholder={{place_instance['address']}}>Address
+        <input type="text">
       </label>
-      <button class="button success" onclick="dispatchUpdate('place_instance', {{ place_instance['id'] }})">Submit changes</button>
+      <label class="capacity" placeholder={{place_instance['capacity']}}>Capacity
+        <input type="text">
+      </label>
+      <button class="button success" onclick="dispatchUpdate('place_instance', {{ place_instance['id'] }})">Edit</button>
     </form>
   </div>
 

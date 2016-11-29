@@ -155,7 +155,6 @@ function addChatRoomMessage() {
       data: JSON.stringify({
         user_id: user_id,
         chat_room_id: chat_room_id,
-        body: body
       }),
       contentType: 'application/json'
   })
@@ -163,8 +162,6 @@ function addChatRoomMessage() {
     window.location.replace('/chat_room_messages')
   });
 }
-
-
 
 function dispatchDelete(entity, identifier) {
   if (entity === 'user') {
@@ -234,7 +231,7 @@ function dispatchDelete(entity, identifier) {
       alert('Operation completed.')
       window.location.replace('/chat_room_messages')
     })
-
+  }
 }
 
 function dispatchUpdate(entity, identifier) {
@@ -333,7 +330,6 @@ function dispatchUpdate(entity, identifier) {
     .always(function (data, textStatus, xhr) {
       window.location = xhr.getResponseHeader('location');
     });
-
   } else if(entity === 'chat_room_message') {
     const body = $('label.body').children().val();
 

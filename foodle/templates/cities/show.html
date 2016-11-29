@@ -1,60 +1,35 @@
 {% extends "layout.html" %}
 
-{% block title %}Cities{% endblock %}
+{% block title %} {{ city['name'] }} {% endblock %}
 
 {% block content %}
 
-<div class="row content">
-  <div class="large-12 columns main-entity-image"><img src="http://www.neredekal.com/res/haber/hb_b_03115858_l-b.jpg" /></div>
-  <div class="large-2 columns show-for-large">
-    <h1>İstanbul</h1>
-    <p>Population:14.16M</p>
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
   </div>
 
-  <div class="large-6 columns">
-    <h1>Top Restaurants</h1>
-    <div class="callout main-entity">
-      <div class="row callout-header">
-        <div class="large-2 columns main-entity-image"><img src="http://1.bp.blogspot.com/-HzGUjkluX0w/UYZMFs6nSuI/AAAAAAAABBs/VjddApH39Kg/s1600/pf+changs.JPG" /></div>
-        <div class="large-8 columns main-entity-identity">
-          <p class="identity">
-            <span class="name">No:1</span>
-       <span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">P.F Chang's<span class="place"></p>
+  <div class="large-4 medium-12 columns">
+
+    <div class="callout">
+      <p>{{ city['name'] }}</p>
+      <p>{{ city['description'] }}</p>
+      {% for each_place_instance in place_instances %}
+        <div class="callout">
+          <p><a href="/place_instances/{{ each_place_instance['id'] }}">Place Instance</a></p>
+          <p>Name : {{ each_place_instance['name'] }}</p>
+          <p>Address : {{ each_place_instance['address'] }}</p>
+          <p>Capacity : {{ each_place_instance['capacity'] }}</p>
+
+          <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
+
         </div>
-        <div class="large-2 columns">
-          <p class="score">10.0</p>
-        </div>
-      </div>
-      <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
-      <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
-      <div class="row">
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
-        <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
-      </div>
-      <div class="callout main-entity">
-        <div class="row callout-header">
-          <div class="large-2 columns main-entity-image"><img src="http://1.bp.blogspot.com/-HzGUjkluX0w/UYZMFs6nSuI/AAAAAAAABBs/VjddApH39Kg/s1600/pf+changs.JPG" /></div>
-          <div class="large-8 columns main-entity-identity">
-            <p class="identity">
-              <span class="name">No:2</span>
-         <span class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>  <span class="place">P.F Chang's<span class="place"></p>
-          </div>
-          <div class="large-2 columns">
-            <p class="score">10.0</p>
-          </div>
-        </div>
-        <h5>Full breakfast including Weisenschaffer ham mould /w butter. </h5><p class="cost">€ 4</p>
-        <img class="post-image" src="http://www.istanbul7hills.com/images/break.jpg" />
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mattis ullamcorper libero, a rutrum est feugiat feugiat. Duis facilisis velit porttitor nibh malesuada, a hendrerit eros tristique. Nullam feugiat tempor tortor at cursus. Integer egestas diam augue, quis eleifend orci lobortis ac. Etiam egestas ipsum pulvinar dignissim dignissim. Integer condimentum diam eget mattis fermentum. Cras sit amet elit felis. Duis pellentesque lorem sit amet malesuada finibus. Duis semper quam mauris, ut maximus nibh ornare quis. Sed eget tellus nec nisi pretium facilisis. Phasellus eu mauris eu est efficitur facilisis eu eget odio. Sed pulvinar est rutrum, sodales massa sit amet, aliquet arcu.</p>
-        <div class="row">
-          <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  Like</a></div>
-          <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  Comment</a></div>
-          <div class="large-4 columns"><a class="button float-center social-button"><i class="fa fa-share" aria-hidden="true"></i>  Share</a></div>
-        </div>
-      </div>
+      {% endfor %}
+      <p><a href="/cities/{{ city['id'] }}/edit">Edit</a></p>
     </div>
+  </div>
+
+  <div class="large-4 show-for-large">
   </div>
 </div>
 

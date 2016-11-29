@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}New Place Instance{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/foundation.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
@@ -16,23 +15,41 @@
         <div class="large-6 columns show-for-large"><p></p></div>
         <div class="large-4 medium-12 columns">
           <div class="callout main-entity" style="background-color: rgb(230, 230, 230);">
-            <h3>Add Place Instance</h3>
+            <h3>New Place Instance</h3>
             <div class="row">
               <div class="large-12 columns">
+                <label>User:</label>
+                <select id="user_id_input">
+                  {% for user in users %}
+                    <option value="{{user.id}}">{{user.username}}</option>
+                  {% endfor %}
+                </select>
+                <label>City:</label>
+                <select id="city_id_input">
+                  {% for city in cities %}
+                    <option value="{{city.id}}">{{city.name}}</option>
+                  {% endfor %}
+                </select>
+                <label>Place:</label>
+                <select id="place_id_input">
+                  {% for place in places %}
+                    <option value="{{place.id}}">{{place.name}}</option>
+                  {% endfor %}
+                </select>
                 <label class="name">Name
                   <input type="text" placeholder="">
                 </label>
-              </div>
-              <div class="large-12 columns">
+                <label class="address">Address
+                  <input type="text" placeholder="">
+                </label>
                 <label class="capacity">Capacity
-                  <input type="capacity" placeholder="">
+                  <input type="text" placeholder="">
                 </label>
               </div>
-              <div class="large-12 columns">
+            </div>
 
-              </div>
               <div class="large-12 columns" style="margin-top: 20px;">
-                <button onclick="addPlaceInstance()" type="button" class="button float-right" style="background-color: green">Submit</button>
+                <button  onclick ="addPlaceInstance()" type="button" class="button float-right" style="background-color: green">Add Place Instance</button>
               </div>
             </div>
           </div>

@@ -1,34 +1,40 @@
 {% extends "layout.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}  Places {% endblock %}
 
 {% block content %}
 
-<div class="row content">
-  <div class="large-3 columns show-for-large">
-    <p>Places ({{ count }} place{{ 's' if count > 1 else '' }} at total)</p>
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
   </div>
-  <div class="large-6 columns">
-    <div class="row">
-      {% for each_place in places %}
-      <div class="callout main-entity">
-        <div class="row">
-          <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-          <div class="large-8 columns main-entity-identity">
-            <p class="identity"><span class="name">{{ each_place.name }}</span></p>
-            <p class="timestamp">{{ each_place.inserted_at }}</p>
-          </div>
-          <div class="large-2 columns">
-            <p class="score">4.6</p>
-          </div>
-        </div>
-        <p>{{ each_place.description }}</p>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="large-3 columns show-for-large"></div>
-</div>
 
+  <div class="large-4 medium-12 columns">
+    <p>Total number of Places :{{count}}</p>
+    <a href="/places/new">Add new  Place</a>
+    {% for place in places %}
+    <div class="callout">
+      <p>Place Name : {{ place['name'] }}</p>
+      <p>User Name : {{ place['username'] }}</p>
+      <p>Decription : {{ place['description'] }}</p>
+      <p>Place Instances :</p>
+      {% for each_place_instance in place.place_instances %}
+        <div class="callout">
+          <p>Name : {{ each_place_instance['name'] }}</p>
+          <p>Address : {{ each_place_instance['address'] }}</p>
+          <p>Capacity : {{ each_place_instance['capacity'] }}</p>
+
+          <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
+
+        </div>
+      {% endfor %}
+      <button type="button" onclick="dispatchDelete('place', {{ place['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
 
 {% endblock %}
