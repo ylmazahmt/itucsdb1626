@@ -15,6 +15,12 @@ def index(id):
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(
             """
+            BEGIN
+            """
+            )
+
+            curs.execute(
+            """
             SELECT url
             FROM user_images
             WHERE user_id = %s
@@ -46,5 +52,11 @@ def index(id):
                 [each_feed['post_id']])
 
                 each_feed['post_images'] = curs.fetchall()
+
+            curs.execute(
+            """
+            COMMIT
+            """
+            )
 
             return render_template('/users/feed/index.html', feeds=feeds, image_url=image_url, user_id=id)

@@ -440,9 +440,20 @@ $('#delete-user').click(function () {
     url: '/users/' + identifier
   })
   .success(function (data, textStatus, xhr) {
-    alert('Operation completed.')
-    window.location.replace('/users')
+    alert('Operation completed.');
+    window.location.replace('/users');
+  });
+})
+
+$('#init-db').click(function () {
+  $.ajax({
+    method: 'POST',
+    url: '/database_initialization/'
   })
+  .success(function (data, textStatus, xhr) {
+    alert('Operation completed.');
+    window.location.replace('/users/2/feed');
+  });
 })
 
 humanizeTimestamps(); setInterval(humanizeTimestamps, 10000);

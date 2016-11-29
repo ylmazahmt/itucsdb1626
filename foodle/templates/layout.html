@@ -73,6 +73,8 @@
 
     {% block content %}{% endblock %}
 
+    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 100px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize Database</button>
+
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/dist/what-input.js') }}"></script>
