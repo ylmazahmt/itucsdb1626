@@ -55,12 +55,12 @@ def show(id):
 
 @chat_room_messages_controller.route('/', methods=['POST'])
 def create():
-    user_id = int(request.json['user_id'])
-    chat_room_id = int(request.json['chat_room_id'])
-    body = request.json['body']
+    user_id = int(request.json.get('user_id'))
+    chat_room_id = int(request.json.get('chat_room_id'))
+    body = request.json.get('body')
 
-    if not isinstance(user_id,int) or not isinstance(body,str) or not isinstance(chat_room_id,int):
-        return "Request rating is unprocessable",422
+    if not isinstance(user_id, int) or not isinstance(body, str) or not isinstance(chat_room_id, int):
+        return "Request rating is unprocessable", 422
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:

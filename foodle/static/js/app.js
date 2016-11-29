@@ -148,13 +148,15 @@ function addChatRoomMessage() {
   const user_id = $('#user_id_input').val()
   const chat_room_id = $('#chat_room_id_input').val()
   const body = $('label.body').children().val()
+
   $.ajax({
     method: 'POST',
       url: '/chat_room_messages/',
-      dataType: "json",
+      dataType: 'json',
       data: JSON.stringify({
         user_id: user_id,
         chat_room_id: chat_room_id,
+        body: body
       }),
       contentType: 'application/json'
   })
@@ -254,35 +256,37 @@ $('div.callout.new-entity input').on('keydown', function (keyEvent) {
 var autocompleteList = null;
 var selected = null;
 
-$('#meal-place').autocomplete({
-  source: function (request, callback) {
-    $('#spinner').css('visibility', 'visible');
-    $.ajax({
-      method: 'GET',
-      url: '/places?name=' + request.term,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .success(function (data, textStatus, xhr) {
-      autocompleteList = data;
+if ($('#meal-place').autocomplete) {
+  $('#meal-place').autocomplete({
+    source: function (request, callback) {
+      $('#spinner').css('visibility', 'visible');
+      $.ajax({
+        method: 'GET',
+        url: '/places?name=' + request.term,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .success(function (data, textStatus, xhr) {
+        autocompleteList = data;
 
-      callback(data.map(function (element) {
-        return element[1];
-      }));
+        callback(data.map(function (element) {
+          return element[1];
+        }));
 
-      $('#spinner').css('visibility', 'hidden');
-    });
-  },
-  select: function (event, ui) {
-    selected = autocompleteList.filter(function (element) {
-      return element[1] == ui.item.label;
-    }).pop()[0];
-  },
-  open: function () {
+        $('#spinner').css('visibility', 'hidden');
+      });
+    },
+    select: function (event, ui) {
+      selected = autocompleteList.filter(function (element) {
+        return element[1] == ui.item.label;
+      }).pop()[0];
+    },
+    open: function () {
 
-  }
-})
+    }
+  })
+}
 
 $.each($('.like-button'), function (i, element) {
   if ($(this).attr('data-exists') === 'True') {
