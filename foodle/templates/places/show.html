@@ -1,62 +1,37 @@
 {% extends "layout.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %} {{ place['name'] }} {% endblock %}
 
 {% block content %}
 
-<div class="row content">
-  <div class="large-3 columns show-for-large">
-    <p> Places</p>
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
   </div>
-  <div class="large-6 columns">
-    <div class="callout main-entity">
-      <div class="row">
-        <div class="callout main-entity">
-          <div class="row">
-            <div class="large-12 columns place-background">
-              <h4 class=place-name>Place Name</h4>
-              <a href="#"><h4 class=place-city>Place City</h4></a>
-              <h4 class=place-point>8.7</h4>
-            </div>
-          </div>
-        </div>
 
-        <div class="callout main-entity">
-          <div class="row">
-            <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-            <div class="large-8 columns main-entity-identity">
-              <p class="identity"><span class="name">Person Someone</span></p>
-              <p class="timestamp">5 hours ago</p>
-            </div>
-            <div class="large-2 columns">
-              <p class="score">4.6</p>
-            </div>
-          </div>
-          <h5>This is a callout.</h5>
-          <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          <a href="#">It's dangerous to go alone, take this.</a>
-        </div>
-        <div class="callout main-entity">
-          <div class="row">
-            <div class="large-2 columns main-entity-image"><img src="http://www.yukle.tc/galeri/images/7446muz_buyuk.jpg" /></div>
-            <div class="large-8 columns main-entity-identity">
-              <p class="identity"><span class="name">Person Someone</span></p>
-              <p class="timestamp">7 hours ago</p>
-            </div>
-            <div class="large-2 columns">
-              <p class="score">8.6</p>
-            </div>
-          </div>
-          <h5>This is a callout.</h5>
-          <p>It has an easy to override visual style, and is appropriately subdued.</p>
-          <a href="#">It's dangerous to go alone, take this.</a>
-        </div>
+  <div class="large-4 medium-12 columns">
 
-      </div>
+    <div class="callout">
+      <p>{{ place['name'] }}</p>
+      <p>{{ place['description'] }}</p>
+      <p>Place Instances</p>
+      {% for each_place_instance in place_instances %}
+        <div class="callout">
+          <p>Name : {{ each_place_instance['name'] }}</p>
+          <p>Address : {{ each_place_instance['address'] }}</p>
+          <p>Capacity : {{ each_place_instance['capacity'] }}</p>
+
+          <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
+
+        </div>
+      {% endfor %}
+      <p><a href="/places/{{ place['id'] }}/edit">Edit</a></p>
+
     </div>
   </div>
-  <div class="large-3 columns show-for-large"></div>
-</div>
 
+  <div class="large-4 show-for-large">
+  </div>
+</div>
 
 {% endblock %}

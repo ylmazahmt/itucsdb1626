@@ -13,16 +13,15 @@
     <p>Total number of place instances: {{ count }}</p>
     <a href="/place_instances/new">Add new place instance</a>
     {% for each_place_instance in place_instances %}
-    <div class="callout">
-      <p><a href="/place_instances/{{ each_place_instance['id'] }}">Place Instance</a></p>
-      <p>User id : {{ each_place_instance['user_id'] }}</p>
-      <p>Place id : {{ each_place_instance['place_id'] }}</p>
-      <p>Name : {{ each_place_instance['name'] }}</p>
-      <p>Capacity : {{ each_place_instance['capacity'] }}</p>
+      <div class="callout">
+        <p><a href="/place_instances/{{ each_place_instance['id'] }}">Place Instance</a></p>
+        <p>Name : {{ each_place_instance['name'] }}</p>
+        <p>Address : {{ each_place_instance['address'] }}</p>
+        <p>Capacity : {{ each_place_instance['capacity'] }}</p>
 
-      <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
+        <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
 
-    </div>
+      </div>
     {% endfor %}
   </div>
 

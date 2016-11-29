@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}  Edit Place:  {{ place['name'] }} {% endblock %}
+{% block title %}  Edit City:  {{ city['name'] }} {% endblock %}
 
 {% block content %}
 
@@ -12,14 +12,14 @@
   <div class="large-4 medium-12 columns">
 
     <form>
-      <label>Edit Place</label>
-      <label class="name">Place Name
+      <label>Edit City</label>
+      <label class="name">City Name
+        <input type="text" placeholder={{city['name']}}>
+      </label>
+      <label class="description">City Description
         <input type="text">
       </label>
-      <label class="description">Place Description
-        <input type="text">
-      </label>
-      <button class="button success" onclick="dispatchUpdate('place', {{ place['id'] }})">Edit</button>
+      <button class="button success" onclick="dispatchUpdate('city', {{ city['id'] }})">Edit</button>
     </form>
   </div>
 

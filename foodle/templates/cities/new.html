@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>{% block title %}New Place{% endblock %}</title>
+    <title>{% block title %}New City{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/foundation.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
@@ -15,7 +15,7 @@
         <div class="large-6 columns show-for-large"><p></p></div>
         <div class="large-4 medium-12 columns">
           <div class="callout main-entity" style="background-color: rgb(230, 230, 230);">
-            <h3>New Place</h3>
+            <h3>New City</h3>
             <div class="row">
               <div class="large-12 columns">
 
@@ -25,10 +25,10 @@
                     <option value="{{user.id}}">{{user.username}}</option>
                   {% endfor %}
                 </select>
-                <label class="name">Place Name
+                <label class="name">City Name
                   <input type="text" placeholder="2 to 20 characters">
                 </label>
-                <label class="description">Place Description
+                <label class="description">City Description
                   <input type="text">
                 </label>
               </div>
@@ -36,7 +36,7 @@
             </div>
 
               <div class="large-12 columns" style="margin-top: 20px;">
-                <button  onclick ="addPlace()" type="button" class="button float-right" style="background-color: green">Add Place</button>
+                <button  onclick ="addCity()" type="button" class="button float-right" style="background-color: green">Add City</button>
               </div>
             </div>
           </div>

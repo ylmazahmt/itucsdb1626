@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}  Cities {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="large-4 columns show-for-large">
+    <p></p>
+  </div>
+
+  <div class="large-4 medium-12 columns">
+    <p>Total number of Cities : {{ count }}</p>
+    <a href="/cities/new">Add new  City</a>
+    {% for city in cities %}
+    <div class="callout">
+      <p>City Name : {{ city['name'] }}</p>
+      <p>Decription : {{ city['description'] }}</p>
+      <p>Place Instances :</p>
+      {% for place_instance in city.place_instances %}
+      <div class="callout">
+        <p>Place Instance Name : {{ place_instance['name'] }}</p>
+        <p>Address : {{ place_instance['address'] }}</p>
+        <p>Capacity : {{ place_instance['capacity'] }}</p>
+
+        <button type="button" onclick="dispatchDelete('place_instance', {{ place_instance['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
+      </div>
+      {% endfor %}
+
+
+      <button type="button" onclick="dispatchDelete('city', {{ city['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="large-4 show-for-large">
+  </div>
+</div>
+
+{% endblock %}

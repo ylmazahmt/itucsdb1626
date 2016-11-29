@@ -21,5 +21,6 @@ def bootstrap():
     app.register_blueprint(place_ratings_controller, url_prefix='/place_ratings')
     app.register_blueprint(blacklist_controller, url_prefix='/blacklist')
     app.register_blueprint(search_controller, url_prefix='/search')
+    app.register_blueprint(cities_controller, url_prefix='/cities')
     app.register_blueprint(like_controller)
     app.register_blueprint(user_user_activation_controller)
