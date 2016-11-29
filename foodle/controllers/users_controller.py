@@ -19,8 +19,9 @@ def index():
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(
             """
-            SELECT id, username, inserted_at
-            FROM users
+            SELECT u.id, u.username, u.inserted_at, ui.url
+            FROM users u
+            LEFT OUTER JOIN user_images ui ON u.id = ui.user_id
             LIMIT %s
             OFFSET %s
             """,
@@ -96,11 +97,12 @@ def show(id):
 
 @users_controller.route('/', methods=['POST'])
 def create():
-    username = request.json['username']
-    password = request.json['password']
+    username = request.json.get('username')
+    password = request.json.get('password')
+    display_name = request.json.get('display_name')
     ip_address = request.access_route[0]
 
-    if not isinstance(username, str) or not isinstance(password, str):
+    if not isinstance(username, str) or not isinstance(password, str) or not isinstance(display_name, str):
         return "Request body is unprocessable.", 422
 
     username_pattern = re.compile("[a-zA-Z0-9]{3,20}")
@@ -116,11 +118,11 @@ def create():
             curs.execute(
             """
             INSERT INTO users
-            (username, password_digest, ip_address)
-            VALUES (%s, %s, %s)
+            (username, display_name, password_digest, ip_address)
+            VALUES (%s, %s, %s, %s)
             RETURNING *
             """,
-            [username, password_digest, ip_address])
+            [username, display_name, password_digest, ip_address])
 
             user = curs.fetchone()
 
@@ -157,13 +159,29 @@ def update(id):
                 """
                 )
 
-                curs.execute(
-                """
-                UPDATE user_images
-                SET url = %s
-                WHERE user_id = %s
-                """,
-                [user_image_url, id])
+                print(user_image_url)
+
+                if len(user_image_url) > 0:
+                    curs.execute(
+                    """
+                    UPDATE user_images
+                    SET url = %s
+                    WHERE user_id = %s
+                    """,
+                    [user_image_url, id])
+
+                    print(curs.rowcount)
+
+                    if curs.rowcount == 0:
+                        curs.execute(
+                        """
+                        INSERT INTO user_images
+                        (user_id, url)
+                        VALUES (%s, %s)
+                        """,
+                        [id, user_image_url])
+
+                        print(curs.rowCount)
 
                 curs.execute(
                 """
@@ -201,13 +219,23 @@ def update(id):
                 """
                 )
 
-                curs.execute(
-                """
-                UPDATE user_images
-                SET url = %s
-                WHERE user_id = %s
-                """,
-                [user_image_url, id])
+                if len(user_image_url) > 0:
+                    curs.execute(
+                    """
+                    UPDATE user_images
+                    SET url = %s
+                    WHERE user_id = %s
+                    """,
+                    [user_image_url, id])
+
+                    if curs.rowcount == 0:
+                        curs.execute(
+                        """
+                        INSERT INTO user_images
+                        (user_id, url)
+                        VALUES (%s, %s)
+                        """,
+                        [id, user_image_url])
 
                 curs.execute(
                 """

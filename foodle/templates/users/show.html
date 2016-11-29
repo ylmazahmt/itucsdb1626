@@ -12,7 +12,7 @@
   <!-- User card -->
   <div class="medium-12 large-3 columns">
     <div class="callout main-entity" style="height: 445px;">
-      <div class="profile-image-meta" style="background-image: url('{{ user.image_url }}'); margin: -16px; margin-bottom: 0;"></div>
+      <div class="profile-image-meta" style="background-image: url('{{ user.image_url if user.image_url != None else '' }}'); margin: -16px; margin-bottom: 0;"></div>
       <h1 style="margin-top: 20px; margin-bottom: 0;">{{ user.display_name }}</h1>
       <h3 style="color: grey;">@{{ user.username }}</h3>
       <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Sacramento, CA</a></h5>

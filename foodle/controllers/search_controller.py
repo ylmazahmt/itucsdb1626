@@ -18,7 +18,7 @@ def index():
                 """
                 SELECT u.id, u.username, u.display_name, ui.url
                 FROM users u
-                INNER JOIN user_images ui ON u.id = ui.user_id
+                LEFT OUTER JOIN user_images ui ON u.id = ui.user_id
                 WHERE u.display_name ILIKE %s OR
                       u.username ILIKE %s ESCAPE '='
                 LIMIT 5

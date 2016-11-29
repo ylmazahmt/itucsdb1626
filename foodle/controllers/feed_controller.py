@@ -27,7 +27,12 @@ def index(id):
             """,
             [id])
 
-            image_url = curs.fetchone()['url']
+            image_url = None
+
+            try:
+                image_url = curs.fetchone()['url']
+            except:
+                pass
 
             curs.execute(
             """

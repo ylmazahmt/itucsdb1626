@@ -11,6 +11,7 @@ function humanizeTimestamps() {
 
 function signup() {
   const username = $('label.username').children().val()
+  const displayName = $('label.display-name').children().val()
   const password = $('label.password').children().val()
   const passwordDuplicate = $('label.password-duplicate').children().val()
 
@@ -20,6 +21,7 @@ function signup() {
       url: '/users/',
       data: JSON.stringify({
         username: username,
+        display_name: displayName,
         password: password
       }),
       contentType: 'application/json'
