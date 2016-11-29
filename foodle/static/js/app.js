@@ -120,7 +120,7 @@ function addRating() {
 	    contentType: 'application/json'
 	})
 	.always(function (data, textStatus, xhr) {
-	window.location.replace('/place_ratings')
+    window.location.replace('/place_ratings')
 	});
 }
 
@@ -353,7 +353,8 @@ var autocompleteList = null;
 var selected = null;
 
 $('#meal-place').autocomplete({
-  source: function (request, response) {
+  source: function (request, callback) {
+    $('#spinner').css('visibility', 'visible');
     $.ajax({
       method: 'GET',
       url: '/places?name=' + request.term,
@@ -364,15 +365,20 @@ $('#meal-place').autocomplete({
     .success(function (data, textStatus, xhr) {
       autocompleteList = data;
 
-      response(data.map(function (element) {
+      callback(data.map(function (element) {
         return element[1];
       }));
+
+      $('#spinner').css('visibility', 'hidden');
     });
   },
   select: function (event, ui) {
     selected = autocompleteList.filter(function (element) {
       return element[1] == ui.item.label;
     }).pop()[0];
+  },
+  open: function () {
+    
   }
 })
 
