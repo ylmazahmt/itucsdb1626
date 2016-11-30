@@ -18,9 +18,10 @@ def index(id):
 		with conn.cursor(cursor_factory=DictCursor) as curs:
 			curs.execute(
 			"""
-        	SELECT u.id, u.username, u.inserted_at
+        	SELECT u.id, u.username, u.display_name, ui.url, u.inserted_at
         	FROM user_friends AS uf
         	INNER JOIN users AS u ON u.id = uf.user_id
+        	INNER JOIN user_images AS ui ON ui.user_id = u.id
         	WHERE uf.friend_id = %s AND uf.is_friend = FALSE
         	LIMIT %s
         	OFFSET %s

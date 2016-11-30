@@ -5,40 +5,34 @@
 {% block content %}
 
     <div class="row header">
-      <div class="row sub-header">
+      <div class="large-8 columns">
+        <div class="row sub-header">
           <div class="row sub-header">
-          <h5><a href="./friends">Friends&nbsp;</a></h5>
-          <a href="./friend_requests"><h6><span class="friends-pending">Requests {{request_count}} </span></h6></a>
+          <h5><a href="./friend_requests">  {{request_count}} Friend Requests at total</a><span></span></h5>
+          <a href="./friends"><h3><span class="friends-pending"> go to friends </span></h3></a>
           </div>
         </div>
-          <table>
 
-            {% for request in requests %}
-              <tbody>
-                <tr>
-                <td><img class="profile-image-small" src="https://scontent.xx.fbcdn.net/v/t1.0-1/p160x160/1237511_10151868918624660_239031100_n.jpg?oh=e17b00daf53561c0267e9ba3a204f27c&oe=58A37DAC" />
-                </td>
-                <td class="identity">
-                  <h5><a href="/users/{{request.id}}">{{request.username}}</a></h5>
-                  <h6 class="identity-desc">Chief at <a class="identity-place">Ramada Hotel, Warsaw</a></h6>
-                  <h6 class="identity-location">Warsaw, Poland</h6>
-                  <p class="text-left subs">203k subscribers</p><p class="text-left pushes">27 pushes/month</p>
-                </td>
+        <div class="row small-up-1 large-up-4">
+          {% for request in requests %}
+            <div class="column">
+              <div class="callout friend-entity-large">
+                <div class="profile-image-meta" style=" margin: -16px; margin-bottom: 0;"><img class="profile-image-small" src="{{ request.url if request.url != None else '' }}" /></div>
+                <h3><a href="/users/{{request.id}}">{{request.display_name}}</a></h3>
+                <h3><a style="color: grey;" href="/users/{{request.id}}">@{{request.username}}</a></h3>
+                <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Sacramento, CA</a></h5>
 
                 <form  method="POST">
                   <input type="hidden" name = "user_to_get" value="{{request.id}}">
-                  <td class="text-center"><button class="add-friend" name="add_friend" ><i class="fa fa-plus" aria-hidden="true"></i></br>Add friend</button></td>
+                  <td class="text-center"><button class="add-friend" name="add_friend" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-plus" aria-hidden="true"></i>Accept Friend Request</button></td>
                 </form>
 
-                </tr>
-              </tbody>
-            {%endfor%}
-
-
-          </table>
+              </div>
+            </div>
+          {%endfor%}
         </div>
-
-
+      </div>
+    </div>
 
     <div class="large-4 columns show-for-large"></div>
 

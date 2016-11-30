@@ -19,9 +19,10 @@ def index(id):
 		with conn.cursor(cursor_factory=DictCursor) as curs:
 			curs.execute(
 			"""
-			SELECT u.id, u.username, u.inserted_at
+			SELECT u.id, u.username, u.display_name, ui.url, u.inserted_at
         	FROM user_friends AS uf
         	INNER JOIN users AS u ON u.id = uf.friend_id
+        	INNER JOIN user_images AS ui ON ui.user_id = u.id
         	WHERE uf.user_id = %s
         	AND uf.is_friend = TRUE
         	LIMIT %s
@@ -74,16 +75,17 @@ def search(id):
 		with conn.cursor(cursor_factory=DictCursor) as curs:
 			curs.execute(
 			"""
-			SELECT user_id,username,inserted_at
-			FROM user_friends,users
-			WHERE friend_id = users.id
-			AND user_id = '%s'
-			AND username = %s
-			AND is_friend
-			LIMIT '%s'
-			OFFSET '%s'
-			""",
-			[id, string_to_search,  limit, offset])
+			SELECT u.id, u.username, u.display_name, ui.url, u.inserted_at
+        	FROM user_friends AS uf
+        	INNER JOIN users AS u ON u.id = uf.friend_id
+        	INNER JOIN user_images AS ui ON ui.user_id = u.id
+        	WHERE uf.user_id = %s
+        	AND u.display_name ILIKE %s OR u.username ILIKE %s ESCAPE '='
+        	AND uf.is_friend 
+        	LIMIT %s
+        	OFFSET %s
+        	""",
+        	[id,'%' + string_to_search + '%', '%' + string_to_search + '%', limit, offset])
 
 			friends = curs.fetchall()
 
