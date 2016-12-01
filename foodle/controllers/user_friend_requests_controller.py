@@ -3,7 +3,7 @@ import foodle
 import psycopg2
 from psycopg2.extras import DictCursor
 
-from flask import Blueprint, render_template, current_app, request, make_response
+from flask import Blueprint, render_template, redirect, current_app, request, make_response
 
 import bcrypt
 
@@ -41,7 +41,7 @@ def index(id):
 
 			request_count = curs.fetchone()[0]
 
-	return render_template('/users/friends/requests_index.html', requests = requests, request_count = request_count)
+	return render_template('/users/friends/requests_index.html', requests = requests, request_count = request_count, current_user = id)
 
 
 @user_friend_requests_controller.route('/<int:id>/friend_requests', methods=['POST'])
@@ -66,4 +66,4 @@ def accept_friend_request(id):
 			""",
 			[second_user_id, id])
 
-	return render_template('/users/friends/requests_index.html')
+	return redirect("users/"+ str(id) + "/friend_requests", code=302)

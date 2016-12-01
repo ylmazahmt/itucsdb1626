@@ -16,7 +16,10 @@
           <img class="profile-image-small" src="{{ each_user.url }}" />
           <h5><a href="/users/{{ each_user['id'] }}">{{ each_user['display_name'] }}, @{{ each_user.username }}</a></h5>
           
-          <button type="button" onclick="addFriend(each_user.id,current_user)" class="button float-right" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-paper-plane" aria-hidden="true"></i>Send Friend Request</button>
+          <form  method="POST">
+            <input type="hidden" name = "user_to_get" value="{{ each_user['id'] }}">
+              <button type="button" onclick="window.location.replace('/users/{{ current_user }}/friends/new_friend/{{ each_user['id'] }}')" class="button float-right" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-paper-plane" aria-hidden="true"></i>Send Friend Request</button>
+          </form>
         </div>
       </div>
       {% endfor %}

@@ -8,9 +8,9 @@
       <div class="large-8 columns">
         <div class="row sub-header">
           <div class="row sub-header">
-          <h5><a href="../friends">  {{friend_count}} Friends at total</a><span></span></h5>
-          <a href="../friend_requests"><h3><span class="friends-pending"> go to friend requests</span></h3></a>
-          <a href="./new_friend"><h3><span class="friends-pending">Add New Friend</span></h3></a>
+          <h5><a href="/users/{{current_user}}/friends">  {{friend_count}} Friends at total</a><span></span></h5>
+          <a href="/users/{{current_user}}/friend_requests"><h3><span class="friends-pending"> go to friend requests</span></h3></a>
+          <a href="/users/{{current_user}}/friends/new_friend"><h3><span class="friends-pending">Add New Friend</span></h3></a>
           </div>
         </div>
 
@@ -31,7 +31,28 @@
 
                 <form  method="POST">
                   <input type="hidden" name = "user_to_get" value="{{friend.id}}">
-                  <td class="text-center"><button class="remove-friend" name="remove_friend" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i>    Remove Friend</button></td>
+                  <td class="text-center"><button class="remove-friend" name="remove_friend" onclick="window.location.replace('/users/{{ current_user }}/friends')" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i>    Remove Friend</button></td>
+                </form>
+
+              </div>
+            </div>
+          {%endfor%}
+          </div>
+
+          <div class="row small-up-1 large-up-4">
+          <h3>{{pending_request_count}} Requests Sent<span></span></h3>
+          {% for pending_request in pending_requests %}
+            <div class="column">
+              <div class="callout friend-entity-large">
+                
+                <div class="profile-image-meta" style=" margin: -16px; margin-bottom: 0;"><img class="profile-image-small" src="{{ pending_request.url if pending_request.url != None else '' }}" /></div>
+                <h3><a href="/users/{{pending_request.id}}">{{pending_request.display_name}}</a></h3>
+                <h3><a style="color: grey;" href="/users/{{pending_request.id}}">@{{pending_request.username}}</a></h3>
+                <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Sacramento, CA</a></h5>
+
+                <form  method="POST">
+                  <input type="hidden" name = "cancel_request" value="{{pending_request.id}}">
+                  <td class="text-center"><button class="remove-friend" name="remove_friend" onclick="window.location.replace('/users/{{ current_user }}/friends')" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i>    Cancel Friend Request</button></td>
                 </form>
 
               </div>
