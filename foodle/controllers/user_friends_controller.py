@@ -90,3 +90,24 @@ def search(id):
 			friends = curs.fetchall()
 
 	return render_template('/users/friends/index.html', friends = friends)
+
+@user_friends_controller.route('/<int:id>/friends/new_friend', methods=['GET'])
+def new_friend(id):
+        limit = request.args.get('limit') or 20
+        offset = request.args.get('offset') or 0
+
+        with psycopg2.connect(foodle.app.config['dsn']) as conn:
+                with conn.cursor(cursor_factory=DictCursor) as curs:
+                        curs.execute(
+                        """
+                        SELECT u.id, u.username, u.display_name, u.inserted_at, ui.url
+                        FROM users u
+                        LEFT OUTER JOIN user_images ui ON u.id = ui.user_id
+                        LIMIT %s
+                        OFFSET %s
+                        """,
+                        [limit, offset])
+
+                        users = curs.fetchall()
+
+        return render_template('/users/friends/new_friend.html', users = users, current_user = id)
