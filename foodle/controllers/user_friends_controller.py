@@ -45,7 +45,7 @@ def index(id):
 
 			curs.execute(
 			"""
-			SELECT u.id,count(u.id) prc, u.username, u.display_name, ui.url, u.inserted_at
+			SELECT u.id, count(u.id) prc, u.username, u.display_name, ui.url, u.inserted_at
 			FROM user_friends AS uf
 			INNER JOIN users AS u ON u.id = uf.friend_id
 			INNER JOIN user_images AS ui ON ui.user_id = u.id
@@ -57,13 +57,19 @@ def index(id):
 
 			pending_requests = curs.fetchall()
 
-			if pending_requests:
-				pending_request_count = pending_requests[0][1];
-			else:
-				pending_request_count = 0;
+			curs.execute(
+			"""
+			SELECT count(u.id)
+			FROM user_friends AS uf
+			INNER JOIN users AS u ON u.id = uf.friend_id
+			WHERE uf.user_id = %s
+			AND uf.is_friend = FALSE
+			""",
+			[id])
 
+			pending_request_count = curs.fetchone()[0]
 
-	return render_template('/users/friends/index.html', friends = friends,pending_request_count = pending_request_count, pending_requests = pending_requests, friend_count = friend_count, current_user = id)
+	return render_template('/users/friends/index.html', friends = friends, pending_request_count = pending_request_count, pending_requests = pending_requests, friend_count = friend_count, current_user = id)
 
 @user_friends_controller.route('/<int:id>/friends/', methods=['POST'])
 def remove(id):
@@ -104,26 +110,51 @@ def search(id):
 	offset = request.args.get('offset') or 0
 
 	string_to_search = request.form['search_friend']
-
 	with psycopg2.connect(foodle.app.config['dsn']) as conn:
 		with conn.cursor(cursor_factory=DictCursor) as curs:
 			curs.execute(
 			"""
-			SELECT u.id, u.username, u.display_name, ui.url, u.inserted_at
+			SELECT u.id,count(u.id), u.username, u.display_name, ui.url, u.inserted_at
         	FROM user_friends AS uf
         	INNER JOIN users AS u ON u.id = uf.friend_id
         	INNER JOIN user_images AS ui ON ui.user_id = u.id
         	WHERE uf.user_id = %s
-        	AND u.display_name ILIKE %s OR u.username ILIKE %s ESCAPE '='
-        	AND uf.is_friend 
+        	AND (u.display_name ILIKE %s OR u.username ILIKE %s ESCAPE '=')
+        	AND uf.is_friend = TRUE
+        	GROUP BY u.id, ui.url
         	LIMIT %s
         	OFFSET %s
         	""",
         	[id,'%' + string_to_search + '%', '%' + string_to_search + '%', limit, offset])
-
 			friends = curs.fetchall()
 
-	return render_template('/users/friends/index.html', friends = friends, current_user = id)
+			if friends:
+				friend_count = friends[0][1];
+			else:
+				friend_count = 0;
+
+			curs.execute(
+			"""
+			SELECT u.id,count(u.id) prc, u.username, u.display_name, ui.url, u.inserted_at
+			FROM user_friends AS uf
+			INNER JOIN users AS u ON u.id = uf.friend_id
+			INNER JOIN user_images AS ui ON ui.user_id = u.id
+			WHERE uf.user_id = %s
+			AND (u.display_name ILIKE %s OR u.username ILIKE %s ESCAPE '=')
+			AND uf.is_friend = FALSE
+			GROUP BY u.id, ui.url
+			""",
+			[id,'%' + string_to_search + '%', '%' + string_to_search + '%'])
+
+			pending_requests = curs.fetchall()
+
+			if pending_requests:
+				pending_request_count = pending_requests[0][1];
+			else:
+				pending_request_count = 0;
+
+
+	return render_template('/users/friends/index.html', friends = friends,pending_request_count = pending_request_count, pending_requests = pending_requests, friend_count = friend_count, current_user = id)
 
 @user_friends_controller.route('/<int:id>/friends/new_friend', methods=['GET'])
 def new_friend(id):
