@@ -3,7 +3,7 @@ import foodle
 import psycopg2
 from psycopg2.extras import DictCursor
 
-from flask import Blueprint, render_template, current_app, request, make_response
+from flask import Blueprint, render_template, redirect, current_app, request, make_response
 
 import bcrypt
 
@@ -18,9 +18,10 @@ def index(id):
 		with conn.cursor(cursor_factory=DictCursor) as curs:
 			curs.execute(
 			"""
-        	SELECT u.id, u.username, u.inserted_at
+        	SELECT u.id, u.username, u.display_name, ui.url, u.inserted_at
         	FROM user_friends AS uf
         	INNER JOIN users AS u ON u.id = uf.user_id
+        	INNER JOIN user_images AS ui ON ui.user_id = u.id
         	WHERE uf.friend_id = %s AND uf.is_friend = FALSE
         	LIMIT %s
         	OFFSET %s
@@ -40,7 +41,7 @@ def index(id):
 
 			request_count = curs.fetchone()[0]
 
-	return render_template('/users/friends/requests_index.html', requests = requests, request_count = request_count)
+	return render_template('/users/friends/requests_index.html', requests = requests, request_count = request_count, current_user = id)
 
 
 @user_friend_requests_controller.route('/<int:id>/friend_requests', methods=['POST'])
@@ -65,4 +66,4 @@ def accept_friend_request(id):
 			""",
 			[second_user_id, id])
 
-	return render_template('/users/friends/requests_index.html')
+	return redirect("users/"+ str(id) + "/friend_requests", code=302)

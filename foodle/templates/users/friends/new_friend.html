@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ Users }}{% endblock %}
+
+{% block content %}
+
+<div class="row content">
+  <div class="large-8 columns">
+    <div class="row sub-header">
+      <h3><a href="/users/{{current_user}}/friends">Friends Page</a><span></span></h3>
+    </div>
+    <div class="row small-up-1 large-up-4">
+    <h5>Send Friend Request&nbsp;</h5>
+      {% for each_user in users %}
+      <div class="column">
+        <div class="callout friend-entity-large">
+          <img class="profile-image-small" src="{{ each_user.url }}" />
+          <h5><a href="/users/{{ each_user['id'] }}">{{ each_user['display_name'] }}, @{{ each_user.username }}</a></h5>
+          
+          <form  method="POST">
+            <input type="hidden" name = "user_to_get" value="{{ each_user['id'] }}">
+              <button type="button" onclick="window.location.replace('/users/{{ current_user }}/friends/new_friend/{{ each_user['id'] }}')" class="button float-right" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-paper-plane" aria-hidden="true"></i>Send Friend Request</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="large-4 columns show-for-large"></div>
+</div>
+
+{% endblock %}

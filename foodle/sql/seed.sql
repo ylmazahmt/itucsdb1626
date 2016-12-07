@@ -31,6 +31,18 @@ VALUES (3, 'https://pbs.twimg.com/profile_images/588377578240544769/v39jWDt6.jpg
 INSERT INTO user_images (user_id, url)
 VALUES (4, 'http://67.media.tumblr.com/bf99f4153d636e33f5b1243065831c19/tumblr_mvg887oJjq1s88ss5o1_r1_1280.jpg');
 
+INSERT INTO user_friends (user_id, friend_id, is_friend)
+VALUES (2, 3, 'True');
+
+INSERT INTO user_friends (user_id, friend_id, is_friend)
+VALUES (3, 2, 'True');
+
+INSERT INTO user_friends (user_id, friend_id, is_friend)
+VALUES (3, 4, 'False');
+
+INSERT INTO user_friends (user_id, friend_id, is_friend)
+VALUES (4, 2, 'False');
+
 INSERT INTO places (name, description, user_id)
 VALUES ('McDonalds', 'The worst burger place in the world. Seriously.', 1);
 

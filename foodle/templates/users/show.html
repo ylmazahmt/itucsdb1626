@@ -23,7 +23,7 @@
         </div>
         <div class="small-4 columns text-center">
           <h3>{{ user.number_of_friends }}</h3>
-          <p style="text-align: center;">{{ 'friends' if user.number_of_posts > 1 else 'friend' }}</p>
+          <a href="/users/{{ user.id }}/friends" style="text-align: center;">{{ 'friends' if user.number_of_posts > 1 else 'friend' }}</a>
         </div>
         <div class="small-4 columns text-center" style="border-left: 0.5px solid black">
           <h3>70%</h3>
