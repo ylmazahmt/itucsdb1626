@@ -86,7 +86,9 @@
         <div class="row" style="margin-left: 0; margin-right: 0;">
           <div class="large-1 columns" style="background-image: url('{{ image_url }}'); background-size: cover; background-position: center; height: 50px; border-radius: 3px;"></div>
           <div class="large-11 columns">
-            <textarea style="display: block; width: 100%; font-size: 10pt; border-radius: 3px; border: 1px solid lightGrey; padding: 5px;" placeholder="Leave a comment..."></textarea>
+            <form id="post-comment-{{ each_feed.post_id }}" action="">
+              <textarea id="post-comment-textarea-{{ each_feed.post_id }}" class="post-comment-textarea" style="display: block; width: 100%; font-size: 10pt; border-radius: 3px; border: 1px solid lightGrey; padding: 5px;" placeholder="Leave a comment..." data-ajax="/posts/{{ each_feed.post_id }}/comments/"></textarea>
+            </form>
           </div>
         </div>
       </div>
