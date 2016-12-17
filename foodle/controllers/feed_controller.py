@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 import foodle
-from flask import Blueprint, render_template, current_app, request
+from flask import Blueprint, render_template, current_app, request, g
+from flask_login import login_required
 import psycopg2
 from psycopg2.extras import RealDictCursor, DictCursor
+from foodle.utils.auth_hook import auth_hook_functor
 
 feed_controller = Blueprint('feed_controller', __name__)
 
 @feed_controller.route('/<int:id>/feed/', methods=['GET'])
+@auth_hook_functor
 def index(id):
+    if g.current_user['id'] is not id:
+        return "Forbidden", 401
+
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
 

@@ -10,6 +10,8 @@ like_controller = Blueprint('like_controller', __name__)
 def show(post_id):
     user_id = request.args['user_id']
 
+    print(request.cookies)
+
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(

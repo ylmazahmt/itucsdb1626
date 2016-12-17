@@ -7,4 +7,4 @@ application_controller = Blueprint('application_controller', __name__)
 
 @application_controller.route('/', methods=['GET'])
 def index():
-    return redirect('/users/2/feed')
+    return redirect('/sessions/new')
