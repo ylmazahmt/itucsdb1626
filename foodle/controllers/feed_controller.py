@@ -58,6 +58,18 @@ def index(id):
 
                 each_feed['post_images'] = curs.fetchall()
 
+                curs.execute(
+                """
+                SELECT pc.body, pc.inserted_at, ui.url, u.display_name
+                FROM post_comments pc
+                INNER JOIN users u ON u.id = pc.user_id
+                INNER JOIN user_images ui ON ui.user_id = u.id
+                WHERE post_id = %s
+                """,
+                [each_feed['post_id']])
+
+                each_feed['post_comments'] = curs.fetchall()
+
             curs.execute(
             """
             COMMIT
