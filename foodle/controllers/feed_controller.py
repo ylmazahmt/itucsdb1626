@@ -65,6 +65,7 @@ def index(id):
                 INNER JOIN users u ON u.id = pc.user_id
                 INNER JOIN user_images ui ON ui.user_id = u.id
                 WHERE post_id = %s
+                ORDER BY pc.inserted_at ASC
                 """,
                 [each_feed['post_id']])
 
