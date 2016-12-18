@@ -801,3 +801,25 @@ if ($('#login-form')) {
     })
   });
 }
+
+$.each($('textarea.post-comment-textarea'), function (i, field) {
+  $(field).on('keydown', function (event) {
+    if (event.keyCode === 13) {
+      const body = $(field).val();
+      const userId = parseInt($('#container').attr('data-sender-id'), 10);
+
+      $.ajax({
+        method: 'POST',
+        url: $(field).attr('data-ajax'),
+        data: JSON.stringify({
+          body: body,
+          user_id: userId,
+        }),
+        contentType: 'application/json',
+      })
+      .always(function (data, textStatus, xhr) {
+        window.reload()
+      })
+    }
+  });
+});

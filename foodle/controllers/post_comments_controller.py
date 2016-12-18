@@ -56,8 +56,8 @@ def show(id):
                 return "Entity not found.", 404
 
 
-@post_comments_controller.route('/', methods=['POST'])
-def create():
+@post_comments_controller.route('/<int:post_id>/comments/', methods=['POST'])
+def create(post_id):
     user_id = request.json['user_id']
     body = request.json['body']
 
@@ -83,11 +83,6 @@ def create():
             return resp, 201
 
 
-@post_comments_controller.route('/new', methods=['GET'])
-def new():
-    return render_template('/post_comments/new.html')
-
-
 @post_comments_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
 def update(id):
     if request.json.get('id') is not None or not isinstance(request.json.get('body'), str):
@@ -109,26 +104,6 @@ def update(id):
                 resp.headers['location'] = '/post_comments/' + str(id)
 
                 return resp, 200
-            else:
-                return "Entity not found.", 404
-
-
-@post_comments_controller.route('/<int:id>/edit', methods=['GET'])
-def edit(id):
-    with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=DictCursor) as curs:
-            curs.execute(
-            """
-            SELECT *
-            FROM post_comments
-            WHERE id = %s
-            """,
-            [id])
-
-            post_comment = curs.fetchone()
-
-            if post_comment is not None:
-                return render_template('/post_comments/edit.html', post_comment=post_comment)
             else:
                 return "Entity not found.", 404
 
