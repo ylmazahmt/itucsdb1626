@@ -15,7 +15,7 @@
         Foodle
       </h3>
     </div>
-    <div class="row shadow border-radius" style="margin-top: 30px; margin-bottom: 70px; position: relative; overflow-y: hidden; overflow-x: visible; min-height: 500px;">
+    <div class="row shadow border-radius" style="margin-top: 30px; margin-bottom: 30px; position: relative; overflow-y: hidden; overflow-x: visible; min-height: 500px;">
       <img src="{{ url_for('static', filename='img/bg-sect1.jpg') }}" alt="" style="position: absolute; width: 100vw; z-index: -1;" />
 
       <div class="large-6 small-12 columns">
@@ -28,7 +28,8 @@
         </div>
       </div>
       <div class="large-3 small-12 columns">
-        <div class="row" style="margin-top: 125px;">
+        <div class="row" style="margin-top: 100px;">
+          <p style="font-weight: 500; color: white; margin-bottom: 25px; background-color: black; border-radius: 3px; padding-left: 15px; vertical-align: center; line-height: 24pt;"><i class="fa fa-rocket" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Sign In</p>
           <form id="login-form" name="login" method="post">
             <div class="row">
               <div class="large-12 columns">
@@ -42,9 +43,9 @@
                 </label>
               </div>
               <div class="large-12 columns">
-                <button type="submit" class="button" style="border-radius: 3px !important;">Sign In</button>
-                <a href="/users/new" class="success button" style="border-radius: 3px; margin-left: 10px;">Sign Up</a>
+                <button type="submit" class="button float-right" style="border-radius: 3px !important;">Sign In</button>
               </div>
+              <a href="/users/new" class="float-right" style="border-radius: 3px; margin-right: 10px; color: white; text-decoration: underline;">... or sign up now free!</a>
             </div>
           </form>
         </div>
@@ -52,7 +53,10 @@
       <div class="large-2 small-12 columns">
       </div>
     </div>
-    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 300px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
+    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 300px; right: 40px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
+    <div class="row shadow" style="background-color: rgb(74, 150, 60); height: 25vh; border-top-right-radius: 3px; border-top-left-radius: 3px;">
+
+    </div>
 
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"></script>

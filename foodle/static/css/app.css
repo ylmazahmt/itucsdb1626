@@ -65,11 +65,9 @@ div.top-bar-feed {
   position: absolute;
   right: 40px;
   top: 145px;
-  padding: 6px;
-  width: 40px;
-  height: 40px;
+  padding: 7px 10px;
   background-color: rgb(74, 150, 60);
-  border-radius: 20px;
+  border-radius: 3px;
   text-align: center;
   vertical-align: middle;
   color: white;

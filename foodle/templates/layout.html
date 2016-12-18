@@ -24,7 +24,7 @@
       </div>
       <a href="/users/{{ g.current_user['id'] }}/feed">
         <div class="top-bar-feed">
-          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          <p style="margin-bottom:0;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Go to feed</p>
         </div>
       </a>
     </div>
@@ -88,8 +88,8 @@
 
     {% block content %}{% endblock %}
 
-    <button id="logout" onClick="flushCookies()" style="position: fixed; bottom: 50px; right: 50px; background-color: red; color: white; border-radius: 3px; padding: 10px;">Sign out</button>
-    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 300px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
+    <button id="logout" onClick="flushCookies()" style="position: fixed; bottom: 50px; right: 40px; background-color: red; color: white; border-radius: 3px; padding: 10px;">Sign out</button>
+    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 300px; right: 40px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
 
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"></script>
