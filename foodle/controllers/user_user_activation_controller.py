@@ -3,11 +3,13 @@ import foodle
 import psycopg2
 from psycopg2.extras import DictCursor
 
-from flask import Blueprint, render_template, current_app, request
+from flask import Blueprint, render_template, current_app, request, g
+from foodle.utils.auth_hook import auth_hook_functor
 
 user_user_activation_controller = Blueprint('user_user_activation_controller', __name__)
 
 @user_user_activation_controller.route('/users/<int:user_id>/user_activation', methods=['GET'])
+@auth_hook_functor
 def show(user_id):
     #   TODO: Side-join table with users and exclusive check of entity
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
@@ -29,7 +31,11 @@ def show(user_id):
 
 
 @user_user_activation_controller.route('/users/<int:user_id>/user_activation', methods=['POST'])
+@auth_hook_functor
 def create(user_id):
+    if g.current_user['id'] != user_id:
+        return "Forbidden.", 401
+
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute("BEGIN")
@@ -71,7 +77,11 @@ def create(user_id):
 
 
 @user_user_activation_controller.route('/users/<int:user_id>/user_activation/new', methods=['GET'])
+@auth_hook_functor
 def new(user_id):
+    if g.current_user['id'] != user_id:
+        return "Forbidden.", 401
+
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(

@@ -818,8 +818,22 @@ $.each($('textarea.post-comment-textarea'), function (i, field) {
         contentType: 'application/json',
       })
       .always(function (data, textStatus, xhr) {
-        window.reload()
+        location.reload()
       })
     }
   });
 });
+
+function deleteComment(postId, commentId) {
+  $.ajax({
+    method: 'DELETE',
+    url: '/posts/' + postId + '/comments/' + commentId + '/',
+  })
+  .success(function (data, textStatus, xhr) {
+    location.reload()
+  });
+}
+
+function flushCookies() {
+  window.location.replace('/sessions/new');
+}
