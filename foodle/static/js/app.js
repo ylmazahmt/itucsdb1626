@@ -211,7 +211,7 @@ $('#search').on('keydown', function (keyEvent) {
             $('.cell-' + dataCount).css('visibility', 'visible');
             $('.cell-' + dataCount + ' p.display-name')[0].innerHTML = data[1][i][0];
             $('.cell-' + dataCount + ' span.username')[0].innerHTML = data[1][i][1];
-            $('.cell-' + dataCount + ' a').attr('href', '/places/1');
+            $('.cell-' + dataCount + ' a').attr('href', '/places/' + data[1][i][3]);
             $('.cell-' + dataCount + ' .profile-image-search').css('background-image', 'url(' + data[1][i][2] + ')');
           }
 
