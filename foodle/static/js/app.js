@@ -789,10 +789,18 @@ if ($('#login-form')) {
         password: password,
       })
     })
-    .always(function (data, textStatus, xhr) {
-      window.location.replace('/place_instances')
-    });
-  }
+    .success(function (data, textStatus, xhr) {
+      window.location.replace(xhr.getResponseHeader('location'));
+    })
+    .fail(function (data, textStatus, xhr) {
+      if (data.status === 404) {
+        alert('Invalid username/password combination.');
+      } else {
+        alert('Invalid authentication parameters.');
+      }
+    })
+  });
+}
 
 $.each($('textarea.post-comment-textarea'), function (i, field) {
   $(field).on('keydown', function (event) {
@@ -815,15 +823,3 @@ $.each($('textarea.post-comment-textarea'), function (i, field) {
     }
   });
 });
-    .success(function (data, textStatus, xhr) {
-      window.location.replace(xhr.getResponseHeader('location'));
-    })
-    .fail(function (data, textStatus, xhr) {
-      if (data.status === 404) {
-        alert('Invalid username/password combination.');
-      } else {
-        alert('Invalid authentication parameters.');
-      }
-    })
-  });
-}
