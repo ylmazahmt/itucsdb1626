@@ -13,11 +13,10 @@
           </div>
         </div>
 
-        <form action="search" method="POST">
-        <div class="row small-up-1 large-up-4">
-        <input type="hidden" name="_method" value="SEARCH" />
-        <input type="text" name="search_friend" placeholder="Search friends">
-        </div>
+        <form action="/users/{{ current_user }}/friends/search/" method="GET">
+          <div class="row small-up-1 large-up-4">
+            <input type="text" name="search_friend" placeholder="Search friends" value="{{string_to_search}}">
+          </div>
         </form>
         <div class="row small-up-1 large-up-4">
           <h3><a href="/users/{{current_user}}/friends"> {{friend_count}} Friends at total</a><span></span></h3>
@@ -30,9 +29,11 @@
                 <h3><a style="color: grey;" href="/users/{{friend.id}}">@{{friend.username}}</a></h3>
                 <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Sacramento, CA</a></h5>
 
-                <form  method="POST">
+                <form  action="/users/{{ current_user }}/friends/" method="POST">
+                  <input type="hidden" name="search_friend" value="{{string_to_search}}">
+                  <input type="hidden" name="next" value="{{next}}">
                   <input type="hidden" name = "user_to_get" value="{{friend.id}}">
-                  <td class="text-center"><button class="remove-friend" name="remove_friend" onclick="window.location.replace('/users/{{ current_user }}/friends')" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i>    Remove Friend</button></td>
+                  <td class="text-center"><button class="remove-friend" name="remove_friend"  style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i>    Remove Friend</button></td>
                 </form>
 
               </div>
@@ -51,9 +52,11 @@
                 <h3><a style="color: grey;" href="/users/{{pending_request.id}}">@{{pending_request.username}}</a></h3>
                 <h5><a href="/places/1" style="color: rgb(74, 150, 60);"><i class="fa fa-map-marker" aria-hidden="true"></i>  Sacramento, CA</a></h5>
 
-                <form  method="POST">
+                <form action="/users/{{ current_user }}/friends/" method="POST">
+                  <input type="hidden" name="search_friend" value="{{string_to_search}}">
+                  <input type="hidden" name="next" value="{{next}}">
                   <input type="hidden" name = "cancel_request" value="{{pending_request.id}}">
-                  <td class="text-center"><button class="remove-friend" name="remove_friend" onclick="window.location.replace('/users/{{ current_user }}/friends')" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i>    Cancel Friend Request</button></td>
+                  <td class="text-center"><button class="remove-friend" name="remove_friend" style="border-radius: 1000px; background-color: white; color: black; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);"><i class="fa fa-trash" aria-hidden="true"></i>    Cancel Friend Request</button></td>
                 </form>
 
               </div>
