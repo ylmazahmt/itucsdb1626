@@ -833,3 +833,7 @@ function deleteComment(postId, commentId) {
     location.reload()
   });
 }
+
+function flushCookies() {
+  window.location.replace('/sessions/new');
+}

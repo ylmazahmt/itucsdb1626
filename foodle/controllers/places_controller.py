@@ -2,11 +2,13 @@
 import foodle
 import psycopg2
 from psycopg2.extras import DictCursor, RealDictCursor
-from flask import Blueprint, render_template, current_app, request, redirect, jsonify, make_response
+from flask import Blueprint, render_template, current_app, request, redirect, jsonify, make_response, g
+from foodle.utils.auth_hook import auth_hook_functor
 
 places_controller = Blueprint('places_controller', __name__)
 
 @places_controller.route('/', methods=['GET'])
+@auth_hook_functor
 def index():
         acceptType = request.headers.get('accept')
         limit = request.args.get('limit') or 20
@@ -77,6 +79,7 @@ def index():
 
 
 @places_controller.route('/<int:id>', methods=['GET'])
+@auth_hook_functor
 def show(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -108,6 +111,7 @@ def show(id):
 
 
 @places_controller.route('/', methods=['POST'])
+@auth_hook_functor
 def create():
     user_id = int(request.json['user_id'])
     name =  request.json['name']
@@ -136,6 +140,7 @@ def create():
 
 
 @places_controller.route('/new', methods=['GET'])
+@auth_hook_functor
 def new():
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -151,6 +156,7 @@ def new():
 
 
 @places_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
+@auth_hook_functor
 def update(id):
     name = request.json['name']
     description = request.json['description']
@@ -178,6 +184,7 @@ def update(id):
 
 
 @places_controller.route('/<int:id>/edit', methods=['GET'])
+@auth_hook_functor
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -198,6 +205,7 @@ def edit(id):
 
 
 @places_controller.route('/<int:id>', methods=['DELETE'])
+@auth_hook_functor
 def delete(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
