@@ -370,6 +370,9 @@ $('#update-user').click(function () {
   })
   .success(function () {
     window.location.replace('/users/' + identifier);
+  })
+  .fail(function () {
+    alert('A user with given username already exists.')
   });
 });
 
