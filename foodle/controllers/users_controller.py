@@ -2,15 +2,16 @@
 import foodle
 import psycopg2
 import re
+import jwt
 from psycopg2.extras import RealDictCursor, DictCursor
-
-from flask import Blueprint, render_template, current_app, request, make_response
-
+from flask import Blueprint, render_template, current_app, request, make_response, g
+from foodle.utils.auth_hook import auth_hook_functor
 import bcrypt
 
 users_controller = Blueprint('users_controller', __name__)
 
 @users_controller.route('/', methods=['GET'])
+@auth_hook_functor
 def index():
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
@@ -41,6 +42,7 @@ def index():
 
 
 @users_controller.route('/<int:id>', methods=['GET'])
+@auth_hook_functor
 def show(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
@@ -89,6 +91,19 @@ def show(id):
 
                 each_feed['post_images'] = curs.fetchall()
 
+                curs.execute(
+                """
+                SELECT pc.id, pc.body, pc.inserted_at, ui.url, u.display_name, u.id user_id
+                FROM post_comments pc
+                INNER JOIN users u ON u.id = pc.user_id
+                LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
+                WHERE post_id = %s
+                ORDER BY pc.inserted_at ASC
+                """,
+                [each_feed['post_id']])
+
+                each_feed['post_comments'] = curs.fetchall()
+
             if user is not None:
                 return render_template('/users/show.html', user=user, feeds=feeds)
             else:
@@ -114,7 +129,7 @@ def create():
     password_digest = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=DictCursor) as curs:
+        with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(
             """
             INSERT INTO users
@@ -127,7 +142,12 @@ def create():
             user = curs.fetchone()
 
             resp = make_response()
-            resp.headers['location'] = '/users/' + str(user['id'])
+
+            user['inserted_at'] = user['inserted_at'].isoformat()
+
+            token = jwt.encode(user, current_app.secret_key, algorithm='HS256')
+            resp.set_cookie('jwt', value=token)
+            resp.headers['location'] = '/users/' + str(user['id']) + '/feed'
 
             return resp, 201
 
@@ -138,6 +158,7 @@ def new():
 
 
 @users_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
+@auth_hook_functor
 def update(id):
     username = request.json.get('username')
     password = request.json.get('password')
@@ -263,6 +284,7 @@ def update(id):
 
 
 @users_controller.route('/<int:id>/edit', methods=['GET'])
+@auth_hook_functor
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:

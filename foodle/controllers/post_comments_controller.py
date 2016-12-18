@@ -2,7 +2,8 @@
 import foodle
 import psycopg2
 from psycopg2.extras import DictCursor
-from flask import Blueprint, render_template, current_app, request, redirect, make_response
+from flask import Blueprint, render_template, current_app, request, redirect, make_response, g
+from foodle.utils.auth_hook import auth_hook_functor
 
 post_comments_controller = Blueprint('post_comments_controller', __name__)
 
@@ -56,9 +57,10 @@ def show(id):
                 return "Entity not found.", 404
 
 
-@post_comments_controller.route('/', methods=['POST'])
-def create():
-    user_id = request.json['user_id']
+@post_comments_controller.route('/<int:post_id>/comments/', methods=['POST'])
+@auth_hook_functor
+def create(post_id):
+    user_id = g.current_user['id']
     body = request.json['body']
 
     if not isinstance(body, str) or not isinstance(user_id, int):
@@ -81,11 +83,6 @@ def create():
             resp.headers['location'] = '/post_comments/' + str(post_comment['id'])
 
             return resp, 201
-
-
-@post_comments_controller.route('/new', methods=['GET'])
-def new():
-    return render_template('/post_comments/new.html')
 
 
 @post_comments_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
@@ -113,28 +110,8 @@ def update(id):
                 return "Entity not found.", 404
 
 
-@post_comments_controller.route('/<int:id>/edit', methods=['GET'])
-def edit(id):
-    with psycopg2.connect(foodle.app.config['dsn']) as conn:
-        with conn.cursor(cursor_factory=DictCursor) as curs:
-            curs.execute(
-            """
-            SELECT *
-            FROM post_comments
-            WHERE id = %s
-            """,
-            [id])
-
-            post_comment = curs.fetchone()
-
-            if post_comment is not None:
-                return render_template('/post_comments/edit.html', post_comment=post_comment)
-            else:
-                return "Entity not found.", 404
-
-
-@post_comments_controller.route('/<int:id>', methods=['DELETE'])
-def delete(id):
+@post_comments_controller.route('/<int:post_id>/comments/<int:id>/', methods=['DELETE'])
+def delete(post_id, id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(

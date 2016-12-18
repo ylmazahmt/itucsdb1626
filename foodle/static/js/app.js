@@ -1,4 +1,3 @@
-
 const timestamps = _.map($('.timestamp'), function (element) {
   return element.innerHTML;
 });
@@ -726,52 +725,115 @@ function addCity() {
 }
 
 function addPlace() {
-    const user_id = $('#user_id_input').val();
-    const name = $('label.name').children().val();
-    const description = $('label.description').children().val();
+  const user_id = $('#user_id_input').val();
+  const name = $('label.name').children().val();
+  const description = $('label.description').children().val();
+
+  $.ajax({
+    method: 'POST',
+      url: '/places/',
+      dataType: "json",
+      data: JSON.stringify({
+        user_id: user_id,
+        name: name,
+        description: description
+      }),
+      contentType: 'application/json'
+  })
+  .always(function (data, textStatus, xhr) {
+    window.location.replace('/places')
+  });
+
+}
+
+function addPlaceInstance() {
+  const user_id = $('#user_id_input').val();
+  const place_id = $('#place_id_input').val();
+  const city_id = $('#city_id_input').val();
+  const name = $('label.name').children().val();
+  const address = $('label.address').children().val();
+  const capacity = $('label.capacity').children().val();
+
+  $.ajax({
+    method: 'POST',
+    url: '/place_instances/',
+    dataType: "json",
+    data: JSON.stringify({
+      user_id: user_id,
+      place_id: place_id,
+      city_id: city_id,
+      name: name,
+      address: address,
+      capacity: capacity
+    }),
+    contentType: 'application/json'
+  })
+  .always(function (data, textStatus, xhr) {
+    window.location.replace('/place_instances')
+  });
+}
+
+if ($('#login-form')) {
+  $('#login-form').submit(function (e) {
+    e.preventDefault();
+
+    const username = $('#login-username').val() !== "" ? $('#login-username').val() : null;
+    const password = $('#login-password').val() !== "" ? $('#login-password').val() : null;
 
     $.ajax({
       method: 'POST',
-        url: '/places/',
-        dataType: "json",
-        data: JSON.stringify({
-          user_id: user_id,
-          name: name,
-          description: description
-        }),
-        contentType: 'application/json'
+      url: '/sessions/',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: username,
+        password: password,
+      })
     })
-    .always(function (data, textStatus, xhr) {
-      window.location.replace('/places')
-    });
-
-  }
-
-  function addPlaceInstance() {
-    const user_id = $('#user_id_input').val();
-    const place_id = $('#place_id_input').val();
-    const city_id = $('#city_id_input').val();
-    const name = $('label.name').children().val();
-    const address = $('label.address').children().val();
-    const capacity = $('label.capacity').children().val();
-
-    $.ajax({
-      method: 'POST',
-        url: '/place_instances/',
-        dataType: "json",
-        data: JSON.stringify({
-          user_id: user_id,
-          place_id: place_id,
-          city_id: city_id,
-          name: name,
-          address: address,
-          capacity: capacity
-        }),
-        contentType: 'application/json'
+    .success(function (data, textStatus, xhr) {
+      window.location.replace(xhr.getResponseHeader('location'));
     })
-    .always(function (data, textStatus, xhr) {
-      window.location.replace('/place_instances')
-    });
+    .fail(function (data, textStatus, xhr) {
+      if (data.status === 404) {
+        alert('Invalid username/password combination.');
+      } else {
+        alert('Invalid authentication parameters.');
+      }
+    })
+  });
+}
 
+$.each($('textarea.post-comment-textarea'), function (i, field) {
+  $(field).on('keydown', function (event) {
+    if (event.keyCode === 13) {
+      const body = $(field).val();
+      const userId = parseInt($('#container').attr('data-sender-id'), 10);
 
-  }
+      $.ajax({
+        method: 'POST',
+        url: $(field).attr('data-ajax'),
+        data: JSON.stringify({
+          body: body,
+          user_id: userId,
+        }),
+        contentType: 'application/json',
+      })
+      .always(function (data, textStatus, xhr) {
+        location.reload()
+      })
+    }
+  });
+});
+
+function deleteComment(postId, commentId) {
+  $.ajax({
+    method: 'DELETE',
+    url: '/posts/' + postId + '/comments/' + commentId + '/',
+  })
+  .success(function (data, textStatus, xhr) {
+    location.reload()
+  });
+}
+
+function flushCookies() {
+  window.location.replace('/sessions/new');
+}

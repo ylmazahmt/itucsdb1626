@@ -12,6 +12,21 @@
   <body>
     <div class="top-bar">
       <input id="search" type="search" placeholder="Search people, places and cities..." style="display: inline;" autocomplete="off" maxlength="20" disabled>
+      <div class="top-bar-profile">
+        {% if g.current_user['url'] is defined %}
+          <img src="{{ g.current_user['url'] }}" alt="Profile image" />
+        {% endif %}
+        <div class="top-bar-profile-card">
+          <p class="top-bar-profile-name">{{ g.current_user['display_name'] }}</p>
+          <p class="top-bar-profile-username">@{{ g.current_user['username'] }}</p>
+          <p class="top-bar-profile-link"><a href="/users/{{ g.current_user['id'] }}" style="color: rgb(74, 150, 60);">Go to profile</a></p>
+        </div>
+      </div>
+      <a href="/users/{{ g.current_user['id'] }}/feed">
+        <div class="top-bar-feed">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </div>
+      </a>
     </div>
     <div class="top-bar-extend">
       <div class="row top-bar-extend-cell cell-0">
@@ -73,9 +88,11 @@
 
     {% block content %}{% endblock %}
 
-    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 100px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
+    <button id="logout" onClick="flushCookies()" style="position: fixed; bottom: 50px; right: 50px; background-color: red; color: white; border-radius: 3px; padding: 4px;">Sign out</button>
+
+    <!-- <button id="init-db" type="button" class="alert button" style="position:fixed; top: 100px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
     <a href="/users/new" type="button" class="success button" style="position:fixed; top: 150px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Add user</button>
-    <a href="/users" type="button" class="warning button" style="position:fixed; top: 200px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Show all users</button>
+    <a href="/users" type="button" class="warning button" style="position:fixed; top: 200px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Show all users</button> -->
 
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"></script>
