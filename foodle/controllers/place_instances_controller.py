@@ -2,7 +2,8 @@ import foodle
 import psycopg2
 from psycopg2.extras import DictCursor
 
-from flask import Blueprint, render_template, current_app, request, redirect, make_response
+from flask import Blueprint, render_template, current_app, request, redirect, make_response, g
+from foodle.utils.auth_hook import auth_hook_functor
 
 place_instances_controller = Blueprint('place_instances_controller', __name__)
 
@@ -57,10 +58,11 @@ def show(id):
 
 
 @place_instances_controller.route('/', methods=['POST'])
+@auth_hook_functor
 def create():
     name = request.json['name']
     capacity = request.json['capacity']
-    user_id = int(request.json['user_id'])
+    user_id = g.current_user['id']
     place_id = int(request.json['place_id'])
     city_id = int(request.json['city_id'])
     address = request.json['address']
