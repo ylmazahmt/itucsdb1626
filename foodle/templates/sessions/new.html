@@ -7,30 +7,52 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dist/foundation.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
     <script src="https://use.typekit.net/fsh1huw.js"></script>
-    <!-- <script>try{Typekit.load({ async: true });}catch(e){}</script> -->
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
   </head>
-  <body>
-    <form id="login-form" name="login" method="post">
-      <div class="row">
-        <div class="large-12 columns">
-          <label>Username
-            <input id="login-username" type="text" placeholder="">
-          </label>
-        </div>
-        <div class="large-12 columns">
-          <label>Password
-            <input id="login-password" type="password" placeholder="">
-          </label>
-        </div>
-        <div class="large-12 columns">
-          <button type="submit" class="button">Sign In</button>
+  <body style="margin-top: 0;">
+    <div class="row shadow" style="background-color: rgb(74, 150, 60); border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;">
+      <h3 style="margin-left: 30px; color: white; margin-top: 10px; margin-bottom: 10px; font-weight: 300;">
+        Foodle
+      </h3>
+    </div>
+    <div class="row shadow border-radius" style="margin-top: 30px; margin-bottom: 70px; position: relative; overflow-y: hidden; overflow-x: visible; min-height: 500px;">
+      <img src="{{ url_for('static', filename='img/bg-sect1.jpg') }}" alt="" style="position: absolute; width: 100vw; z-index: -1;" />
+
+      <div class="large-6 small-12 columns">
+        <p style="text-align: right; font-weight: 100; font-size: 36pt; margin-top: 80px; margin-right: 40px; margin-left: 40px; color: white; background-color: rgba(0, 0, 0, 0.75); padding: 20px; border-radius: 3px;">
+          A mesmerising place to share your experiences.
+        </p>
+        <div style="position: absolute; bottom: 30px; right: 30px; text-align: right;">
+          <p style="color: white; font-weight: 700; line-height: 1;">Capola Pizzeria</p>
+          <p style="color: white; font-weight: 400; font-size: 8pt; line-height: 1;"><i class="fa fa-map-marker" aria-hidden="true"></i>  Napoli, Italia</p>
         </div>
       </div>
-    </form>
-
-    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 100px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
-    <a href="/users/new" type="button" class="success button" style="position:fixed; top: 150px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Add user</button>
-    <a href="/users" type="button" class="warning button" style="position:fixed; top: 200px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Show all users</button>
+      <div class="large-3 small-12 columns">
+        <div class="row" style="margin-top: 125px;">
+          <form id="login-form" name="login" method="post">
+            <div class="row">
+              <div class="large-12 columns">
+                <label style="color: white;">
+                  <input id="login-username" type="text" placeholder="Username" style="background-color: rgba(0, 0, 0, 0.75); color: white;">
+                </label>
+              </div>
+              <div class="large-12 columns">
+                <label style="color: white; background-color: transparent;">
+                  <input id="login-password" type="password" placeholder="Password" style="background-color: rgba(0, 0, 0, 0.75); color: white;">
+                </label>
+              </div>
+              <div class="large-12 columns">
+                <button type="submit" class="button" style="border-radius: 3px !important;">Sign In</button>
+                <a href="/users/new" class="success button" style="border-radius: 3px; margin-left: 10px;">Sign Up</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="large-2 small-12 columns">
+      </div>
+    </div>
+    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 300px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
 
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"></script>

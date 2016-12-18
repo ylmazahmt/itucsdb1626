@@ -12,6 +12,20 @@ h3 {
   font-weight: 200;
 }
 
+.shadow {
+  -webkit-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  -moz-box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+  box-shadow: 9px 6px 21px -7px rgba(0,0,0,0.39);
+}
+
+.border-radius {
+  border-radius: 3px;
+}
+
+#login-username {
+  border-radius: 3px;
+}
+
 div.top-bar {
   top: 0;
   left: 0;
@@ -527,7 +541,7 @@ div.callout.load-more i {
 }
 
 form label input {
-  border-radius: 10px !important;
+  border-radius: 3px !important;
   border-color: transparent !important;
   font-weight: 200 !important;
 }

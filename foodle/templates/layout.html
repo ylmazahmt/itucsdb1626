@@ -88,11 +88,8 @@
 
     {% block content %}{% endblock %}
 
-    <button id="logout" onClick="flushCookies()" style="position: fixed; bottom: 50px; right: 50px; background-color: red; color: white; border-radius: 3px; padding: 4px;">Sign out</button>
-
-    <!-- <button id="init-db" type="button" class="alert button" style="position:fixed; top: 100px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
-    <a href="/users/new" type="button" class="success button" style="position:fixed; top: 150px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Add user</button>
-    <a href="/users" type="button" class="warning button" style="position:fixed; top: 200px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Show all users</button> -->
+    <button id="logout" onClick="flushCookies()" style="position: fixed; bottom: 50px; right: 50px; background-color: red; color: white; border-radius: 3px; padding: 10px;">Sign out</button>
+    <button id="init-db" type="button" class="alert button" style="position:fixed; top: 300px; right: 100px; z-index: 5000; border: 2px solid yellow; border-radius: 3px;">Initialize database</button>
 
     <script src="{{ url_for('static', filename='js/dist/jquery.js') }}"></script>
     <script   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"></script>
