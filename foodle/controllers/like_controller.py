@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 import foodle
-from flask import Blueprint, render_template, current_app, request, jsonify
+from flask import Blueprint, render_template, current_app, request, jsonify, g
 import psycopg2
 from psycopg2.extras import RealDictCursor, DictCursor
+from foodle.utils.auth_hook import auth_hook_functor
 
 like_controller = Blueprint('like_controller', __name__)
 
 @like_controller.route('/posts/<int:post_id>/like', methods=['GET'])
+@auth_hook_functor
 def show(post_id):
-    user_id = request.args['user_id']
-
-    print(request.cookies)
+    user_id = g.current_user['id']
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
@@ -33,8 +33,9 @@ def show(post_id):
                 return "Like not found", 404
 
 @like_controller.route('/posts/<int:post_id>/like', methods=['POST'])
+@auth_hook_functor
 def create(post_id):
-    user_id = request.json['user_id']
+    user_id = g.current_user['id']
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
@@ -55,8 +56,9 @@ def create(post_id):
 
 
 @like_controller.route('/posts/<int:post_id>/like', methods=['DELETE'])
+@auth_hook_functor
 def delete(post_id):
-    user_id = request.json['user_id']
+    user_id = g.current_user['id']
 
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as curs:

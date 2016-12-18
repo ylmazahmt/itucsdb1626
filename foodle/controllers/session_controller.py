@@ -18,8 +18,9 @@ def create():
         with conn.cursor(cursor_factory=RealDictCursor) as curs:
             curs.execute(
             """
-            SELECT u.id, u.username, u.password_digest, u.inserted_at, u.display_name
+            SELECT u.id, u.username, u.password_digest, u.inserted_at, u.display_name, ui.url
             FROM users u
+            LEFT OUTER JOIN user_images ui ON u.id = ui.user_id
             WHERE u.username = %s
             LIMIT 1
             """,

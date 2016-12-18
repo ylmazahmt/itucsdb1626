@@ -10,7 +10,10 @@ def auth_hook_functor(fn):
         if token is None:
             return "You need a token to access that path on web service.", 401
         else:
-            g.current_user = jwt.decode(token, current_app.secret_key, algorithms=['HS256'])
+            try:
+                g.current_user = jwt.decode(token, current_app.secret_key, algorithms=['HS256'])
+            except:
+                return "Invalid token.", 401
 
             return fn(*args, **kwargs)
     return decorated_fn
