@@ -32,7 +32,7 @@ def index():
 
                     curs.execute(
                     """
-                    SELECT p.name, p.description, pi.url
+                    SELECT p.name, p.description, pi.url, p.id
                     FROM places p
                     LEFT OUTER JOIN place_images pi ON p.id = pi.place_id
                     WHERE p.name ILIKE %s OR
