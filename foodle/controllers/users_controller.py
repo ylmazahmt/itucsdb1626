@@ -173,14 +173,14 @@ def update(id):
         request.json['password_digest'] = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
         with psycopg2.connect(foodle.app.config['dsn']) as conn:
-            with conn.cursor(cursor_factory=DictCursor) as curs:
+            with conn.cursor(cursor_factory=RealDictCursor) as curs:
                 curs.execute(
                 """
                 BEGIN
                 """
                 )
 
-                print(user_image_url)
+                image = None
 
                 if len(user_image_url) > 0:
                     curs.execute(
@@ -188,10 +188,11 @@ def update(id):
                     UPDATE user_images
                     SET url = %s
                     WHERE user_id = %s
+                    RETURNING *
                     """,
                     [user_image_url, id])
 
-                    print(curs.rowcount)
+                    image = curs.fetchone()
 
                     if curs.rowcount == 0:
                         curs.execute(
@@ -199,10 +200,11 @@ def update(id):
                         INSERT INTO user_images
                         (user_id, url)
                         VALUES (%s, %s)
+                        RETURNING *
                         """,
                         [id, user_image_url])
 
-                        print(curs.rowCount)
+                        image = curs.fetchone()
 
                 curs.execute(
                 """
@@ -211,9 +213,11 @@ def update(id):
                     password_digest = %(password_digest)s,
                     display_name = %(display_name)s
                 WHERE id = %(id)s
+                RETURNING *
                 """, request.json)
 
                 rowCount = curs.rowcount
+                user = curs.fetchone()
 
                 curs.execute(
                 """
@@ -223,6 +227,12 @@ def update(id):
 
                 if rowCount is not 0:
                     resp = make_response()
+                    user['inserted_at'] = user['inserted_at'].isoformat()
+                    user['url'] = image['url']
+
+                    token = jwt.encode(user, current_app.secret_key, algorithm='HS256')
+                    resp.set_cookie('jwt', value=token)
+
                     resp.headers['location'] = '/users/' + str(id)
 
                     return resp
@@ -233,12 +243,14 @@ def update(id):
             return "Request body is unprocessable.", 422
 
         with psycopg2.connect(foodle.app.config['dsn']) as conn:
-            with conn.cursor(cursor_factory=DictCursor) as curs:
+            with conn.cursor(cursor_factory=RealDictCursor) as curs:
                 curs.execute(
                 """
                 BEGIN
                 """
                 )
+
+                image = None
 
                 if len(user_image_url) > 0:
                     curs.execute(
@@ -246,8 +258,11 @@ def update(id):
                     UPDATE user_images
                     SET url = %s
                     WHERE user_id = %s
+                    RETURNING url
                     """,
                     [user_image_url, id])
+
+                    image = curs.fetchone()
 
                     if curs.rowcount == 0:
                         curs.execute(
@@ -255,8 +270,11 @@ def update(id):
                         INSERT INTO user_images
                         (user_id, url)
                         VALUES (%s, %s)
+                        RETURNING *
                         """,
                         [id, user_image_url])
+
+                        image = curs.fetchone()
 
                 curs.execute(
                 """
@@ -264,9 +282,11 @@ def update(id):
                 SET username = %(username)s,
                     display_name = %(display_name)s
                 WHERE id = %(id)s
+                RETURNING *
                 """, request.json)
 
                 rowCount = curs.rowcount
+                user = curs.fetchone()
 
                 curs.execute(
                 """
@@ -276,6 +296,12 @@ def update(id):
 
                 if rowCount is not 0:
                     resp = make_response()
+                    user['inserted_at'] = user['inserted_at'].isoformat()
+                    user['url'] = image['url']
+
+                    token = jwt.encode(user, current_app.secret_key, algorithm='HS256')
+                    resp.set_cookie('jwt', value=token)
+
                     resp.headers['location'] = '/users/' + str(id)
 
                     return resp
