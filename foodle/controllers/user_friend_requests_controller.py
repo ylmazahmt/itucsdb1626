@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 import foodle
 import psycopg2
-from psycopg2.extras import DictCursor
-
-from flask import Blueprint, render_template, redirect, current_app, request, make_response
-
 import bcrypt
+import re
+import jwt
+from psycopg2.extras import RealDictCursor, DictCursor
+from foodle.utils.auth_hook import auth_hook_functor
+from flask import Blueprint, render_template, redirect, current_app, request, make_response, g
+
 
 user_friend_requests_controller = Blueprint('user_friend_requests_controller', __name__)
 
 @user_friend_requests_controller.route('/<int:id>/friend_requests', methods=['GET'])
+@auth_hook_functor
 def index(id):
 	limit = request.args.get('limit') or 20
 	offset = request.args.get('offset') or 0
@@ -45,6 +48,7 @@ def index(id):
 
 
 @user_friend_requests_controller.route('/<int:id>/friend_requests', methods=['POST'])
+@auth_hook_functor
 def accept_friend_request(id):
 	second_user_id = request.form['user_to_get']
 	with psycopg2.connect(foodle.app.config['dsn']) as conn:

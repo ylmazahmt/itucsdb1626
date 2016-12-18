@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 import foodle
 import psycopg2
-from psycopg2.extras import DictCursor
-from flask import Blueprint, render_template, current_app, request, redirect, make_response
+import re
+import jwt
+from psycopg2.extras import RealDictCursor, DictCursor
+from foodle.utils.auth_hook import auth_hook_functor
+from flask import Blueprint, render_template, redirect, current_app, request, make_response, g
+
+import bcrypt
 
 
 check_in_comments_controller = Blueprint('check_in_comments_controller', __name__)
 
 @check_in_comments_controller.route('/', methods=['GET'])
+@auth_hook_functor
 def index():
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
@@ -38,6 +44,7 @@ def index():
 
 
 @check_in_comments_controller.route('/<int:id>', methods=['GET'])
+@auth_hook_functor
 def show(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -57,6 +64,7 @@ def show(id):
 
 
 @check_in_comments_controller.route('/', methods=['POST'])
+@auth_hook_functor
 def create():
     user_id = int(request.json['user_id'])
     check_in_id = int(request.json['check_in_id'])
@@ -85,6 +93,7 @@ def create():
 
 
 @check_in_comments_controller.route('/new', methods=['GET'])
+@auth_hook_functor
 def new():
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -112,6 +121,7 @@ def new():
 
 
 @check_in_comments_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
+@auth_hook_functor
 def update(id):
     if request.json.get('id') is not None or not isinstance(request.json.get('body'), str):
         return "Request is unprocessable.", 422
@@ -137,6 +147,7 @@ def update(id):
 
 
 @check_in_comments_controller.route('/<int:id>/edit', methods=['GET'])
+@auth_hook_functor
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -157,6 +168,7 @@ def edit(id):
 
 
 @check_in_comments_controller.route('/<int:id>', methods=['DELETE'])
+@auth_hook_functor
 def delete(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:

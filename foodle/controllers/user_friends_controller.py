@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 import foodle
 import psycopg2
-from psycopg2.extras import DictCursor
-
-from flask import Blueprint, render_template, redirect, current_app, request, make_response
+import re
+import jwt
+from psycopg2.extras import RealDictCursor, DictCursor
+from foodle.utils.auth_hook import auth_hook_functor
+from flask import Blueprint, render_template, redirect, current_app, request, make_response, g
 
 import bcrypt
 
@@ -11,6 +13,7 @@ import bcrypt
 user_friends_controller = Blueprint('user_friends_controller', __name__)
 
 @user_friends_controller.route('/<int:id>/friends/', methods=['GET'])
+@auth_hook_functor
 def index(id):
 	limit = request.args.get('limit') or 20
 	offset = request.args.get('offset') or 0
@@ -72,6 +75,7 @@ def index(id):
 	return render_template('/users/friends/index.html', friends = friends, next="index", pending_request_count = pending_request_count, pending_requests = pending_requests, friend_count = friend_count, current_user = id)
 
 @user_friends_controller.route('/<int:id>/friends/', methods=['POST'])
+@auth_hook_functor
 def remove(id):
 	if 'user_to_get' in request.form:
 		second_user_id = request.form['user_to_get']
@@ -111,6 +115,7 @@ def remove(id):
 
 
 @user_friends_controller.route('/<int:id>/friends/search/', methods=['GET'])
+@auth_hook_functor
 def search(id):
 	limit = request.args.get('limit') or 20
 	offset = request.args.get('offset') or 0
@@ -163,6 +168,7 @@ def search(id):
 	return render_template('/users/friends/index.html', friends=friends, next="search", string_to_search=string_to_search, pending_request_count=pending_request_count, pending_requests=pending_requests, friend_count = friend_count, current_user = id)
 
 @user_friends_controller.route('/<int:id>/friends/new_friend', methods=['GET'])
+@auth_hook_functor
 def new_friend(id):
 		limit = request.args.get('limit') or 20
 		offset = request.args.get('offset') or 0
@@ -190,6 +196,7 @@ def new_friend(id):
 		return render_template('/users/friends/new_friend.html', users = users, current_user = id)
 
 @user_friends_controller.route('/<int:id>/friends/new_friend/<int:request_id>', methods=['GET'])
+@auth_hook_functor
 def send_friend_request(id,request_id):
 	with psycopg2.connect(foodle.app.config['dsn']) as conn:
 		with conn.cursor(cursor_factory=DictCursor) as curs:

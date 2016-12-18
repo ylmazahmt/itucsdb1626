@@ -4,12 +4,14 @@
 
 {% block content %}
 
-<div class="row">
+
+<div class="row" >
   <div class="large-4 columns show-for-large">
     <p></p>
   </div>
 
-  <div class="large-4 medium-12 columns">
+  <div class="large-4 medium-12 columns" style="position: relative; left: 0px;
+    top: 150px;">
     <p>Total number of Ratings: {{ count }}</p>
     <a href="/place_ratings/new">Add new rating</a>
     {% for place_rating in place_ratings %}

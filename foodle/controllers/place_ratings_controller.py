@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 import foodle
 import psycopg2
-from psycopg2.extras import DictCursor
-from flask import Blueprint, render_template, current_app, request, redirect, make_response
+import re
+import jwt
+from psycopg2.extras import RealDictCursor, DictCursor
+from foodle.utils.auth_hook import auth_hook_functor
+from flask import Blueprint, render_template, redirect, current_app, request, make_response, g
 
+import bcrypt
 
 place_ratings_controller = Blueprint('place_ratings_controller', __name__)
 
 @place_ratings_controller.route('/', methods=['GET'])
+@auth_hook_functor
 def index():
     limit = request.args.get('limit') or 20
     offset = request.args.get('offset') or 0
@@ -39,6 +44,7 @@ def index():
 
 
 @place_ratings_controller.route('/<int:id>', methods=['GET'])
+@auth_hook_functor
 def show(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -58,6 +64,7 @@ def show(id):
 
 
 @place_ratings_controller.route('/', methods=['POST'])
+@auth_hook_functor
 def create():
     user_id = int(request.json['user_id'])
     place_id = int(request.json['place_id'])
@@ -86,6 +93,7 @@ def create():
 
 
 @place_ratings_controller.route('/new', methods=['GET'])
+@auth_hook_functor
 def new():
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -111,6 +119,7 @@ def new():
 
 
 @place_ratings_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
+@auth_hook_functor
 def update(id):
     rating = int(request.json['rating'])
     if request.json.get('id') is not None or not isinstance(rating, int):
@@ -137,6 +146,7 @@ def update(id):
 
 
 @place_ratings_controller.route('/<int:id>/edit', methods=['GET'])
+@auth_hook_functor
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -157,6 +167,7 @@ def edit(id):
 
 
 @place_ratings_controller.route('/<int:id>', methods=['DELETE'])
+@auth_hook_functor
 def delete(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
