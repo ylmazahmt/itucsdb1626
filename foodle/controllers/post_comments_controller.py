@@ -2,7 +2,8 @@
 import foodle
 import psycopg2
 from psycopg2.extras import DictCursor
-from flask import Blueprint, render_template, current_app, request, redirect, make_response
+from flask import Blueprint, render_template, current_app, request, redirect, make_response, g
+from foodle.utils.auth_hook import auth_hook_functor
 
 post_comments_controller = Blueprint('post_comments_controller', __name__)
 
@@ -57,8 +58,9 @@ def show(id):
 
 
 @post_comments_controller.route('/<int:post_id>/comments/', methods=['POST'])
+@auth_hook_functor
 def create(post_id):
-    user_id = request.json['user_id']
+    user_id = g.current_user['id']
     body = request.json['body']
 
     if not isinstance(body, str) or not isinstance(user_id, int):

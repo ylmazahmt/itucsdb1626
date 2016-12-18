@@ -91,6 +91,19 @@ def show(id):
 
                 each_feed['post_images'] = curs.fetchall()
 
+                curs.execute(
+                """
+                SELECT pc.body, pc.inserted_at, ui.url, u.display_name
+                FROM post_comments pc
+                INNER JOIN users u ON u.id = pc.user_id
+                LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
+                WHERE post_id = %s
+                ORDER BY pc.inserted_at ASC
+                """,
+                [each_feed['post_id']])
+
+                each_feed['post_comments'] = curs.fetchall()
+
             if user is not None:
                 return render_template('/users/show.html', user=user, feeds=feeds)
             else:

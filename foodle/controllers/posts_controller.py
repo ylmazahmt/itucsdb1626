@@ -92,6 +92,7 @@ def update(id):
 
 
 @posts_controller.route('/<int:id>/edit', methods=['GET'])
+@auth_hook_functor
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -116,6 +117,9 @@ def edit(id):
             [id])
 
             post = curs.fetchone()
+
+            if g.current_user['id'] != post['user_id']:
+                return "Whoosh. You sneaky little' thing!", 401
 
             curs.execute(
             """

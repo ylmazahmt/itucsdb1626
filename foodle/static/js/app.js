@@ -818,7 +818,7 @@ $.each($('textarea.post-comment-textarea'), function (i, field) {
         contentType: 'application/json',
       })
       .always(function (data, textStatus, xhr) {
-        window.reload()
+        location.reload()
       })
     }
   });
