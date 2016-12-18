@@ -823,3 +823,13 @@ $.each($('textarea.post-comment-textarea'), function (i, field) {
     }
   });
 });
+
+function deleteComment(postId, commentId) {
+  $.ajax({
+    method: 'DELETE',
+    url: '/posts/' + postId + '/comments/' + commentId + '/',
+  })
+  .success(function (data, textStatus, xhr) {
+    location.reload()
+  });
+}

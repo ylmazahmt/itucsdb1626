@@ -78,7 +78,11 @@
           <div class="large-1 columns" style="background-image: url('{{ each_post_comment.url }}'); background-size: cover; background-position: center; height: 50px; border-radius: 3px;"></div>
           <div class="large-11 columns">
             <p style="display: inline; font-weight: 500; margin-right: 5px;"><a href="/users/{{each_post_comment.user_id}}">{{ each_post_comment.display_name }}</a></p>
-            <p style="display: inline; font-size: 8pt;" class="timestamp">{{ each_post_comment.inserted_at }}</p></br>
+            <p style="display: inline; font-size: 8pt;" class="timestamp">{{ each_post_comment.inserted_at }}</p>
+            {% if g.current_user['id'] == each_post_comment.user_id %}
+            <button style="display: inline;" onClick="deleteComment({{ each_feed.post_id }}, {{ each_post_comment.id }})">&nbsp;<i class="fa fa-trash-o" style="color: lightGrey; font-size: 10pt;" aria-hidden="true"></i></button>
+            {% endif %}
+            <br>
             <p>{{ each_post_comment.body }}</p>
           </div>
         </div>

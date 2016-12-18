@@ -110,8 +110,8 @@ def update(id):
                 return "Entity not found.", 404
 
 
-@post_comments_controller.route('/<int:id>', methods=['DELETE'])
-def delete(id):
+@post_comments_controller.route('/<int:post_id>/comments/<int:id>/', methods=['DELETE'])
+def delete(post_id, id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
             curs.execute(

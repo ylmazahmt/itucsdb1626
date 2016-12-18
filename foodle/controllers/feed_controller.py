@@ -66,7 +66,7 @@ def index(id):
 
                 curs.execute(
                 """
-                SELECT pc.body, pc.inserted_at, ui.url, u.display_name
+                SELECT pc.id, pc.body, pc.inserted_at, ui.url, u.display_name, u.id user_id
                 FROM post_comments pc
                 INNER JOIN users u ON u.id = pc.user_id
                 LEFT OUTER JOIN user_images ui ON ui.user_id = u.id
