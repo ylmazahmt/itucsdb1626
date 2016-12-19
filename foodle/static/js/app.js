@@ -9,28 +9,44 @@ function humanizeTimestamps() {
 }
 
 function signup() {
-  const username = $('label.username').children().val()
-  const displayName = $('label.display-name').children().val()
-  const password = $('label.password').children().val()
-  const passwordDuplicate = $('label.password-duplicate').children().val()
+  const username = $('label.username').children().val();
+  const displayName = $('label.display-name').children().val();
+  const password = $('label.password').children().val();
+  const passwordDuplicate = $('label.password-duplicate').children().val();
 
-  if (password === passwordDuplicate) {
-    $.ajax({
-      method: 'POST',
-      url: '/users/',
-      data: JSON.stringify({
-        username: username,
-        display_name: displayName,
-        password: password
-      }),
-      contentType: 'application/json'
-    })
-    .success(function (data, textStatus, xhr) {
-      window.location.replace(xhr.getResponseHeader('location'))
-    })
+  if (username.length < 8) {
+    alert('Username is shorter than 8 characters.');
+  } else if (username.length > 20) {
+    alert('Username is longer than 20 characters.');
+  } else if (displayName.length < 8) {
+    alert('Display name should be longer than 8 characters.');
+  } else if (displayName.length > 20) {
+    alert('Display name should be shorter than 20 characters.');
+  } else if (password.length < 8 || passwordDuplicate.length < 8) {
+    alert('Password should be 8 characters long, at least.');
   } else {
-    //  Set focus to the password field
-    $('label.password').children().focus()
+    if (password === passwordDuplicate) {
+      $.ajax({
+        method: 'POST',
+        url: '/users/',
+        data: JSON.stringify({
+          username: username,
+          display_name: displayName,
+          password: password
+        }),
+        contentType: 'application/json'
+      })
+      .success(function (data, textStatus, xhr) {
+        window.location.replace(xhr.getResponseHeader('location'))
+      })
+      .fail(function (data, textStatus, xhr) {
+        alert('User with same username already exists.');
+      });
+    } else {
+      alert('Password and re-enter password fields are not same.');
+      //  Set focus to the password field
+      $('label.password').children().focus()
+    }
   }
 }
 
