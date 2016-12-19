@@ -77,8 +77,8 @@ function initializeDatabase() {
     url: '/database_initialization/'
   })
   .success(function () {
-    alert('Initialized database successfully.')
-    window.location.reload()
+    alert('Initialized database successfully.');
+    window.location.replace('/sessions/new');
   })
 }
 
