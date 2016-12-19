@@ -27,7 +27,7 @@
       </div>
       {% endfor %}
 
-
+      <p><a href="/cities/{{ city['id'] }}/edit"style="background-color: white; color: purple; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);" >Edit</a></p>
       <button type="button" onclick="dispatchDelete('city', {{ city['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
     </div>
     {% endfor %}

@@ -20,14 +20,15 @@
       <p>Place Instances :</p>
       {% for each_place_instance in place.place_instances %}
         <div class="callout">
-          <p>Name : {{ each_place_instance['name'] }}</p>
+          <p><a href="/place_instances/{{ each_place_instance['id'] }}">Name : {{ each_place_instance['name'] }}</a></p>
           <p>Address : {{ each_place_instance['address'] }}</p>
           <p>Capacity : {{ each_place_instance['capacity'] }}</p>
-
+          <p><a href="/place_instances/{{ each_place_instance['id'] }}/edit">Edit</a></p>
           <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
 
         </div>
       {% endfor %}
+      <p><a href="/places/{{ place['id'] }}/edit">Edit</a></p>
       <button type="button" onclick="dispatchDelete('place', {{ place['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
     </div>
     {% endfor %}
