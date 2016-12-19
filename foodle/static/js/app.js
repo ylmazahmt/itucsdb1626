@@ -430,7 +430,7 @@ $('#init-db').click(function () {
   })
   .success(function (data, textStatus, xhr) {
     alert('Operation completed.');
-    window.location.replace('/users/2/feed');
+    window.location.replace('/sessions/new');
   });
 });
 
