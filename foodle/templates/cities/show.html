@@ -5,31 +5,32 @@
 {% block content %}
 
 <div class="row">
-  <div class="large-4 columns show-for-large">
+  <div class="large-2 columns show-for-large">
     <p></p>
   </div>
 
-  <div class="large-4 medium-12 columns">
+  <div class="large-8 medium-12 columns">
 
     <div class="callout">
       <p>{{ city['name'] }}</p>
       <p>{{ city['description'] }}</p>
       {% for each_place_instance in place_instances %}
         <div class="callout">
-          <p><a href="/place_instances/{{ each_place_instance['id'] }}">Place Instance</a></p>
-          <p>Name : {{ each_place_instance['name'] }}</p>
+          <p><a href="/place_instances/{{ each_place_instance['id'] }}"><span style="background-color: white; color: blue; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Name</span> : {{ each_place_instance['name'] }}</a></p>
           <p>Address : {{ each_place_instance['address'] }}</p>
           <p>Capacity : {{ each_place_instance['capacity'] }}</p>
-
-          <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
+          <p><a href="/place_instances/{{ each_place_instance['id'] }}/edit" style="background-color: white; color: purple; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);" >Edit</a></p>
+          <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
 
         </div>
       {% endfor %}
-      <p><a href="/cities/{{ city['id'] }}/edit">Edit</a></p>
+      <p><a href="/cities/{{ city['id'] }}/edit" style="background-color: white; color: purple; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Edit</a></p>
+      <button type="button" onclick="dispatchDelete('city', {{ city['id'] }})" style="background-color: white; color: red; box-shadow: 3px 3px 25px -8px rgba(0,0,0,0.3);">Delete</button>
+
     </div>
   </div>
 
-  <div class="large-4 show-for-large">
+  <div class="large-2 show-for-large">
   </div>
 </div>
 

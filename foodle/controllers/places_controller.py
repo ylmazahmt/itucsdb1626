@@ -97,7 +97,7 @@ def show(id):
             """
             SELECT *
             FROM place_instances
-            WHERE id = %s
+            WHERE place_id = %s
             """,
             [id]
             )

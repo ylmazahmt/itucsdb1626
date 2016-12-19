@@ -8,6 +8,7 @@ from foodle.utils.auth_hook import auth_hook_functor
 place_instances_controller = Blueprint('place_instances_controller', __name__)
 
 @place_instances_controller.route('/', methods=['GET'])
+@auth_hook_functor
 def index():
 
     limit = request.args.get('limit') or 20
@@ -37,7 +38,9 @@ def index():
             return render_template('place_instances/index.html', place_instances=place_instances, count=count)
 
 @place_instances_controller.route('/<int:id>',methods=['GET'])
+@auth_hook_functor
 def show(id):
+
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory = DictCursor) as curs:
             curs.execute(
@@ -88,6 +91,7 @@ def create():
             return resp, 201
 
 @place_instances_controller.route('/new', methods=['GET'])
+@auth_hook_functor
 def new():
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -119,6 +123,7 @@ def new():
 
 
 @place_instances_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
+@auth_hook_functor
 def update(id):
 
     name = request.json['name']
@@ -149,6 +154,7 @@ def update(id):
                 return "Place Instance not found.", 404
 
 @place_instances_controller.route('/<int:id>/edit', methods=['GET'])
+@auth_hook_functor
 def edit(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:
@@ -167,6 +173,7 @@ def edit(id):
                 return "Entity not found.", 404
 
 @place_instances_controller.route('/<int:id>', methods=['DELETE'])
+@auth_hook_functor
 def delete(id):
     with psycopg2.connect(foodle.app.config['dsn']) as conn:
         with conn.cursor(cursor_factory=DictCursor) as curs:

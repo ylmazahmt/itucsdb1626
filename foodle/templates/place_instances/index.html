@@ -18,7 +18,7 @@
         <p>Name : {{ each_place_instance['name'] }}</p>
         <p>Address : {{ each_place_instance['address'] }}</p>
         <p>Capacity : {{ each_place_instance['capacity'] }}</p>
-
+        <p><a href="/place_instances/{{ each_place_instance['id'] }}/edit">Edit</a></p>
         <button type="button" onclick="dispatchDelete('place_instance', {{ each_place_instance['id'] }})">Delete</button>
 
       </div>
