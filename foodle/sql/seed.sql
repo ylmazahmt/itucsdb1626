@@ -43,6 +43,9 @@ VALUES (3, 4, 'False');
 INSERT INTO user_friends (user_id, friend_id, is_friend)
 VALUES (4, 2, 'False');
 
+INSERT INTO cities (user_id, name,description)
+VALUES('1',' Istanbul','Best city in the World it is the best one i have ever seen in my entire life');
+
 INSERT INTO places (name, description, user_id)
 VALUES ('McDonalds', 'The worst burger place in the world. Seriously.', 1);
 
@@ -109,9 +112,6 @@ VALUES(2, 1, 5);
 INSERT INTO place_ratings (user_id, place_id, rating)
 VALUES(2, 1, 7);
 
-INSERT INTO cities (user_id, name,description)
-VALUES('1',' Istanbul','Best city in the World it is the best one i have ever seen in my entire life');
-
 INSERT INTO place_instances (user_id, place_id, name, capacity, city_id, address)
 VALUES ('1', '1', 'Suadiye Mc', '200', 1, 'Bağdat Caddesi');
 
@@ -120,3 +120,15 @@ VALUES('1','Desert Chat');
 
 INSERT INTO chat_room_messages (user_id, chat_room_id, body)
 VALUES('1','1','Hi there this is a test message to see something on the screen, work hard play harder');
+
+INSERT INTO place_instances (user_id, place_id, name, capacity, city_id, address)
+VALUES ('1', '2', 'Vialand Burger', '2000', 1, 'Gaziosman Paşa');
+
+INSERT INTO place_instances (user_id, place_id, name, capacity, city_id, address)
+VALUES ('1', '3', 'Cerrahpaşa Good Chinese Guys', '25', 1, 'Cerrahpaşa');
+
+INSERT INTO place_instances (user_id, place_id, name, capacity, city_id, address)
+VALUES ('1', '3', 'Sarıyer Good Chinese Guys', '23', 1, 'Sarıyer');
+
+INSERT INTO place_instances (user_id, place_id, name, capacity, city_id, address)
+VALUES ('1', '4', 'Bağcılar The House Café', '500', 1, 'Bağcılar');
