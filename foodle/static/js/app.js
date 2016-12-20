@@ -8,11 +8,15 @@ function humanizeTimestamps() {
   }
 }
 
-function signup() {
+$('#signup-form').submit(function (event) {
+  event.preventDefault();
+
   const username = $('label.username').children().val();
   const displayName = $('label.display-name').children().val();
   const password = $('label.password').children().val();
   const passwordDuplicate = $('label.password-duplicate').children().val();
+
+  console.log(username, displayName, password, passwordDuplicate);
 
   if (username.length < 8) {
     alert('Username is shorter than 8 characters.');
@@ -32,23 +36,23 @@ function signup() {
         data: JSON.stringify({
           username: username,
           display_name: displayName,
-          password: password
+          password: password,
         }),
         contentType: 'application/json'
       })
       .success(function (data, textStatus, xhr) {
-        window.location.replace(xhr.getResponseHeader('location'))
+        window.location.replace(xhr.getResponseHeader('location'));
       })
       .fail(function (data, textStatus, xhr) {
-        alert('User with same username already exists.');
-      });
+        alert('User with same name already exists.');
+      })
     } else {
       alert('Password and re-enter password fields are not same.');
       //  Set focus to the password field
       $('label.password').children().focus()
     }
   }
-}
+});
 
 function dispatchCreate(entity) {
   if (entity === 'post_image') {
