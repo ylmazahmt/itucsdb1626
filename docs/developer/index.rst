@@ -4,9 +4,7 @@ Developer Guide
 Database Design
 ---------------
 
-**explain the database design of your project**
-
-**include the E/R diagram(s)**
+E/R diagram of the project could be found in the last page of the report.
 
 .. toctree::
 
