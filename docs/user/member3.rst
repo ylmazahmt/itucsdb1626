@@ -35,7 +35,7 @@ Index Page
 
 * 'Add new City' button in index page directs into a page where you can add a new city.
 
-Add New Friend Page
+New City Page
 -------------------
 
     .. figure:: member3_images/City_add.png
@@ -74,7 +74,7 @@ Edit Page
 
         **Edit Page**
 
-* New comment content to for changing old one.
+* New City content to for changing old one.
 
 * 'Edit' button submit changes to database.
 
@@ -93,12 +93,12 @@ Index Page
         **Index Page**
 
 
-* 'Add new Comment' Button goes into new place page.
+* 'Add new place' Button goes into new place page.
 * 'Delete' button deletes places from database.
 * All available check-in places in database listed here.
 
 
-New Comment Page
+New Place Page
 -------------------
 
     .. figure:: member3_images/Place_add.png
@@ -141,7 +141,7 @@ Edit Page
 
 * 'Edit' button submit changes to database.
 
-Place Ratings
+Place Instances
 *************
 
 Index Page
@@ -160,7 +160,7 @@ Index Page
 * All available place instances in database listed here.
 
 
-New Rating Page
+New Place Instance Page
 -------------------
 
     .. figure:: member3_images/Place_Instances_add.png
@@ -172,7 +172,7 @@ New Rating Page
 
 * Fill out the forms to add a new city.
 
-* 'Add Place Instance' button adds rating to database.
+* 'Add Place Instance' button adds place instance to database.
 
 Show Page
 --------------------

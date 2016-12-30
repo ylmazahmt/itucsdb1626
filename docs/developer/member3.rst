@@ -11,9 +11,9 @@ Content of this document is database design, sql statements for creating and edi
 	a. `JavaScript Codes`_
 	b. `HTML templates`_
 2. `Database Design`_
-	a. `Friendship Table`_
-	b. `Check-In Comments Table`_
-	c. `Place Ratings Table`_
+	a. `Cities Table`_
+	b. `Places Table`_
+	c. `Place Instances Table`_
 
 
 Flask-Based Development
@@ -293,7 +293,7 @@ HTML Templates
 	*/foodle/templates/users/cities/edit.html
 
 
-**For Places Comments Page following templates implemented**
+**For Places  Page following templates implemented**
 
 	*/foodle/templates/users/places/index.html
 
