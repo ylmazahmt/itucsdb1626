@@ -1,17 +1,17 @@
-Welcome to itucsdb's documentation!
+Welcome to Foodle's (itucsdb1626) documentation!
 ===================================
 
-:Team: Team Name
+:Team: Foodle
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Buğra Ekuklu
+   * Kerem Er
+   * Ali Rıza Salihoğlu
+   * Muratcan Şahin
+   * Ahmet Yılmaz
 
-**project description goes here (a few paragraphs)**
+Foodle is a platform to discuss, share and present food places. Users can post about places created by owners, like restaurants and bars, discuss and score them. It also provides a subscription system to connect users with the posters they like.
 
 Contents:
 

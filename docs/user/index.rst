@@ -1,16 +1,7 @@
 User Guide
 ==========
 
-**explain how your application works from the user perspective, use
-screenshots whereever appropriate**
-
-**to add a picture, use the following example**::
-
-   .. figure:: picture.png
-      :scale: 50 %
-      :alt: map to buried treasure
-
-      This is the caption of the figure (a simple paragraph).
+The following documentation will refer you to how to navigate in the application and how to use it from users perspective.
 
 .. toctree::
 
@@ -19,4 +10,3 @@ screenshots whereever appropriate**
    member3
    member4
    member5
-   
