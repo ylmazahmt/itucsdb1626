@@ -2,21 +2,24 @@ Parts Implemented by Muratcan Şahin
 ===================================
 This document contains information to guide developer for the features that I implemented.
 This document contains flask codes, sql statements for creating, editing and deleting data which stored in database, Javascript codes that used for front-end development and database design.
+
+
 1. `Flask`_
-  a.`Used Libraries`_
-2.`Front-End Development`_
-  a.`JavaScript Codes`_
-  b.`HTML Codes`_
-3.`Database Design`_
-  a.`Post Like Table`_
-  b.`Post Comments Table`_
-  c.`Post Images Table`_
+  a. `Used Libraries`_
+2. `Front-End Development`_
+  a. `JavaScript Codes`_
+  b. `HTML Codes`_
+3. `Database Design`_
+  a. `Post Like Table`_
+  b. `Post Comments Table`_
+  c. `Post Images Table`_
 
 Flask
-**************
+*****
 
 Used Libraries
 --------------
+
 **Used libraries for flask application**
 
   .. code-block:: python
@@ -32,10 +35,14 @@ Front-End Development
 
 JavaScript Codes
 ----------------
+
 Post Like
 ++++++++++
+
 **We assign an on-click event handler to each like button**
+
   .. code-block:: javascript
+
     $.each($('.like-button'), function (i, element) {
       if ($(this).attr('data-exists') === 'True') {
         $(this).addClass('enabled');
@@ -92,7 +99,9 @@ HTML Codes
 Post Like
 +++++++++++
 **Like button implementation to feed**
+
   .. code-block:: html
+
     <div class="large-6 columns"><a class="button float-center social-button like-button" data-ajax="/posts/{{ each_feed.post_id }}/like" data-exists="{{ each_feed.is_liked }}"><i class="fa fa-thumbs-up" aria-hidden="true"></i>  {{ each_feed.like_count }} like</a></div>
 
 
@@ -102,7 +111,9 @@ Post Like
 Post Comment
 ++++++++++++
 **Post comment implementation of all comments in callout**
+
   .. code-block:: html
+
     {% if each_feed.post_comments|length == 0 %}
     <div class="large-6 columns"><a class="button float-center social-button"><i class="fa fa-pencil" aria-hidden="true"></i>  No comment</a></div>
     {% elif each_feed.post_comments|length == 1 %}
@@ -130,7 +141,9 @@ Post Comment
     {% endfor %}
 
 **Post comment implementation of text box**
+
   .. code-block:: html
+
     <div class="row" style="margin-left: 0; margin-right: 0;">
       <div class="large-1 columns" style="background-image: url('{{ image_url }}'); background-size: cover; background-position: center; height: 50px; border-radius: 3px;"></div>
       <div class="large-11 columns">
@@ -145,12 +158,15 @@ Post Comment
 Post Image
 +++++++++++++
 **Post image implementation to posts**
-{% for each_feed_image in each_feed.post_images %}
-<img class="post-image" src="{{ each_feed_image.link }}" />
-{% endfor %}
+
+  .. code-block:: html
+
+    {% for each_feed_image in each_feed.post_images %}
+    <img class="post-image" src="{{ each_feed_image.link }}" />
+    {% endfor %}
 
 
-Databese Design
+Database Design
 ***************
 
 Post Like Table
@@ -185,7 +201,8 @@ Creating Table
 
 
 **In order to get likes of a post**
-  .. code-block:: sql
+
+  .. code-block:: python
 
     @like_controller.route('/posts/<int:post_id>/like', methods=['GET'])
     @auth_hook_functor
@@ -214,7 +231,8 @@ Creating Table
                     return "Like not found", 404
 
 **In order to like a post**
-  .. code-block:: sql
+
+  .. code-block:: python
 
     @like_controller.route('/posts/<int:post_id>/like', methods=['POST'])
     @auth_hook_functor
@@ -239,7 +257,8 @@ Creating Table
                     return 404
 
 **In order to dislike a post**
-  .. code-block:: sql
+
+  .. code-block:: python
 
     @like_controller.route('/posts/<int:post_id>/like', methods=['DELETE'])
     @auth_hook_functor
@@ -289,7 +308,8 @@ Post Comments Table
 'inserted_at' timestamp stores the data of insertion of tuple.
 
 **In order to get all post comments**
-  .. code-block:: sql
+
+  .. code-block:: python
 
     @post_comments_controller.route('/', methods=['GET'])
     def index():
@@ -321,7 +341,8 @@ Post Comments Table
                 return render_template('/post_comments/index.html', post_comments=post_comments, count=count)
 
 **In order to get a single post comment**
-  .. code-block:: sql
+
+  .. code-block:: python
 
     @post_comments_controller.route('/<int:id>', methods=['GET'])
     def show(id):
@@ -343,7 +364,8 @@ Post Comments Table
                     return "Entity not found.", 404
 
 **In order to insert a comment**
-  .. code-block::sql
+
+  .. code-block::python
 
     @post_comments_controller.route('/<int:post_id>/comments/', methods=['POST'])
     @auth_hook_functor
@@ -373,7 +395,8 @@ Post Comments Table
                 return resp, 201
 
 **In order to update a comment**
-  .. code-block::sql
+
+  .. code-block::python
 
     @post_comments_controller.route('/<int:id>', methods=['PUT', 'PATCH'])
     def update(id):
@@ -400,7 +423,9 @@ Post Comments Table
                     return "Entity not found.", 404
 
 **In order to delete a comment**
-  .. code-block::sql
+
+  .. code-block::python
+
     @post_comments_controller.route('/<int:post_id>/comments/<int:id>/', methods=['DELETE'])
     def delete(post_id, id):
         with psycopg2.connect(foodle.app.config['dsn']) as conn:
@@ -417,8 +442,8 @@ Post Comments Table
                 else:
                     return "Entity not found.", 404
 
-Post Image Table
-----------------
+Post Images Table
+-----------------
 *'post_images' table stores the data of url that is the link of the image with related post.
 
 +---------------+------------+-----------+-----------+
@@ -444,7 +469,9 @@ Post Image Table
 'inserted_at' timestamp stores the data of insertion of tuple.
 
 **In order to get the post image**
-  .. code-block::sql
+
+  .. code-block::python
+
     curs.execute(
           """
           SELECT link
@@ -457,7 +484,9 @@ Post Image Table
 
 
 **In order to insert the post image**
-  .. code-block::sql
+
+  .. code-block::python
+
     curs.execute(
             """
             INSERT INTO post_images
