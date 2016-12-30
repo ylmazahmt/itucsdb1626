@@ -18,7 +18,7 @@ Friendship Relations
 Index Page
 ----------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/Friends-Index.png
+    .. figure:: /docs/img/ylmazahmt-doc/Friends-Index.png
         :scale: 125 %
         :alt: friends_index_page
         :align: center
@@ -44,7 +44,7 @@ Index Page
 Add New Friend Page
 -------------------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/new_friend.png
+    .. figure:: /docs/img/ylmazahmt-doc/new_friend.png
         :scale: 100 %
         :alt: new_friend_page
         :align: center
@@ -57,7 +57,7 @@ Add New Friend Page
 Pending Requests Page
 --------------------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/friend_requests.png
+    .. figure:: /docs/img/ylmazahmt-doc/friend_requests.png
         :scale: 100 %
         :alt: pending_requests_page
         :align: center
@@ -71,7 +71,7 @@ Pending Requests Page
 Search Bar
 ----------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/search_bar.png
+    .. figure:: /docs/img/ylmazahmt-doc/search_bar.png
         :scale: 100 %
         :alt: search_page
         :align: center
@@ -89,7 +89,7 @@ Check-In Comments
 Index Page
 ----------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/check_in_comments_index.png
+    .. figure:: /docs/img/ylmazahmt-doc/check_in_comments_index.png
         :scale: 125 %
         :alt: check_in_comments_index_page
         :align: center
@@ -106,7 +106,7 @@ Index Page
 New Comment Page
 -------------------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/check_in_comments_new.png
+    .. figure:: /docs/img/ylmazahmt-doc/check_in_comments_new.png
         :scale: 100 %
         :alt: new_comment_page
         :align: center
@@ -121,7 +121,7 @@ New Comment Page
 Show Page
 --------------------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/check_in_comments_show.png
+    .. figure:: /docs/img/ylmazahmt-doc/check_in_comments_show.png
         :scale: 100 %
         :alt: check_in_comments_show_page
         :align: center
@@ -133,7 +133,7 @@ Show Page
 Edit Page
 ----------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/check_in_comments_edit.png
+    .. figure:: /docs/img/ylmazahmt-doc/check_in_comments_edit.png
         :scale: 100 %
         :alt: check_in_comments_edit_page
         :align: center
@@ -150,7 +150,7 @@ Place Ratings
 Index Page
 ----------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/place_ratings_index.png
+    .. figure:: /docs/img/ylmazahmt-doc/place_ratings_index.png
         :scale: 125 %
         :alt: place_ratings_index_page
         :align: center
@@ -167,7 +167,7 @@ Index Page
 New Rating Page
 -------------------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/place_ratings_new.png
+    .. figure:: /docs/img/ylmazahmt-doc/place_ratings_new.png
         :scale: 100 %
         :alt: new_rating_page
         :align: center
@@ -182,7 +182,7 @@ New Rating Page
 Show Page
 --------------------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/place_ratings_show.png
+    .. figure:: /docs/img/ylmazahmt-doc/place_ratings_show.png
         :scale: 100 %
         :alt: place_ratings_show_page
         :align: center
@@ -195,7 +195,7 @@ Show Page
 Edit Page
 ----------
 
-    .. figure:: https://github.com/itucsdb1626/itucsdb1626/blob/master/docs/img/ylmazahmt-doc/place_ratings_edit.png
+    .. figure:: /docs/img/ylmazahmt-doc/place_ratings_edit.png
         :scale: 100 %
         :alt: place_ratings_edit_page
         :align: center
